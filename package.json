@@ -1,0 +1,37 @@
+{
+  "name": "lastproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "bcrypt-nodejs": "0.0.3",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "firebase": "^7.8.0",
+    "firebase-admin": "^8.9.2",
+    "morgan": "^1.9.1",
+    "mysql2": "^2.1.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pug": "^2.0.4",
+    "sequelize": "^5.21.3",
+    "sequelize-cli": "^5.5.1",
+    "serve-favicon": "^2.5.0",
+    "session-file-store": "^1.4.0",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "connect-flash": "^0.1.1",
+    "nodemon": "^2.0.2"
+  }
+}

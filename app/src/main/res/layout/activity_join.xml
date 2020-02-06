@@ -69,7 +69,7 @@
         <Button
             android:id="@+id/btn_finish"
             android:text="작성완료"
-            android:onClick="singUp"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

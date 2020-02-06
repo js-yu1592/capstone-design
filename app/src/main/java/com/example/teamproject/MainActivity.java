@@ -113,14 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        //회원가입 페이지로 이동
-//        btn_signUp.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view){
-//                Intent intent=new Intent(MainActivity.this, JoinActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
 
 
     }

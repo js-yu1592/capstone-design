@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
 //    // 비밀번호 정규식
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{4,16}$");
+
     // 구글로그인 result 상수 , 구글로그인 버튼을 클릭하여 startactivityforresult 응답코드로 사용
     private static final int RC_SIGN_IN = 900;
 

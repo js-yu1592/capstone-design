@@ -73,7 +73,7 @@ public class Location extends AppCompatActivity {
                 textview_address.setText(address);
 
                 Toast.makeText(Location.this, "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
-                gpsTracker.getWeatherData();
+                gpsTracker.getWeatherData(latitude,longitude);
 
             }
         });

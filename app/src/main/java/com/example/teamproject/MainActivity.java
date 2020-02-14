@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_signIn;
     private String email = "";
     private String password = "";
+    private String uid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
             //사용자가 로그인한 경우 , 사용자가 로그아웃한 경우 사용자가 변경될때 발생
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user=firebaseAuth.getCurrentUser();
+                Log.d(TAG,user.getUid());
                 if(user!=null){
                     Intent intent=new Intent(MainActivity.this, BasicActivity.class);
                     startActivity(intent);

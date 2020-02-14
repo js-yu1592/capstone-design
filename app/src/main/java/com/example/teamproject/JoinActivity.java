@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +47,7 @@ public class JoinActivity extends AppCompatActivity {
     private String id = "";
     private String nickname="";
 
-    public User user_info;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +86,7 @@ public class JoinActivity extends AppCompatActivity {
                 String name=editTextname.getText().toString();
                 String phone=editTextPhone.getText().toString();
                 String nickname=editTextNickname.getText().toString();
+
                 //이메일 비번 이름 핸드폰 닉네임 공백 아닐경우
                 if(!email.equals("")&&!pwd.equals("")&&!name.equals("")&&!phone.equals("")&&!nickname.equals("")){
                     createUser(email,pwd,name,phone,nickname);
@@ -92,32 +94,6 @@ public class JoinActivity extends AppCompatActivity {
                     Toast.makeText(JoinActivity.this, "기입하지 않은 부분이 있습니다.",Toast.LENGTH_SHORT).show();
                 }
 
-//                 user_info=new User(editTextId.getText().toString(),editTextEmail.getText().toString(),editTextPassword.getText().toString(),
-//                        editTextname.getText().toString(), editTextNickname.getText().toString(),editTextPhone.getText().toString());
-
-
-
-//                       mDatabase.addValueEventListener(new ValueEventListener() {
-//
-//                           @Override
-//                           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                               if(dataSnapshot.child(editTextEmail.getText().toString()).exists()){
-//                                   Toast.makeText(JoinActivity.this,"already register",Toast.LENGTH_SHORT).show();
-//                               }else{
-//                                   String key=mDatabase.child("USER").push().getKey();
-//
-////                                   User user_info=new User(editTextId.getText().toString(),editTextEmail.getText().toString(),editTextPassword.getText().toString(),
-////                                           editTextname.getText().toString(), editTextNickname.getText().toString(),editTextPhone.getText().toString());
-////                                   mDatabase.child("USER").setValue(user_info);
-//                                   Toast.makeText(JoinActivity.this,"Success",Toast.LENGTH_SHORT).show();
-//                               }
-//                           }
-//
-//                           @Override
-//                           public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                           }
-//                       });
 
 
             }
@@ -132,11 +108,36 @@ public class JoinActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
+                        FirebaseUser user=firebaseAuth.getCurrentUser();
+                        String uid=user.getUid();
                         if (task.isSuccessful()) {    //회원가입 성공시
 
-//                            mDatabase.child("USER").setValue(user_info);
+
                             Toast.makeText(JoinActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
+                            mDatabase.addValueEventListener(new ValueEventListener() {
+
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    String email=editTextEmail.getText().toString().trim();
+                                    FirebaseUser user=firebaseAuth.getCurrentUser();
+                                    String uid=user.getUid();
+                                    if(dataSnapshot.child("USER").child(uid).exists()){
+                                        Toast.makeText(JoinActivity.this,"DB에 이미존재",Toast.LENGTH_SHORT).show();
+                                    }else{
+
+
+                                        User user_info=new User(uid,editTextId.getText().toString(),editTextEmail.getText().toString(),editTextPassword.getText().toString(),
+                                                editTextname.getText().toString(), editTextNickname.getText().toString(),editTextPhone.getText().toString());
+                                        mDatabase.child("USER").child(uid).setValue(user_info);
+                                        Toast.makeText(JoinActivity.this,"DB에 저장완료",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                             Intent intent = new Intent(JoinActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();

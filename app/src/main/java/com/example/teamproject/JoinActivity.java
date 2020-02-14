@@ -87,7 +87,7 @@ public class JoinActivity extends AppCompatActivity {
                 String phone=editTextPhone.getText().toString();
                 String nickname=editTextNickname.getText().toString();
 
-                //이메일 비번 이름 핸드폰 닉네임 공백 아닐경우
+                //이메일 비번 이름 핸드폰 닉네임 공백 아닐경우ㅠ
                 if(!email.equals("")&&!pwd.equals("")&&!name.equals("")&&!phone.equals("")&&!nickname.equals("")){
                     createUser(email,pwd,name,phone,nickname);
                 }   else{

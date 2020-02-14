@@ -25,6 +25,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.regex.Pattern;
@@ -148,7 +149,23 @@ public class MainActivity extends AppCompatActivity {
                         //로그인 성공
                         if(task.isSuccessful()){
                             Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+
+                            FirebaseUser mUser=FirebaseAuth.getInstance().getCurrentUser();
+                            mUser.getIdToken(true)
+                                    .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<GetTokenResult> task) {
+                                            if(task.isSuccessful()){
+                                                String idToken=task.getResult().getToken();
+                                            }else{
+
+                                            }
+                                        }
+                                    });
+
                             firebaseAuth.addAuthStateListener(firebaseAuthListener);
+
+
                         }else{
                             //로그인 실패
                             Toast.makeText(MainActivity.this, "이메일 또는 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
@@ -210,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
    }
+
 
 
 

@@ -2,6 +2,7 @@ package com.example.teamproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +32,7 @@ public class JoinActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     // 파이어베이스 인증 객체 생성
     private FirebaseAuth firebaseAuth;
-
+    private static final String TAG="BAAM";
     // 이메일과 비밀번호
     private EditText editTextEmail;
     private EditText editTextPassword;
@@ -44,6 +45,8 @@ public class JoinActivity extends AppCompatActivity {
     private String phone = "";
     private String id = "";
     private String nickname="";
+
+    public User user_info;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,76 +79,74 @@ public class JoinActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String email=editTextEmail.getText().toString().trim();
-                String pwd=editTextPassword.getText().toString().trim();
-                User user_info=new User(editTextId.getText().toString(),editTextEmail.getText().toString(),editTextPassword.getText().toString(),
-                        editTextname.getText().toString(), editTextNickname.getText().toString(),editTextPhone.getText().toString());
-                mDatabase.child("USER").setValue(user_info);
-                Toast.makeText(JoinActivity.this,"Success",Toast.LENGTH_SHORT).show();
-                firebaseAuth.createUserWithEmailAndPassword(email, pwd)
-                        .addOnCompleteListener(JoinActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    Intent intent=new Intent(JoinActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }else{
-                                    Toast.makeText(JoinActivity.this, "등록에러",Toast.LENGTH_SHORT).show();
-                                    return ;
-                                }
-                            }
 
-                        });
+                String email=editTextEmail.getText().toString();
+                String pwd=editTextPassword.getText().toString();
+                String name=editTextname.getText().toString();
+                String phone=editTextPhone.getText().toString();
+                String nickname=editTextNickname.getText().toString();
+                //이메일 비번 이름 핸드폰 닉네임 공백 아닐경우
+                if(!email.equals("")&&!pwd.equals("")&&!name.equals("")&&!phone.equals("")&&!nickname.equals("")){
+                    createUser(email,pwd,name,phone,nickname);
+                }   else{
+                    Toast.makeText(JoinActivity.this, "기입하지 않은 부분이 있습니다.",Toast.LENGTH_SHORT).show();
+                }
 
-                       mDatabase.addValueEventListener(new ValueEventListener() {
+//                 user_info=new User(editTextId.getText().toString(),editTextEmail.getText().toString(),editTextPassword.getText().toString(),
+//                        editTextname.getText().toString(), editTextNickname.getText().toString(),editTextPhone.getText().toString());
 
-                           @Override
-                           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                               if(dataSnapshot.child(editTextEmail.getText().toString()).exists()){
-                                   Toast.makeText(JoinActivity.this,"already register",Toast.LENGTH_SHORT).show();
-                               }else{
-                                   User user_info=new User(editTextId.getText().toString(),editTextEmail.getText().toString(),editTextPassword.getText().toString(),
-                                           editTextname.getText().toString(), editTextNickname.getText().toString(),editTextPhone.getText().toString());
-                                   mDatabase.child("USER").setValue(user_info);
-                                   Toast.makeText(JoinActivity.this,"Success",Toast.LENGTH_SHORT).show();
-                               }
-                           }
 
-                           @Override
-                           public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                           }
-                       });
-//                public void postFirebaseDatabase(boolean add){
-//                    Map<String, Object> childUpdates=new HashMap<>();
-//                    Map<String, Object> postValues=null;
-//                    if(add){
-//                        User user_info=new User(editTextId.getText().toString(),editTextEmail.getText().toString(),editTextPassword.getText().toString(),
-//                                editTextname.getText().toString(), editTextNickname.getText().toString(),editTextPhone.getText().toString());
-//                        postValues=user_info.toMap();
-//                    }
-//                    childUpdates.put("User",postValues);
-//                    mDatabase.updateChildren(childUpdates);
-//                }
+//                       mDatabase.addValueEventListener(new ValueEventListener() {
+//
+//                           @Override
+//                           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                               if(dataSnapshot.child(editTextEmail.getText().toString()).exists()){
+//                                   Toast.makeText(JoinActivity.this,"already register",Toast.LENGTH_SHORT).show();
+//                               }else{
+//                                   String key=mDatabase.child("USER").push().getKey();
+//
+////                                   User user_info=new User(editTextId.getText().toString(),editTextEmail.getText().toString(),editTextPassword.getText().toString(),
+////                                           editTextname.getText().toString(), editTextNickname.getText().toString(),editTextPhone.getText().toString());
+////                                   mDatabase.child("USER").setValue(user_info);
+//                                   Toast.makeText(JoinActivity.this,"Success",Toast.LENGTH_SHORT).show();
+//                               }
+//                           }
+//
+//                           @Override
+//                           public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                           }
+//                       });
+
 
             }
         });
 
 
 
+    }
 
+    private void createUser(String email, String password,String name, String phone, String nickname) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-//        button.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent =new Intent(JoinActivity.this,MainActivity.class);
-//
-//                startActivity(intent);
-//            }
-//        });
+                        if (task.isSuccessful()) {    //회원가입 성공시
 
+//                            mDatabase.child("USER").setValue(user_info);
+                            Toast.makeText(JoinActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(JoinActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {  //계정중복된경우
+                            Toast.makeText(JoinActivity.this, "이미 존재하는 계정입니다", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+
+                });
     }
 
 }

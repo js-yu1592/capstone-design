@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.regex.Pattern;
@@ -37,9 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
     // 구글api클라이언트
     private GoogleSignInClient googleSignInClient;
-
+    private static final String TAG="BAAM";
     // 파이어베이스 인증 객체 생성
     private FirebaseAuth firebaseAuth;
+
+    private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     // 구글  로그인 버튼
     private SignInButton buttonGoogle;
@@ -87,24 +91,37 @@ public class MainActivity extends AppCompatActivity {
         btn_signIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String email=editTextEmail.getText().toString().trim();
-                String pwd=editTextPassword.getText().toString().trim();
+                String email=editTextEmail.getText().toString();
+                String pwd=editTextPassword.getText().toString();
 
-                firebaseAuth.signInWithEmailAndPassword(email,pwd)
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Intent intent = new Intent(MainActivity.this, BasicActivity.class);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(MainActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                if(!email.equals("")&&!pwd.equals("")){
+                    loginUser(email,pwd);
+                }else{
+                    Toast.makeText(MainActivity.this, "이메일과 비밀번호를 입력하세요",Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
+
+        firebaseAuthListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+
+            //인증살태가 변경될 때 발생
+            //사용자가 로그인한 경우 , 사용자가 로그아웃한 경우 사용자가 변경될때 발생
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user=firebaseAuth.getCurrentUser();
+                if(user!=null){
+                    Intent intent=new Intent(MainActivity.this, BasicActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+
+                }
+            }
+        };
+
+
 
         btn_signUp.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -119,10 +136,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void loginUser(String email, String pwd) {
 
+        firebaseAuth.signInWithEmailAndPassword(email,pwd)
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-
-
+                        //로그인 성공
+                        if(task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                            firebaseAuth.addAuthStateListener(firebaseAuthListener);
+                        }else{
+                            //로그인 실패
+                            Toast.makeText(MainActivity.this, "이메일 또는 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -133,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 //구글로그인 성공
+
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
@@ -163,6 +195,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //활동을 초기화할떄 사용자가 현재 로그인 되어있는지 확인
+   protected void onStart(){
+        super.onStart();
+   }
+
+
+   protected void onStop(){
+        super.onStop();
+        if(firebaseAuthListener!=null){
+            firebaseAuth.removeAuthStateListener(firebaseAuthListener);
+        }
+   }
 
 
 

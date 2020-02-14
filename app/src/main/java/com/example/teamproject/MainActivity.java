@@ -175,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //사용자가 정상적으로 로그인한 후에 GoogleSignInAccount 개체에서 ID Token을 가져와서
+    //수정
     //Firebase 사용자 인증정보로 교환하고 Firebase 사용자 인증정보를 사용해 Firebase에 인증한다.
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {

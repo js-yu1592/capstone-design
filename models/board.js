@@ -4,20 +4,24 @@ module.exports = (sequelize, DataTypes) => {
     board_num: {
         type:DataTypes.INTEGER,
         primaryKey:true,
-        alloNull:false,
+        allowNull:false,
         autoIncrement: true
+    },
+    board_uid:{
+      type:DataTypes.STRING,
+      allowNull:false,
     },
     board_nickname:{
       type:DataTypes.STRING(20),
-      alloNull:false
+      allowNull:false
     },
     board_content:{
       type:DataTypes.STRING(255),
-      alloNull:false
+      allowNull:false
     },
     board_hit:{
       type:DataTypes.STRING(10),
-      alloNull:false
+      allowNull:false
     },
   
   }, {

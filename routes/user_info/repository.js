@@ -23,6 +23,17 @@ return users.create({
 })
 }
 
-exports.saveUserInfo=saveUserInfo
-exports.getData = getData
+function uidFindOrCreate(uid) {
+
+   return users.findOrCreate({
+     where: {
+       user_uid: uid
+ 
+     }
+   })
+ }
+ exports.uidFindOrCreate=uidFindOrCreate;
+
+exports.saveUserInfo=saveUserInfo;
+exports.getData = getData;
 

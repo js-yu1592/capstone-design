@@ -1,0 +1,29 @@
+[debug] [2020-02-04T01:05:59.801Z] ----------------------------------------------------------------------
+[debug] [2020-02-04T01:05:59.804Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\user\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-02-04T01:05:59.804Z] CLI Version:   7.12.1
+[debug] [2020-02-04T01:05:59.804Z] Platform:      win32
+[debug] [2020-02-04T01:05:59.804Z] Node Version:  v13.5.0
+[debug] [2020-02-04T01:05:59.806Z] Time:          Tue Feb 04 2020 10:05:59 GMT+0900 (대한민국 표준시)
+[debug] [2020-02-04T01:05:59.806Z] ----------------------------------------------------------------------
+[debug] [2020-02-04T01:05:59.806Z] 
+[debug] [2020-02-04T01:05:59.826Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-02-04T01:05:59.828Z] > authorizing via signed-in user
+[debug] [2020-02-04T01:05:59.828Z] [iam] checking project graduation-f5a8d for permissions ["firebase.projects.get"]
+[debug] [2020-02-04T01:05:59.830Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-02-04T01:05:59.830Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-02-04T01:06:00.149Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-04T01:06:00.155Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/graduation-f5a8d:testIamPermissions  
+
+[debug] [2020-02-04T01:06:01.038Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-04T01:06:01.039Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/graduation-f5a8d  
+ 
+[debug] [2020-02-04T01:06:01.801Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\user\Desktop\Nodejs\capstone-design'...
+[info] 
+[debug] [2020-02-04T01:06:01.805Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/graduation-f5a8d/webApps/-/config  
+ 
+[debug] [2020-02-04T01:06:03.075Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000

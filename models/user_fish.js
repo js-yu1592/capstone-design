@@ -1,11 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const user_fishes = sequelize.define('user_fishes', {
+  const user_fish = sequelize.define('user_fish', {
     fish_num:{
        type: DataTypes.INTEGER,
        primaryKey:true,
        allowNull:false,
        autoIncrement: true
+    },
+    fish_uid:{
+      type:DataTypes.STRING,
+      allowNull:false,
     },
     fish_name: {
        type:DataTypes.STRING(50),
@@ -28,13 +32,15 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.DECIMAL(16,14),
        allowNull:false
     },
-    fish_lot:{
+    fish_lon:{
       type:DataTypes.DECIMAL(17,14),
       allowNull:false
     }
-  }, {});
-  user_fishes.associate = function(models) {
+  }, {
+    tableName:"user_fish"
+  });
+  user_fish.associate = function(models) {
     // associations can be defined here
   };
-  return user_fishes;
+  return user_fish;
 };

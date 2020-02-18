@@ -1,13 +1,15 @@
 
-const { authCheck } = require('../feed/firebase');
-const feedRepository = require('../feed/repository')
+const { authCheck } = require('../user_info/firebase');
+const user_infoRepository = require('../user_info/repository')
 
 function firebaseAuth(req, res, next) {
     let token = req.body.token;
 
     authCheck(token)
         .then(decodedToken => {
-            return feedRepository.saveUser_uid(decodedToken.uid)
+            let uid=decodedToken.uid;
+            console.log(uid);
+            return user_infoRepository.uidFindOrCreate(decodedToken.uid)
         })
         .then(user => {
             
@@ -20,4 +22,4 @@ function firebaseAuth(req, res, next) {
 
 }
 
-exports.firebaseAuth = firebaseAuth
+exports.firebaseAuth = firebaseAuth;

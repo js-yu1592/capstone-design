@@ -13,7 +13,7 @@ function getShow(req, res) {
         var template1=template.HTML(title,
                 `<h2>${title}</h2>${description}
                 `,
-                `<a href="/user_info/create">회원가입</a>
+                `<a href="/user_info/join">회원가입</a>
                 <a href="/user_info/login">로그인</a>`);
         res.end(template1);
 }

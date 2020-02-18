@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Firebase Hosting</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
-    <script src='../routes/home/firebase.js'></script>
-  </head>
+ 
+  
+ 
+  </head>  
   <body>
-
     
+      
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
     <script>
       // Your web app's Firebase configuration
       var firebaseConfig = {
@@ -29,11 +30,10 @@
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
-      
-    </script>
-    <script>
-    var provider= new firebase.auth.GoogleAuthProvider();
+  
+
+      var provider= new firebase.auth.GoogleAuthProvider();
+      console.log(provider)
 
 firebase.auth().signInWithPopup(provider).then(function(result){
   console.log(result.credential)
@@ -47,37 +47,13 @@ firebase.auth().signInWithPopup(provider).then(function(result){
     var email=error.email;
     var credential =error.credential;
 })
-firebase.auth().onAuthStateChanged(function(user){
-  if(user){
-
-    var uid=user.uid;
-    console.log("uid:"+uid)
-
-    user.getIdToken()
-    .then(token=>{
-      $.ajax({
-        url:'/user_info/join',
-        method:'POST',
-        data:{'toekn':token, 'email': 'gyrlf2478@maver.com', name:'dfasfasfsaf'},
-        success:function(data){
-          console.log(data)
-        },
-        error:function(xhr,statue,error){
-          console.log('error!!')
-          console.log(xhr)
-          console.log(statue)
-        }
-      })
-      console.log(token)
-    })
-  }else{
-
-  }
-})
-
-
-
+      
     </script>
-  </body>
+    
+
+
+</body>
 
 </html>
+
+

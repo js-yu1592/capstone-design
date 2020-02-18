@@ -3,8 +3,9 @@ const users=require('../../models');
 const repository = require('./repository')
 const { authCheck } = require('./firebase')
 var template=require('../../template1/template.js');
-
+const { fireabseAuth } = require('../middleware')
 const firebase=require("firebase")
+
 var firebaseConfig = {
   apiKey: "AIzaSyA5I8jNkgH19JGRXPVz523OCAQHGjAxSYw",
   authDomain: "graduation-f5a8d.firebaseapp.com",
@@ -47,43 +48,22 @@ function saveUserInfo(req, res) {
         <p><input type="text" name="nickname" placeholder="nickname"></p>
         <p><input type="text" name="email" placeholder="email"></p>
         <p><input type="text" name="phone" placeholder="phone"></p>
-        <p><input type="text" name="fishing" placeholder="fishing"></p>
+    </p>
         <p><input type="submit" value="전송"></p>
         </form>
         `,'')
-        res.end(template1)
-}
-function CheckToken(req) {
-let token=req.credential
- console.log(req)
-  authCheck(token)
-    .then(decodedToken => {
-      let uid = decodedToken.uid
-
-      repository.saveUser_uid(uid)
-
-    }
-
-    )
-  return authCheck(token)
+        res.send(template1)
 }
 
 
-function setUserInfo(req,res,next){
 
-console.log(req.credential)
-  CheckToken(req)
-  .then(user=>{
-    if(user){
-      console.log("stop")
-      console.log(user)
-    }
-    else{
-      console.log("user undefined")
+function setUserInfo(req,res){
 
-    }
-  })
+
+console.log(req)
+
   repository.saveUserInfo(req.body);
+
   firebase
   .auth()
   .createUserWithEmailAndPassword(
@@ -94,10 +74,13 @@ console.log(req.credential)
     console.log("Succesfully created");
     res.redirect("/");
   }).catch(err=>{
+    res.json({status:"fail",message:err.message})
     console.log('error while singup',err);
   })
 
 }
+
+
 
 function login(req,res){
   var title=`WEB-create`;
@@ -110,13 +93,16 @@ function login(req,res){
    `,'')
    res.end(template1)
 }
-function loginprocess(req,res,next){
+
+
+function loginprocess(req,res){
 firebase
 .auth()
 .signInWithEmailAndPassword(
   req.body.id, req.body.password
 )
 .then(userRecord=>{
+  fireabseAuth(req,res);
   console.log("Successfully fetched user data:");
   res.redirect('/')
 }).catch(err=>{
@@ -124,9 +110,76 @@ firebase
 })
 
 }
+
+function logout(req,res){
+console.log("logout 되었습니다.");
+firebase
+.auth().signOut()
+.then(userRecord=>{
+  res.redirect('/user_info/login');
+  
+}).catch(err=>{
+  console.log('error logging out',err);
+})
+
+}
+
+function googleLogin(req,res){
+  var provider = new firebase.auth.GoogleAuthProvider();
+  console.log("provider :"+provider);
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    console.log(result)
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = result.credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+    // ...
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+
+
+}
+
+
+function checkGoogleToken(req,res){
+
+  var id_token=googleUser.getAuthResponse().id_token;
+
+ 
+// Build Firebase credential with the Google ID token.
+var credential = firebase.auth.GoogleAuthProvider.credential(id_token);
+
+// Sign in with credential from the Google user.
+firebase.auth().signInWithCredential(credential).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
+    
+}
+function getProfile(req, res) {
+
+  console.log(req.user.dataValues)
+  res.json(req.user)
+}
+exports.getProfile=getProfile;
+exports.googleLogin=googleLogin;
+exports.logout=logout
 exports.login=login
 exports.loginprocess=loginprocess
 exports.saveUserInfo = saveUserInfo
 exports.setUserInfo=setUserInfo
-
 

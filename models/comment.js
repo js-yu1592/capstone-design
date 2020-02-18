@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
        allowNull:false,
        autoIncrement: true
       },
-
+ cmt_uid:{
+  type:DataTypes.STRING,
+  allowNull:false,
+ },
 cmt_context:{
   type:DataTypes.STRING(255),
   allowNull:false,

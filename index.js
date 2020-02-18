@@ -1,11 +1,11 @@
 const express = require('express')
+
+const app=express()
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
 
-const user_info=require('./routes/user_info')
 
-const home=require('./routes/home')
 // const login=require('./routes/login')
 const { sequelize } = require('./models');
 
@@ -17,9 +17,10 @@ admin.initializeApp({
   databaseURL: "https://graduation-f5a8d.firebaseio.com"
 });
 
-const app=express()
 
+var user_info=require('./routes/user_info')
 
+var home=require('./routes/home')
 
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'pug');
@@ -27,7 +28,7 @@ const app=express()
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
-
+app.use(express.static('public'));
 
 
 

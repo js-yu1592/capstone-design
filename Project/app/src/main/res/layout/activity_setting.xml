@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Setting">
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="button8Clicked"
+        android:text="뒤로" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="179dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="50dp"
+        android:text="push알림 허용"
+        android:textSize="15dp"/>
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="179dp"
+        android:layout_height="52dp"
+        android:textSize="15dp"
+        android:text="위치정보 허용"
+        />
+
+    <Switch
+        android:id="@+id/switch3"
+        android:layout_width="179dp"
+        android:layout_height="52dp"
+        android:textSize="15dp"
+        android:text="사운드 허용"
+        />
+
+    <Switch
+        android:id="@+id/switch5"
+        android:layout_width="179dp"
+        android:layout_height="52dp"
+        android:textSize="15dp"
+        android:text="개인정보 허용"
+        />
+
+
+    <Button
+        android:id="@+id/buttonFind"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+
+
+        android:text="회원탈퇴" />
+
+</LinearLayout>

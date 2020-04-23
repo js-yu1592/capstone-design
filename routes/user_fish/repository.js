@@ -9,7 +9,7 @@ function getFishInfo(page,keyword){
    let offset1=0;
    console.log(keyword);
    console.log(page);
-
+   console.log("Baam");
    if(page>1){
       offset1=10*(page-1); 
    }
@@ -23,7 +23,7 @@ function getFishInfo(page,keyword){
       }
    }
    return user_fish.findAll({
-         
+    
       where:param,
       limit:10,
       offset:offset1,

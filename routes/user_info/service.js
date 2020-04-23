@@ -175,6 +175,11 @@ function getProfile(req, res) {
   console.log(req.user.dataValues)
   res.json(req.user)
 }
+
+function getbasic(req,res){
+  console.log("Hello");
+}
+exports.getBasic=getbasic;
 exports.getProfile=getProfile;
 exports.googleLogin=googleLogin;
 exports.logout=logout

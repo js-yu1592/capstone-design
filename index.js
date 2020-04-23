@@ -19,7 +19,7 @@ admin.initializeApp({
 
 
 var user_info=require('./routes/user_info')
-
+var user_fish=require('./routes/user_fish')
 var home=require('./routes/home')
 
 // app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +33,7 @@ app.use(express.static('public'));
 
 
 //app.use('/login',login)
+app.use('/user_fish',user_fish);
 app.use('/user_info',user_info);
 app.use('/',home)
 app.listen(process.env.port || 3000);

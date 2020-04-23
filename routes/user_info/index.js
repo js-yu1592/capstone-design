@@ -7,7 +7,7 @@ const { firebaseAuth } = require('../middleware')
 //new data로 들어가면 크롤링하게
 router
 
-
+//.get('/',service.getbasic)
 .get('/join', service.saveUserInfo)
 .post('/join',service.setUserInfo)
 .get('/login',firebaseAuth, service.login)

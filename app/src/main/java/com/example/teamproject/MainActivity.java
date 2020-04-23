@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
     private String password = "";
     private String uid = "";
 
+    public static final String apiKey="AAAAsp7tChI:APA91bEXF0BtJoSRSkJf1xe6MJHXltY_Rl15Nf-g4_-vL9xuPeFnpiDDoCapkJ8VG24x9xdwnJ1ZFqTbQkyTNP7z01cffkTT5jHu_J_iZwqV35TVxtvVv-sWAXM2xOEMvLnmbOPqUaV2";
+    public static final String senderid="767170513426";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent signInIntent = googleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
+
             }
         });
 
@@ -113,11 +116,16 @@ public class MainActivity extends AppCompatActivity {
             //사용자가 로그인한 경우 , 사용자가 로그아웃한 경우 사용자가 변경될때 발생
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user=firebaseAuth.getCurrentUser();
-                Log.d(TAG,user.getUid());
+                String uid=user.getUid();
+                Log.d(TAG,"user uid:"+user.getUid());
                 if(user!=null){
                     Intent intent=new Intent(MainActivity.this, BasicActivity.class);
+
+                    intent.putExtra("uid",uid);
+                    Log.d(TAG,"basic가는 uid:"+uid);
+                    Toast.makeText(MainActivity.this,uid, Toast.LENGTH_SHORT).show();
                     startActivity(intent);
-                    finish();
+
                 }else{
 
                 }
@@ -157,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<GetTokenResult> task) {
                                             if(task.isSuccessful()){
                                                 String idToken=task.getResult().getToken();
+                                                Log.d(TAG,"idToken:"+idToken);
+
                                             }else{
 
                                             }
@@ -206,6 +216,11 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //로그인 성공
                             Toast.makeText(MainActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
+
+                                Intent intent=new Intent(MainActivity.this, BasicActivity.class);
+                                startActivity(intent);
+                                finish();
+
                         } else {
                             //로그인 실패
                             Toast.makeText(MainActivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();
@@ -217,7 +232,12 @@ public class MainActivity extends AppCompatActivity {
 
     //활동을 초기화할떄 사용자가 현재 로그인 되어있는지 확인
    protected void onStart(){
+
         super.onStart();
+        FirebaseUser user=firebaseAuth.getCurrentUser();
+        if(user!=null){
+            Toast.makeText(this,"자동 로그인: "+user.getUid(),Toast.LENGTH_SHORT).show();
+        }
    }
 
 

@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -31,6 +32,7 @@ public class JoinActivity extends AppCompatActivity {
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{4,16}$");
     private DatabaseReference mDatabase; //데이터를 데이터베이스에 쓰기 위해
     private FirebaseDatabase database;
+    private Query applesQuery;
     // 파이어베이스 인증 객체 생성
     private FirebaseAuth firebaseAuth;
     private static final String TAG="BAAM";
@@ -68,6 +70,7 @@ public class JoinActivity extends AppCompatActivity {
         //파이어베이스 데이터베이스 객체선언
         database=FirebaseDatabase.getInstance();
         mDatabase=database.getReference();
+
 
 
         String name=editTextname.getText().toString();
@@ -120,15 +123,19 @@ public class JoinActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     String email=editTextEmail.getText().toString().trim();
                                     FirebaseUser user=firebaseAuth.getCurrentUser();
+
                                     String uid=user.getUid();
-                                    if(dataSnapshot.child("USER").child(uid).exists()){
+                                    if(dataSnapshot.child("USER").child("user_info").exists()){
                                         Toast.makeText(JoinActivity.this,"DB에 이미존재",Toast.LENGTH_SHORT).show();
                                     }else{
 
 
                                         User user_info=new User(uid,editTextId.getText().toString(),editTextEmail.getText().toString(),editTextPassword.getText().toString(),
                                                 editTextname.getText().toString(), editTextNickname.getText().toString(),editTextPhone.getText().toString());
-                                        mDatabase.child("USER").child(uid).setValue(user_info);
+
+                                //전체 데이터삭제
+                                     // mDatabase.setValue(null);
+                                        mDatabase.child("USER").child("user_info").setValue(user_info);
                                         Toast.makeText(JoinActivity.this,"DB에 저장완료",Toast.LENGTH_SHORT).show();
                                     }
                                 }

@@ -9,7 +9,15 @@
 
     <Button
         android:id="@+id/btn_Gps"
-        android:text="버튼"
+        android:text="날씨"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginRight="50dp"/>
+    <Button
+        android:id="@+id/btn_board"
+        android:text="게시판"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

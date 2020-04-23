@@ -35,7 +35,11 @@ module.exports = (sequelize, DataTypes) => {
     fish_lon:{
       type:DataTypes.DECIMAL(17,14),
       allowNull:false
-    }
+    },
+    fish_fishing:{
+      type:DataTypes.STRING(50),
+      allowNull:false
+    },
   }, {
     tableName:"user_fish"
   });

@@ -45,9 +45,9 @@ public class WeatherActivity extends AppCompatActivity {
         makeRequest();
     }
     public void makeRequest(){
-        String url= "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=API_KEY";
-
-        StringRequest request=new StringRequest(Request.Method.GET,url,new Response.Listener<String>(){
+        String weather_url= "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=7ebc7734dc3a26afb1175d5b3760e122";
+        String fish_url="http://localhost:3000/user_fish/fish";
+        StringRequest request=new StringRequest(Request.Method.GET,weather_url,new Response.Listener<String>(){
             @Override
             public void onResponse(String response){
                 processResponse(response);

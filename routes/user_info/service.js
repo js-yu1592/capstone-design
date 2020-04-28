@@ -96,14 +96,18 @@ function login(req,res){
 
 
 function loginprocess(req,res){
+  console.log(req.body.id);   //확실히 아이디가 뜸
 firebase
 .auth()
 .signInWithEmailAndPassword(
+  
   req.body.id, req.body.password
 )
+
 .then(userRecord=>{
-  fireabseAuth(req,res);
+  console.log(req.body.id);
   console.log("Successfully fetched user data:");
+  res.json({email:req.body.id, password:req.body.password});
   res.redirect('/')
 }).catch(err=>{
   console.log('error login in with email and password')
@@ -116,6 +120,7 @@ console.log("logout 되었습니다.");
 firebase
 .auth().signOut()
 .then(userRecord=>{
+
   res.redirect('/user_info/login');
   
 }).catch(err=>{

@@ -13,9 +13,9 @@ function getFish(req,res){
 
   repository.getFishInfo(page,keyword)
   .then(result=>{
-    res.json({
-    fish:result
-    });
+    res.json(
+   { fish:result}
+    );
     console.log(result);
   })
 

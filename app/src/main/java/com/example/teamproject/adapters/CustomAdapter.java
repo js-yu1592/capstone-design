@@ -35,9 +35,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     private final int TYPE_FOOTER = 2;
     private Button button ;
 
-    public CustomAdapter(ArrayList<Post> arrayList, Context context) {
+
+
+    public CustomAdapter(ArrayList<Post> arrayList, Context context ) {
         this.arrayList = arrayList;
         this.context = context;
+
     }
 
     @NonNull
@@ -55,7 +58,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     @Override
     public void onBindViewHolder(@NonNull CustomAdapter.CustomViewHolder holder, final int position) {
-
+      final Post post=arrayList.get(position);
 
       holder.email.setText("작성자 : "+arrayList.get(position).getDocumentId());
        holder.title.setText((arrayList.get(position).getTitle()));

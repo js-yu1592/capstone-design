@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,7 +27,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.net.HttpURLConnection;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String senderid="767170513426";
 
 
+
+    //Retrofit
+//      private RetrofitInterface retrofitInterface;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +81,21 @@ public class MainActivity extends AppCompatActivity {
         buttonGoogle = findViewById(R.id.btn_googleSignIn);
         editTextEmail = findViewById(R.id.et_eamil);
         editTextPassword = findViewById(R.id.et_password);
+
+
+//        retrofitInterface=RetrofitUtility.getRetrofitInterface();
+//        retrofitInterface.getData().enqueue(new Callback<Login>() {
+//            @Override
+//            public void onResponse(Call<Login> call, Response<Login> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Login> call, Throwable t) {
+//
+//            }
+//        });
+
         //Google 로그인을 앱에 통합
         //GoogleSignInOptions 개체를 구성할 때 requestIdToken을 호출
 // 사용자의 ID, 이메일 주소 및 기본 // 프로필 을 요청하도록 로그인을 구성 합니다. ID 및 기본 프로필은 DEFAULT_SIGN_IN에 포함되어 있습니다.
@@ -154,9 +179,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        //로그인 성공
+                        //login
                         if(task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
                             FirebaseUser mUser=FirebaseAuth.getInstance().getCurrentUser();
                             mUser.getIdToken(true)
@@ -165,7 +190,8 @@ public class MainActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<GetTokenResult> task) {
                                             if(task.isSuccessful()){
                                                 String idToken=task.getResult().getToken();
-                                                Log.d(TAG,"idToken:"+idToken);
+                                                  //How to send the token to server
+                                                Log.d(TAG,"idToken  send:"+idToken);
 
                                             }else{
 
@@ -247,6 +273,19 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
    }
+
+//   public void sendRegistrationToServer(String token){
+//
+//        class SendPostReqAsyncTask extends AsyncTask<String, Void,String>{
+//
+//            @Override
+//            protected String doInBackground(String ...params){
+//                String token=params[0];
+//
+//
+//            }
+//        }
+//   }
 
 
 

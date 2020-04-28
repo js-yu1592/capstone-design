@@ -22,6 +22,7 @@ public class BasicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_basic);
         Button button_Gps=(Button)findViewById(R.id.btn_Gps);
         Button button_Board=(Button)findViewById(R.id.btn_board);
+        Button button_marker=(Button)findViewById(R.id.btn_marker);
         button_Gps.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -42,6 +43,15 @@ public class BasicActivity extends AppCompatActivity {
                 Log.d(TAG,"basic온  uid:"+uid);
                 Intent intent=new Intent(BasicActivity.this,Board.class);
                 intent.putExtra("uid",uid);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        button_marker.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v){
+                Intent intent=new Intent(BasicActivity.this, Marker.class);
                 startActivity(intent);
                 finish();
             }

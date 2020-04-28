@@ -33,7 +33,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
- String uid;
+        String uid;
         mTitle=findViewById(R.id.post_title_edit);
         mContents=findViewById(R.id.post_contents_edit);
 
@@ -57,6 +57,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             String email=user.getEmail();
             Log.d(TAG,"user uid:"+user.getEmail());
             Toast.makeText(this,uid,Toast.LENGTH_SHORT).show();
+
             Post post=new Post(email,mTitle.getText().toString(), mContents.getText().toString());
             mDatabase.child("USER").child("user_info").child("Board").push().setValue(post);
             Toast.makeText(PostActivity.this,"DB에 저장완료",Toast.LENGTH_SHORT).show();

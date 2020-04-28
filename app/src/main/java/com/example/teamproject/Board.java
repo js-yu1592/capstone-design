@@ -3,6 +3,7 @@ package com.example.teamproject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.teamproject.adapters.CustomAdapter;
-import com.example.teamproject.adapters.PostAdapter;
+//import com.example.teamproject.adapters.PostAdapter;
 import com.example.teamproject.models.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,7 +52,7 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG="BAAM";
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
-
+     private RecyclerDecoration spaceDecoration;
      private String uid;
 
 
@@ -60,15 +61,29 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
 
+//  //기존 구분선추가
+      //  DividerItemDecoration dividerItemDecoration= new DividerItemDecoration(this, new LinearLayoutManager(this).getOrientation());
+      //  dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+
+        //Board는 게시판
 
        recyclerView=findViewById(R.id.main_recyclerview); //아이디 연결
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존 성능강화
         layoutManager=new LinearLayoutManager(this);
+        spaceDecoration=new RecyclerDecoration(40);     //위아래 간격조정
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getResources())); // 왼쪽 오른쪽 마진
+        recyclerView.addItemDecoration(spaceDecoration);
+      // recyclerView.addItemDecoration(dividerItemDecoration);
+
         recyclerView.setLayoutManager(layoutManager);
+
+        //layoutManager은 많은 역할을 하지만 간단하게 스크롤을 위아래로 할지 좌우로 할지 결정하는것
 
         Log.d("TAG","Board오는 UID:"+uid);
 
         arrayList=new ArrayList<>();   // Boardd 객체담을 어레이 리스트 (어댑터쪽으로 날리기위해)
+
+
         Intent secondIntent=getIntent();
         uid=secondIntent.getStringExtra("uid");
         database=FirebaseDatabase.getInstance();  //Firebase 데이터베이스 연동
@@ -105,7 +120,11 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
                Log.e("BoardAcitivity", String.valueOf(databaseError.toException()));
            }
        });
-            adapter=new CustomAdapter(arrayList,this);
+
+
+
+            adapter=new CustomAdapter(arrayList,this); //CustomAdapter로 설정.
+            //어댑터는 담긴 리스트들을 리사이클러 뷰에 바인딩 시켜주기 위한 사전작업이 이루어지는 객체
             recyclerView.setAdapter(adapter); //리사이클러뷰 어댑터 연결
 
 

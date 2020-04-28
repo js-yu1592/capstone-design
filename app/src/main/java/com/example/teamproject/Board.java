@@ -44,7 +44,7 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
     private ArrayList<Post> arrayList;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
-
+  private Button button;
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
 
 
@@ -61,9 +61,7 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
 
-//  //기존 구분선추가
-      //  DividerItemDecoration dividerItemDecoration= new DividerItemDecoration(this, new LinearLayoutManager(this).getOrientation());
-      //  dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider));
+
 
         //Board는 게시판
 
@@ -91,6 +89,9 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
 
         findViewById(R.id.main_post_edit).setOnClickListener(this);
 
+//        button=findViewById(R.id.main_post_delete);
+
+//        findViewById(R.id.main_post_delete).setOnClickListener(this);
 
        databaseReference.addValueEventListener(new ValueEventListener() {
            @Override
@@ -107,8 +108,6 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
                    Post post=snapshot.getValue(Post.class);   //만들어뒀던 post 객체의 데이터들을 담는다
                    arrayList.add(post);  //담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
 
-
-
                }
                 adapter.notifyDataSetChanged(); //리스트 저장 및 새로고침
            }
@@ -120,27 +119,11 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
                Log.e("BoardAcitivity", String.valueOf(databaseError.toException()));
            }
        });
-
-
-
             adapter=new CustomAdapter(arrayList,this); //CustomAdapter로 설정.
             //어댑터는 담긴 리스트들을 리사이클러 뷰에 바인딩 시켜주기 위한 사전작업이 이루어지는 객체
             recyclerView.setAdapter(adapter); //리사이클러뷰 어댑터 연결
 
-
-
-
-
-
-
-
     };
-
-
-
-
-
-
     @Override
     public void onClick(View v) {
 

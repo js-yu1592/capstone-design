@@ -1,11 +1,21 @@
 package com.example.teamproject.models;
 
+import android.widget.Button;
+
+import com.example.teamproject.R;
+
 public class Post {
     private String documentId;
     private String title;
     private String contents;
 
+    public Post(String documentId) {
+        this.documentId = documentId;
+    }
+
+    private Button button;
     public Post() {
+
     }
 
     public Post(String documentId, String title, String contents) {

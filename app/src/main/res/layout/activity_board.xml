@@ -11,7 +11,11 @@
        android:id="@+id/main_recyclerview"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+       android:scrollbarFadeDuration="0"
+       android:scrollbarSize="10dp"
+       android:scrollbars="vertical"
+       />
 
    <com.google.android.material.floatingactionbutton.FloatingActionButton
        android:id="@+id/main_post_edit"
@@ -21,6 +25,27 @@
        android:layout_alignParentBottom="true"
 
        android:src="@drawable/ic_edit" />
+
+   <Button
+       android:id="@+id/main_post_delete"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentEnd="true"
+       android:layout_alignParentBottom="true"
+       android:layout_marginEnd="40dp"
+       android:layout_marginBottom="4dp"
+       android:text="삭제" />
+
+   <!--   <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--       android:id="@+id/main_post_delete"-->
+<!--       android:layout_width="wrap_content"-->
+<!--       android:layout_height="wrap_content"-->
+<!--       android:layout_alignParentEnd="true"-->
+<!--       android:layout_alignParentBottom="true"-->
+
+<!--       android:layout_marginEnd="56dp"-->
+<!--       android:layout_marginBottom="3dp"-->
+<!--       android:src="@drawable/ic_delete" />-->
 
 
 </RelativeLayout>

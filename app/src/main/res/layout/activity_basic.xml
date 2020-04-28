@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BasicActivity">
+    <Button
+        android:id="@+id/buttonA"
+        android:layout_width="134dp"
+        android:layout_height="141dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="200dp"
+        android:onClick="buttonAClicked"
+        android:text="낚시" />
 
+    <Button
+        android:id="@+id/btn_board"
+        android:layout_width="134dp"
+        android:layout_height="141dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="200dp"
+        android:layout_toRightOf="@id/buttonA"
+        android:onClick="buttonBClicked"
+        android:text="게시판" />
+    <Button
+        android:id="@+id/buttonC"
+        android:layout_width="134dp"
+        android:layout_height="141dp"
+        android:layout_below="@id/buttonA"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:onClick="buttonCClicked"
+        android:text="스트리밍" />
 
+    <Button
+        android:id="@+id/btn_marker"
+        android:layout_width="134dp"
+        android:layout_height="141dp"
+        android:layout_below="@id/btn_board"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/buttonC"
+        android:onClick="buttonDClicked"
+        android:text="정보" />
+    <Button
+        android:id="@+id/buttonE"
+        android:layout_width="90dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="230dp"
+        android:layout_marginTop="20dp"
+        android:onClick="buttonEClicked"
+        android:text="환경설정" />
     <Button
         android:id="@+id/btn_Gps"
         android:text="날씨"
@@ -15,22 +59,22 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginRight="50dp"/>
-    <Button
-        android:id="@+id/btn_board"
-        android:text="게시판"
+<!--    <Button-->
+<!--        android:id="@+id/btn_board"-->
+<!--        android:text="게시판"-->
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginRight="50dp"/>
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        android:layout_marginRight="50dp"/>-->
 
-    <Button
-        android:id="@+id/btn_marker"
-        android:text="마커"
+<!--    <Button-->
+<!--        android:id="@+id/btn_marker"-->
+<!--        android:text="마커"-->
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginRight="50dp"/>
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        android:layout_marginRight="50dp"/>-->
 
-</LinearLayout>
+</RelativeLayout>

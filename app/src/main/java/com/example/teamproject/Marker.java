@@ -2,6 +2,7 @@ package com.example.teamproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,7 +52,7 @@ public class Marker extends AppCompatActivity implements OnMapReadyCallback {
 
     }
     public void makeRequest(){
-        String fish_url="http://10.0.2.2:3000/user_fish/fish";
+        String fish_url="http://localhost:3000/user_fish/fish";
         StringRequest request=new StringRequest(Request.Method.GET,fish_url,new Response.Listener<String>(){
             @Override
             public void onResponse(String response){
@@ -63,11 +64,13 @@ public class Marker extends AppCompatActivity implements OnMapReadyCallback {
                 fishArr=new ArrayList<fishListResult>();
 
                 fishArr=FishTankList.fish;
+                Toast.makeText(getApplicationContext(),FishTankList.fish.get(0).fish_comment,Toast.LENGTH_LONG).show();
             }
         },
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
+                        Toast.makeText(getApplicationContext(),"에러",Toast.LENGTH_LONG).show();
                     }
                 }
         ){
@@ -86,13 +89,15 @@ public class Marker extends AppCompatActivity implements OnMapReadyCallback {
 
         mMap = googleMap;
 
-
-        for(int i=0;i<fishArr.size();i++){
-            MarkerOptions markerOptions=new MarkerOptions();
-            markerOptions.position(new LatLng(Double.valueOf(fishArr.get(i).fish_lat),Double.valueOf(fishArr.get(i).fish_lon))).title(fishArr.get(i).fish_fishing);
-            mMap.addMarker(markerOptions);
-        }
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(37.52487, 126.92723)));
+        LatLng SEOUL =new LatLng(37.56,126.97);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng((SEOUL)));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+//        for(int i=0;i<fishArr.size();i++){
+//            MarkerOptions markerOptions=new MarkerOptions();
+//            markerOptions.position(new LatLng(Double.valueOf(fishArr.get(i).fish_lat),Double.valueOf(fishArr.get(i).fish_lon))).title(fishArr.get(i).fish_fishing);
+//            mMap.addMarker(markerOptions);
+//        }
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(37.52487, 126.92723)));
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override

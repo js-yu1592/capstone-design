@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BoardActivity">
+   <Button
+       android:id="@+id/btn_back"
+       android:layout_width="136dp"
+       android:layout_height="wrap_content"
+       android:onClick="btnBackClicked"
+       android:text="뒤로" />
+
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/main_recyclerview"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_marginTop="50dp"
+       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+       android:scrollbarFadeDuration="0"
+       android:scrollbarSize="10dp"
+       android:scrollbars="vertical"
+       />
+
+   <com.google.android.material.floatingactionbutton.FloatingActionButton
+       android:id="@+id/main_post_edit"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentEnd="true"
+       android:layout_alignParentBottom="true"
+
+       android:src="@drawable/ic_edit" />
+
+<!--   <Button-->
+<!--       android:id="@+id/main_post_delete"-->
+<!--       android:layout_width="wrap_content"-->
+<!--       android:layout_height="wrap_content"-->
+<!--       android:layout_alignParentEnd="true"-->
+<!--       android:layout_alignParentBottom="true"-->
+<!--       android:layout_marginEnd="40dp"-->
+<!--       android:layout_marginBottom="4dp"-->
+<!--       android:text="삭제" />-->
+
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+       android:id="@+id/main_post_delete"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentEnd="true"
+       android:layout_alignParentBottom="true"
+
+       android:layout_marginEnd="56dp"
+       android:layout_marginBottom="3dp"
+       android:src="@drawable/ic_delete" />
+
+
+</RelativeLayout>
+

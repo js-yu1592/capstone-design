@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/one"
+        android:title="카메라 실행">
+    </item>
+    <item
+        android:id="@+id/two"
+        android:title="캘러리 실행">
+    </item>
+    <item
+        android:id="@+id/three"
+        android:title="기본 이미지">
+    </item>
+
+</menu>

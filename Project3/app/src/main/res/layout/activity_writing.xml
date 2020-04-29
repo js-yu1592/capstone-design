@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Writing">
+
+    <Button
+        android:id="@+id/button23"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:onClick="button23Clicked"
+        android:text="뒤로" />
+
+    <EditText
+        android:id="@+id/titleText"
+        android:layout_width="393dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:hint="제목"
+        android:paddingLeft="5dp" />
+
+    <EditText
+        android:id="@+id/contentText"
+        android:layout_width="393dp"
+        android:layout_height="358dp"
+        android:layout_centerHorizontal="true"
+        android:hint="내용"
+        android:paddingLeft="5dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/button26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:text="네이버연동" />
+
+            <Button
+                android:id="@+id/button24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="등록" />
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Board">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="94dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="button5Clicked"
+                android:text="뒤로" />
+
+            <Button
+                android:id="@+id/button22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="235dp"
+                android:text="네이버" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="게시글 목록"
+        android:layout_marginLeft="15dp"
+        android:textSize="30dp"/>
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="383dp"
+        app:srcCompat="@drawable/f" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <SearchView
+                android:layout_width="125dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="100dp"
+                android:layout_toLeftOf="@id/button25" />
+
+            <Button
+                android:id="@+id/button25"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:onClick="button25Clicked"
+                android:text="글쓰기" />
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

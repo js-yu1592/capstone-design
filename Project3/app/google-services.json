@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "816033249833",
+    "firebase_url": "https://joljak-f1f6d.firebaseio.com",
+    "project_id": "joljak-f1f6d",
+    "storage_bucket": "joljak-f1f6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816033249833:android:7970ebdc73ba59695b3a38",
+        "android_client_info": {
+          "package_name": "com.example.a1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816033249833-l1qetdvvkdi2g02pasu3s88pvda3n2sq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq-RyNKfrXD0IVbbn5rltc8pgw11cNCCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816033249833-l1qetdvvkdi2g02pasu3s88pvda3n2sq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

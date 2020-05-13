@@ -19,4 +19,8 @@ public class SettingActivity extends AppCompatActivity {
         Intent intent = new Intent(SettingActivity.this, Main2Activity.class);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

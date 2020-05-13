@@ -23,4 +23,8 @@ public class FishingActivity extends AppCompatActivity {
         Intent intent = new Intent(FishingActivity.this, Main2Activity.class);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

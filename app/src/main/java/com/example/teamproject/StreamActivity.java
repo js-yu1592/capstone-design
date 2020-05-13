@@ -17,4 +17,8 @@ public class StreamActivity extends AppCompatActivity {
         Intent intent = new Intent(StreamActivity.this, Main2Activity.class);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

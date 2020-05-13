@@ -51,7 +51,10 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
     public void naverCafeOnclick(View v){
 
             new NaverCafe(PostActivity.this, APPID).write(CAFE_URL, "1", mTitle.getText().toString(), mContents.getText().toString());

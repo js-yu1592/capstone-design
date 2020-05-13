@@ -47,7 +47,7 @@ public class Main2Activity extends AppCompatActivity {
         button_fishing.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v){
-                Intent intent=new Intent(Main2Activity.this, FishingActivity.class);
+                Intent intent=new Intent(Main2Activity.this, bluetoothActivity.class);
                 startActivity(intent);
 
             }
@@ -86,5 +86,9 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

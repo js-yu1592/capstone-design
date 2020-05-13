@@ -31,6 +31,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -41,10 +43,13 @@ import java.util.Locale;
 import java.util.Map;
 
 
-public class InformActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class InformActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private GoogleMap mMap;
     private String lat;
     private String lon;
+    public ArrayList<String> lati=new ArrayList<>();
+    public ArrayList<String> longi=new ArrayList<>();
+    public ArrayList<String> title=new ArrayList<>();
     static RequestQueue requestQueue;
     public ArrayList<fishListResult> fishArr;
     private GpsTracker gpsTracker;
@@ -92,44 +97,45 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync( this);
 
-        if(requestQueue==null){
-            requestQueue= Volley.newRequestQueue(getApplicationContext());
-        }
-        makeRequest();
+//        if(requestQueue==null){
+//            requestQueue= Volley.newRequestQueue(getApplicationContext());
+//        }
+//        makeRequest();
 
     }
-    public void makeRequest(){
-        String fish_url="http://localhost:3000/user_fish/fish";
-        StringRequest request=new StringRequest(Request.Method.GET,fish_url,new Response.Listener<String>(){
-            @Override
-            public void onResponse(String response){
-                processResponse(response);
-            }
-            public void processResponse(String response){
-                Gson gson=new Gson();
-                FishTankList FishTankList=gson.fromJson(response, FishTankList.class);
-                fishArr=new ArrayList<fishListResult>();
-
-                fishArr=FishTankList.fish;
-                Toast.makeText(getApplicationContext(),FishTankList.fish.get(0).fish_comment,Toast.LENGTH_LONG).show();
-            }
-        },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){
-                       // Toast.makeText(getApplicationContext(),"에러",Toast.LENGTH_LONG).show();
-                    }
-                }
-        ){
-            @Override
-            protected Map<String,String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<String,String>();
-                return params;
-            }
-        };
-        request.setShouldCache(false);
-        requestQueue.add(request);
-    }
+//
+//    public void makeRequest(){
+//        String fish_url="http://localhost:3000/user_fish/fish";
+//        StringRequest request=new StringRequest(Request.Method.GET,fish_url,new Response.Listener<String>(){
+//            @Override
+//            public void onResponse(String response){
+//                processResponse(response);
+//            }
+//            public void processResponse(String response){
+//                Gson gson=new Gson();
+//                FishTankList FishTankList=gson.fromJson(response, FishTankList.class);
+//                fishArr=new ArrayList<fishListResult>();
+//
+//                fishArr=FishTankList.fish;
+//                Toast.makeText(getApplicationContext(),FishTankList.fish.get(0).fish_comment,Toast.LENGTH_LONG).show();
+//            }
+//        },
+//                new Response.ErrorListener(){
+//                    @Override
+//                    public void onErrorResponse(VolleyError error){
+//                       // Toast.makeText(getApplicationContext(),"에러",Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//        ){
+//            @Override
+//            protected Map<String,String> getParams() throws AuthFailureError {
+//                Map<String,String> params=new HashMap<String,String>();
+//                return params;
+//            }
+//        };
+//        request.setShouldCache(false);
+//        requestQueue.add(request);
+//    }
 //지도 표시
     @Override
     public void onMapReady(final GoogleMap googleMap) {
@@ -139,12 +145,41 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
         LatLng SEOUL =new LatLng(37.56,126.97);
         mMap.moveCamera(CameraUpdateFactory.newLatLng((SEOUL)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+        lati.add(String.valueOf(37.3723874));
+        lati.add(String.valueOf(37.3730211));
+        lati.add(String.valueOf(37.3062275));
+        longi.add(String.valueOf(126.7452172));
+        longi.add(String.valueOf(126.7583249));
+        longi.add(String.valueOf(126.8149098));
+        title.add("뒷방울 낚시터");
+        title.add("장절샘터 낚시터");
+        title.add("송라 낚시터");
 
-        /* for(int i=0;i<fishArr.size();i++){
+//         for(int i=0;i<3;i++){
+//            MarkerOptions markerOptions=new MarkerOptions();
+//            markerOptions.position(new LatLng(Double.valueOf(fishArr.get(i).fish_lat),Double.valueOf(fishArr.get(i).fish_lon))).title(fishArr.get(i).fish_fishing);
+//            mMap.addMarker(markerOptions);
+//        }
+        for(int i=0;i<3;i++){
             MarkerOptions markerOptions=new MarkerOptions();
-            markerOptions.position(new LatLng(Double.valueOf(fishArr.get(i).fish_lat),Double.valueOf(fishArr.get(i).fish_lon))).title(fishArr.get(i).fish_fishing);
+            markerOptions.position(new LatLng(Double.valueOf(lati.get(i)),Double.valueOf(longi.get(i)))).title(title.get(i));
             mMap.addMarker(markerOptions);
-        }*/
+        }
+//        MarkerOptions markerOptions=new MarkerOptions();
+//        markerOptions.position(new LatLng(Double.valueOf(37.3723874),Double.valueOf(126.7452172))).title("뒷방울 낚시터");
+//        mMap.addMarker(markerOptions);
+//
+//
+//       // MarkerOptions markerOptions2=new MarkerOptions();
+//        markerOptions.position(new LatLng(Double.valueOf(37.3730211),Double.valueOf(126.7583249))).title("장절샘터 낚시터");
+//       // mMap.addMarker(markerOptions2);
+//
+//
+//       // MarkerOptions markerOptions3=new MarkerOptions();
+//        markerOptions.position(new LatLng(Double.valueOf(37.3062275),Double.valueOf(126.8149098))).title("송라 낚시터");
+//        //mMap.addMarker(markerOptions3);
+
+        mMap.setOnMarkerClickListener(this);
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -164,6 +199,21 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
 //                        .show();
             }
         });
+    }
+    @Override
+    public boolean onMarkerClick(Marker marker){
+        lat=String.valueOf(marker.getPosition().latitude);
+        lon=String.valueOf(marker.getPosition().longitude);
+
+        Intent intent = new Intent(InformActivity.this, InformFragActivity.class);
+        intent.putExtra("lat",lat);
+        intent.putExtra("lon",lon);
+        startActivity(intent);
+        return false;
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
     @Override
     public void onRequestPermissionsResult(int permsRequestCode,

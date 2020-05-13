@@ -23,6 +23,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 public class WeatherActivity extends Fragment {
@@ -31,6 +32,8 @@ public class WeatherActivity extends Fragment {
         TextView textView;
         private String lat;
         private String lon;
+    private ArrayList<String> lati;
+    private ArrayList<String> longi;
         static RequestQueue requestQueue;
 
         @Nullable
@@ -39,6 +42,10 @@ public class WeatherActivity extends Fragment {
             view=inflater.inflate(R.layout.activity_weather,container, false);
 
             textView=view.findViewById(R.id.textView);
+
+            Intent intent=getActivity().getIntent();
+            lati=intent.getExtras().getStringArrayList("lati");
+            longi=intent.getExtras().getStringArrayList("longi");
 
             lat= getArguments().getString("lat");
             lon= getArguments().getString("lon");
@@ -64,7 +71,7 @@ public class WeatherActivity extends Fragment {
 
                 println("위도 : "+ weatherList.coord.lat);
                 println("경도 : "+weatherList.coord.lon);
-                println("main : "+weatherList.weather.get(0).main);
+               // println("main : "+weatherList.weather.get(0).main);
                 println("desc : "+transferWeather(weatherList.weather.get(0).description));
 
                 println("temp : "+Math.round((Double.valueOf(weatherList.main.temp)-273.15))+"도");
@@ -75,10 +82,10 @@ public class WeatherActivity extends Fragment {
                 println("humidity : "+weatherList.main.humidity+"%");
                 println("wind spped : "+weatherList.wind.speed+"m/s");
                 println("wind deg : "+weatherList.wind.deg);
-                println("country : "+weatherList.sys.country);
+              //  println("country : "+weatherList.sys.country);
                 println("sunrise : "+weatherList.sys.sunrise);
                 println("sunset : "+weatherList.sys.sunset);
-                println("name : "+weatherList.name);
+                //println("name : "+weatherList.name);
             }
         },
                 new Response.ErrorListener(){

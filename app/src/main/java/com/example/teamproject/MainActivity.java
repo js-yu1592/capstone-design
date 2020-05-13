@@ -165,7 +165,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
     private void loginUser(String email, String pwd) {
 
         firebaseAuth.signInWithEmailAndPassword(email,pwd)
@@ -250,15 +253,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //활동을 초기화할떄 사용자가 현재 로그인 되어있는지 확인
-   protected void onStart(){
-
-        super.onStart();
-        FirebaseUser user=firebaseAuth.getCurrentUser();
-        if(user!=null){
-            Toast.makeText(this,"자동 로그인: "+user.getUid(),Toast.LENGTH_SHORT).show();
-        }
-   }
+//    //활동을 초기화할떄 사용자가 현재 로그인 되어있는지 확인
+//   protected void onStart(){
+//
+//        super.onStart();
+//        FirebaseUser user=firebaseAuth.getCurrentUser();
+//        if(user!=null){
+//            Toast.makeText(this,"자동 로그인: "+user.getUid(),Toast.LENGTH_SHORT).show();
+//        }
+//   }
 
 
    protected void onStop(){

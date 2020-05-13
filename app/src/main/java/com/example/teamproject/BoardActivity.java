@@ -133,5 +133,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(BoardActivity.this, Main2Activity.class);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
 }

@@ -11,6 +11,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 public class InformFragActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView; //바텀 네비게이션 뷰
@@ -30,6 +32,7 @@ public class InformFragActivity extends AppCompatActivity {
         Intent intent=getIntent();
         lat=intent.getExtras().getString("lat");
         lon=intent.getExtras().getString("lon");
+
 
 //        Fragment fragment=new WeatherActivity();
 //        Bundle bundle=new Bundle(2);
@@ -56,11 +59,16 @@ public class InformFragActivity extends AppCompatActivity {
         Bundle bundle=new Bundle();
         bundle.putString("lat",lat);
         bundle.putString("lon",lon);
+
         weatherActivity.setArguments(bundle);
 
         fishTankActivity= new FishTankActivity();
         setFrag(0);
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     private void setFrag(int n){

@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.akexorcist:bluetoothspp:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.firebase:firebase-database:19.1.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.0'

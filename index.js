@@ -1,5 +1,5 @@
 const express = require('express')
-
+const port =process.env.PORT||3000;
 const app=express()
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -17,7 +17,6 @@ admin.initializeApp({
   databaseURL: "https://graduation-f5a8d.firebaseio.com"
 });
 
-
 var user_info=require('./routes/user_info')
 var user_fish=require('./routes/user_fish')
 var home=require('./routes/home')
@@ -32,8 +31,10 @@ app.use(express.static('public'));
 
 
 
+
+
 //app.use('/login',login)
 app.use('/user_fish',user_fish);
 app.use('/user_info',user_info);
 app.use('/',home)
-app.listen(process.env.port || 3000);
+app.listen(port, ()=>console.log('Example app listening on port'))

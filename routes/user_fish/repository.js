@@ -9,7 +9,7 @@ function getFishInfo(page,keyword){
    let offset1=0;
    console.log(keyword);
    console.log(page);
-   console.log("Baam");
+   console.log("B vaam");
    if(page>1){
       offset1=10*(page-1); 
    }

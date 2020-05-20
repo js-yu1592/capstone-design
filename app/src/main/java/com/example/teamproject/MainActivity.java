@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     private String password = "";
     private String uid = "";
 
-    public static final String apiKey="AAAAsp7tChI:APA91bEXF0BtJoSRSkJf1xe6MJHXltY_Rl15Nf-g4_-vL9xuPeFnpiDDoCapkJ8VG24x9xdwnJ1ZFqTbQkyTNP7z01cffkTT5jHu_J_iZwqV35TVxtvVv-sWAXM2xOEMvLnmbOPqUaV2";
-    public static final String senderid="767170513426";
+//    public static final String apiKey="AAAAsp7tChI:APA91bEXF0BtJoSRSkJf1xe6MJHXltY_Rl15Nf-g4_-vL9xuPeFnpiDDoCapkJ8VG24x9xdwnJ1ZFqTbQkyTNP7z01cffkTT5jHu_J_iZwqV35TVxtvVv-sWAXM2xOEMvLnmbOPqUaV2";
+  //  public static final String senderid="767170513426";
 
 
 
@@ -256,15 +256,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //활동을 초기화할떄 사용자가 현재 로그인 되어있는지 확인
-   protected void onStart(){
-
-        super.onStart();
-        FirebaseUser user=firebaseAuth.getCurrentUser();
-        if(user!=null){
-            Toast.makeText(this,"자동 로그인: "+user.getUid(),Toast.LENGTH_SHORT).show();
-        }
-   }
+//    //활동을 초기화할떄 사용자가 현재 로그인 되어있는지 확인
+//   protected void onStart(){
+//
+//        super.onStart();
+//        FirebaseUser user=firebaseAuth.getCurrentUser();
+//        if(user!=null){
+//            Toast.makeText(this,"자동 로그인: "+user.getUid(),Toast.LENGTH_SHORT).show();
+//        }
+//   }
 
 
    protected void onStop(){

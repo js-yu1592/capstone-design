@@ -12,7 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,7 +44,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         this.context = context;
 
     }
-
+   public interface OnItemClickListener{
+        void onItemClick(int position);
+        void onDeleteClick(int position);
+   }
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //리스트뷰가 어댑터에 연결된다음에 최초로 뷰홀더만듬
@@ -53,18 +58,30 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
 
 
+
         return holder;
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull CustomAdapter.CustomViewHolder holder, final int position) {
-      final Post post=arrayList.get(position);
+       Post post=arrayList.get(holder.getAdapterPosition());
 
       holder.email.setText("작성자 : "+arrayList.get(position).getDocumentId());
        holder.title.setText((arrayList.get(position).getTitle()));
         holder.contents.setText((arrayList.get(position).getContents()));
 
-
+//     holder.deleteBtn.setTag(holder.getAdapterPosition());
+//     holder.deleteBtn.setOnClickListener(new View.OnClickListener(){
+//         @Override
+//         public void onClick(View v){
+//
+//             int pos=(int)v.getTag();
+//             Post post=arrayList.get(pos);
+//             arrayList.remove(pos);
+//             notifyDataSetChanged();
+//         }
+//     });
 
     }
 
@@ -87,11 +104,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
 
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+    public class CustomViewHolder extends RecyclerView.ViewHolder  {
         private TextView title;
         private TextView contents;
         private TextView email;
-        private Button deleteBtn;
+        private ImageView deleteBtn;
 
         public CustomViewHolder(@NonNull View ItemView){
             super(ItemView);
@@ -99,6 +116,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             this.title=ItemView.findViewById(R.id.item_post_title);
             this.contents=ItemView.findViewById(R.id.item_post_contents);
             this.deleteBtn=ItemView.findViewById(R.id.main_post_delete);
+
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -122,7 +140,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             });
 
 
+
+
+
         }
+
+
 
         //컨텍스트 메뉴를 생성하고 메뉴 항목 선택시 호출되는 리스너를 등록
 //        public void onCreateContextMenu(Context menu, View v, ContextMenu.ContextMenuInfo menuInfo){

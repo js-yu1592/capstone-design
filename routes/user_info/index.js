@@ -12,12 +12,10 @@ const { firebaseAuth } = require('../middleware')
 router
 
 //.get('/',service.getbasic)
-.get('/join', service.saveUserInfo)
-.post('/join',service.setUserInfo)
-.get('/login', service.login)
-.post('/login',firebaseAuth,service.loginprocess)
-.get('/logout',firebaseAuth, service.logout)
-.get('/google',firebaseAuth,service.googleLogin)
 
+
+.post('/login',firebaseAuth,service.loginprocess)
+
+.post('/my',firebaseAuth, service.getProfile)
 
 module.exports = router;

@@ -1,39 +1,42 @@
 var qs = require('querystring');
 const {  users} = require('../../models')
 
-function getData(req,cb){
 
-   User_Info.findAll().then(function(result){
-            cb(result)
-    });
+function getInfo(uid) {
 
+  console.log("getInfo")
+  return Users.findAll({
+      where: {
+          user_uid: uid
+      }
+  })
 }
 
 
-function saveUserInfo(req){
-console.log(req);
 
-return users.create({
-   user_id:req.id,
-   user_name:req.name,
-   user_nickname:req.nickname,
-   user_password:req.password,
-   user_email:req.email,
-   user_phone:req.phone
-})
-}
 
-function uidFindOrCreate(uid) {
+function userFindOrCreate(uid, req) {
+
+  console.log("userFindOrcreate : " +req.id)
+  console.log("uid here2: "+uid)
+
 
    return users.findOrCreate({
      where: {
-       user_uid: uid
+       user_uid: uid,
+       user_id:req.id,
+       user_name:req.name,
+       user_nickname:req.nickname,
+       user_password:req.password,
+       user_email:req.email,
+       user_phone:req.phone
  
      }
    })
- }
- exports.uidFindOrCreate=uidFindOrCreate;
 
-exports.saveUserInfo=saveUserInfo;
-exports.getData = getData;
+ }
+ exports.userFindOrCreate=userFindOrCreate;
+
+
+exports.getInfo = getInfo;
 

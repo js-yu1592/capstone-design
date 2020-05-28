@@ -19,21 +19,6 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// function CheckToken(req) {
-//   let token = req.body.token;
-
-//   //console.log(token)
-//   authCheck(token)
-//     .then(decodedToken => {
-//       let uid = decodedToken.uid
-//       console.log(uid)
-//       //repository.saveUser_uid(uid)
-
-//     }
-
-//     )
-//   return authCheck(token)
-// }
 
 
 
@@ -57,28 +42,6 @@ function saveUserInfo(req, res) {
 
 
 
-function setUserInfo(req,res){
-
-
-console.log(req)
-
-  repository.saveUserInfo(req.body);
-
-  firebase
-  .auth()
-  .createUserWithEmailAndPassword(
-    req.body.email, req.body.password
-  
-  ).then(userRecord=>{
-    
-    console.log("Succesfully created");
-    res.redirect("/");
-  }).catch(err=>{
-    res.json({status:"fail",message:err.message})
-    console.log('error while singup',err);
-  })
-
-}
 
 
 
@@ -96,7 +59,9 @@ function login(req,res){
 
 
 function loginprocess(req,res){
-  console.log(req.body.id);   //확실히 아이디가 뜸
+  console.log("here1")
+ // console.log(req.body.idToken)
+//  console.log(req.body)
 firebase
 .auth()
 .signInWithEmailAndPassword(
@@ -105,7 +70,7 @@ firebase
 )
 
 .then(userRecord=>{
-  console.log(req.body.id);
+ // console.log(req.body.id);
   console.log("Successfully fetched user data:");
   res.json({email:req.body.id, password:req.body.password});
   res.redirect('/')
@@ -115,81 +80,22 @@ firebase
 
 }
 
-function logout(req,res){
-console.log("logout 되었습니다.");
-firebase
-.auth().signOut()
-.then(userRecord=>{
 
-  res.redirect('/user_info/login');
-  
-}).catch(err=>{
-  console.log('error logging out',err);
+
+
+
+
+function getProfile(req, res) {
+repository.getInfo(uid)
+.then(result=>{
+  console.log("result : "+result)
+  res.json(result)
 })
 
 }
 
-function googleLogin(req,res){
-  var provider = new firebase.auth.GoogleAuthProvider();
-  console.log("provider :"+provider);
-  firebase.auth().signInWithPopup(provider).then(function(result) {
-    console.log(result)
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    var token = result.credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    // ...
-  }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-  });
 
 
-}
-
-
-function checkGoogleToken(req,res){
-
-  var id_token=googleUser.getAuthResponse().id_token;
-
- 
-// Build Firebase credential with the Google ID token.
-var credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-
-// Sign in with credential from the Google user.
-firebase.auth().signInWithCredential(credential).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  // ...
-});
-    
-}
-function getProfile(req, res) {
-
-  console.log(req.user.dataValues)
-  res.json(req.user)
-}
-
-function getbasic(req,res){
-  console.log("Hello");
-}
-exports.getBasic=getbasic;
 exports.getProfile=getProfile;
-exports.googleLogin=googleLogin;
-exports.logout=logout
-exports.login=login
-exports.loginprocess=loginprocess
-exports.saveUserInfo = saveUserInfo
-exports.setUserInfo=setUserInfo
 
+exports.loginprocess=loginprocess

@@ -22,13 +22,14 @@ public class FishTankActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.activity_fish_tank,container, false);
         textView=view.findViewById(R.id.fish_text);
-        println("fish_name : 광어");
-        println("fish_length : 7.80cm");
-        println("fish_weight : 5.80kg");
-        println("fish_lat : 37.3062275");
-        println("fish_lon : 126.8149098");
-        println("fish_fishing : 송라 낚시터");
-
+        for(int i=0;i<Main2Activity.fishArr.size();i++) {
+            println("fish_name : "+Main2Activity.fishArr.get(i).fish_name);
+            println("fish_length : "+Main2Activity.fishArr.get(i).fish_length);
+            println("fish_weight : "+Main2Activity.fishArr.get(i).fish_weight);
+            println("fish_lat : "+Main2Activity.fishArr.get(i).fish_lat);
+            println("fish_lon : "+Main2Activity.fishArr.get(i).fish_lon);
+            println("fish_fishing : "+Main2Activity.fishArr.get(i).fish_fishing);
+        }
         return view;
     }
     public void println(String data){

@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation 'gun0912.ted:tedpermission:2.2.3'
     implementation 'com.akexorcist:bluetoothspp:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.firebase:firebase-database:19.1.0'

@@ -5,7 +5,12 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".bluetoothActivity">
-
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:onClick="btnBackClicked"
+        android:text="뒤로" />
 <Button
     android:id="@+id/btnConnect"
     android:layout_width="wrap_content"

@@ -1,58 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".SettingActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".SettingActivity">
 
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="btnBackClicked"
-        android:text="뒤로" />
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="250dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="50dp"
-        android:text="push알림 허용"
-        android:textSize="15dp"/>
-
-    <Switch
-        android:id="@+id/switch2"
-        android:layout_width="250dp"
-        android:layout_height="52dp"
-        android:textSize="15dp"
-        android:text="위치정보 허용"
-        />
-
-    <Switch
-        android:id="@+id/switch3"
-        android:layout_width="250dp"
-        android:layout_height="52dp"
-        android:textSize="15dp"
-        android:text="사운드 허용"
-        />
-
-    <Switch
-        android:id="@+id/switch5"
-        android:layout_width="250dp"
-        android:layout_height="52dp"
-        android:textSize="15dp"
-        android:text="개인정보 허용"
-        />
+<Button
+    android:id="@+id/button8"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:onClick="button8Clicked"
+    android:textSize="20dp"
+    android:text="뒤로" />
 
 
-    <Button
-        android:id="@+id/buttonFind"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+<ToggleButton
+    android:id="@+id/toggleButton1"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="270dp"
+    android:onClick="onClick"
+    android:textOff="GPS"
+    android:textOn="GPS"
+    android:textSize="20dp" />
+
+<ToggleButton
+    android:id="@+id/toggleButton4"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="340dp"
+    android:onClick="onClick"
+    android:textOff="MIC"
+    android:textOn="MIC"
+    android:textSize="20dp" />
+
+<ToggleButton
+    android:id="@+id/toggleButton3"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="200dp"
+    android:onClick="onClick"
+    android:textOff="STORAGE"
+    android:textOn="STORAGE"
+    android:textSize="20dp" />
+
+<ToggleButton
+    android:id="@+id/toggleButton2"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="130dp"
+    android:onClick="onClick"
+    android:textOff="CAMERA"
+    android:textOn="CAMERA"
+    android:textSize="20dp" />
+
+<TextView
+    android:id="@+id/textView5"
+    android:layout_width="250dp"
+    android:layout_height="50dp"
+    android:layout_marginLeft="160dp"
+    android:layout_marginTop="340dp"/>
+
+<TextView
+    android:id="@+id/textView"
+    android:layout_width="250dp"
+    android:layout_height="50dp"
+    android:layout_marginLeft="160dp"
+    android:layout_marginTop="270dp"
+    android:text="" />
+
+<TextView
+    android:id="@+id/textView4"
+    android:layout_width="250dp"
+    android:layout_height="50dp"
+    android:layout_marginLeft="160dp"
+    android:layout_marginTop="200dp"
+    android:text="" />
+
+<TextView
+    android:id="@+id/textView3"
+    android:layout_width="250dp"
+    android:layout_height="50dp"
+    android:layout_marginLeft="160dp"
+    android:layout_marginTop="130dp"
+    android:text="" />
+
+<TextView
+    android:id="@+id/textView2"
+    android:layout_width="211dp"
+    android:layout_height="50dp"
+    android:layout_marginLeft="240dp"
+    android:layout_marginTop="10dp"
+    android:textSize="20dp"
+    android:text="A1 --> permission" />
+
+<Button
+    android:id="@+id/button"
+    android:layout_width="67dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="170dp"
+    android:onClick="onClick"
+    android:text="설정"
+    android:textSize="20dp" />
+
+<Button
+    android:id="@+id/buttonFind"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="450dp"
+    android:layout_marginLeft="40dp"
+    android:onClick="onClick"
+    android:textSize="20dp"
+    android:textColor="@color/colorPrimary"
+    android:text="로그아웃" />
+
+<TextView
+    android:id="@+id/textviewDelete"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="230dp"
+    android:layout_marginTop="460dp"
+    android:text="회원탈퇴"
+    android:textColor="@color/colorAccent"
+    android:textSize="20dp" />
 
 
-        android:text="회원탈퇴" />
-
-</LinearLayout>
+</RelativeLayout>

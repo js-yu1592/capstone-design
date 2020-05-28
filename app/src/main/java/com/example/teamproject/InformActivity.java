@@ -47,13 +47,10 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
     private GoogleMap mMap;
     private String lat;
     private String lon;
-    public ArrayList<String> lati=new ArrayList<>();
-    public ArrayList<String> longi=new ArrayList<>();
-    public ArrayList<String> title=new ArrayList<>();
-    static RequestQueue requestQueue;
-    public ArrayList<fishListResult> fishArr;
+
+
     private GpsTracker gpsTracker;
-    String result;
+
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,
@@ -63,6 +60,8 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inform);
+
+
 
         if (!checkLocationServicesStatus()) {
 
@@ -97,45 +96,13 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync( this);
 
-//        if(requestQueue==null){
-//            requestQueue= Volley.newRequestQueue(getApplicationContext());
-//        }
-//        makeRequest();
+
 
     }
-//
-//    public void makeRequest(){
-//        String fish_url="http://localhost:3000/user_fish/fish";
-//        StringRequest request=new StringRequest(Request.Method.GET,fish_url,new Response.Listener<String>(){
-//            @Override
-//            public void onResponse(String response){
-//                processResponse(response);
-//            }
-//            public void processResponse(String response){
-//                Gson gson=new Gson();
-//                FishTankList FishTankList=gson.fromJson(response, FishTankList.class);
-//                fishArr=new ArrayList<fishListResult>();
-//
-//                fishArr=FishTankList.fish;
-//                Toast.makeText(getApplicationContext(),FishTankList.fish.get(0).fish_comment,Toast.LENGTH_LONG).show();
-//            }
-//        },
-//                new Response.ErrorListener(){
-//                    @Override
-//                    public void onErrorResponse(VolleyError error){
-//                       // Toast.makeText(getApplicationContext(),"에러",Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//        ){
-//            @Override
-//            protected Map<String,String> getParams() throws AuthFailureError {
-//                Map<String,String> params=new HashMap<String,String>();
-//                return params;
-//            }
-//        };
-//        request.setShouldCache(false);
-//        requestQueue.add(request);
-//    }
+
+
+
+
 //지도 표시
     @Override
     public void onMapReady(final GoogleMap googleMap) {
@@ -145,60 +112,33 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
         LatLng SEOUL =new LatLng(37.56,126.97);
         mMap.moveCamera(CameraUpdateFactory.newLatLng((SEOUL)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-        lati.add(String.valueOf(37.3723874));
-        lati.add(String.valueOf(37.3730211));
-        lati.add(String.valueOf(37.3062275));
-        longi.add(String.valueOf(126.7452172));
-        longi.add(String.valueOf(126.7583249));
-        longi.add(String.valueOf(126.8149098));
-        title.add("뒷방울 낚시터");
-        title.add("장절샘터 낚시터");
-        title.add("송라 낚시터");
 
-//         for(int i=0;i<3;i++){
-//            MarkerOptions markerOptions=new MarkerOptions();
-//            markerOptions.position(new LatLng(Double.valueOf(fishArr.get(i).fish_lat),Double.valueOf(fishArr.get(i).fish_lon))).title(fishArr.get(i).fish_fishing);
-//            mMap.addMarker(markerOptions);
-//        }
-        for(int i=0;i<3;i++){
+
+
+
+        for(int i=0;i<Main2Activity.fishArr.size();i++){
             MarkerOptions markerOptions=new MarkerOptions();
-            markerOptions.position(new LatLng(Double.valueOf(lati.get(i)),Double.valueOf(longi.get(i)))).title(title.get(i));
+            markerOptions.position(new LatLng(Double.valueOf(Main2Activity.fishArr.get(i).fish_lat),Double.valueOf(Main2Activity.fishArr.get(i).fish_lon))).title(Main2Activity.fishArr.get(i).fish_fishing);
             mMap.addMarker(markerOptions);
         }
-//        MarkerOptions markerOptions=new MarkerOptions();
-//        markerOptions.position(new LatLng(Double.valueOf(37.3723874),Double.valueOf(126.7452172))).title("뒷방울 낚시터");
-//        mMap.addMarker(markerOptions);
-//
-//
-//       // MarkerOptions markerOptions2=new MarkerOptions();
-//        markerOptions.position(new LatLng(Double.valueOf(37.3730211),Double.valueOf(126.7583249))).title("장절샘터 낚시터");
-//       // mMap.addMarker(markerOptions2);
-//
-//
-//       // MarkerOptions markerOptions3=new MarkerOptions();
-//        markerOptions.position(new LatLng(Double.valueOf(37.3062275),Double.valueOf(126.8149098))).title("송라 낚시터");
-//        //mMap.addMarker(markerOptions3);
 
         mMap.setOnMarkerClickListener(this);
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng point) {
-                lat=String.valueOf(point.latitude);
-                lon=String.valueOf(point.longitude);
-
-                Intent intent=new Intent(getApplicationContext(),InformFragActivity.class);
-                intent.putExtra("fishArr",fishArr);
-                intent.putExtra("lat",lat);
-                intent.putExtra("lon",lon);
-
-                startActivity(intent);
-//                String text = "latitude =" + point.latitude + ", longitude ="
-//                        + point.longitude;
-//                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG)
-//                        .show();
-            }
-        });
+//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng point) {
+//                lat=String.valueOf(point.latitude);
+//                lon=String.valueOf(point.longitude);
+//
+//                Intent intent=new Intent(getApplicationContext(),InformFragActivity.class);
+//                //intent.putExtra("fishArr",fishArr);
+//                intent.putExtra("lat",lat);
+//                intent.putExtra("lon",lon);
+//
+//                startActivity(intent);
+//
+//            }
+//        });
     }
     @Override
     public boolean onMarkerClick(Marker marker){
@@ -211,6 +151,8 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
         startActivity(intent);
         return false;
     }
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

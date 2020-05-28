@@ -41,10 +41,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
        Intent intent=getIntent();
         findViewById(R.id.post_save_button).setOnClickListener(this);
 
-        if(intent.hasExtra("uid")){
-            muid=intent.getStringExtra("uid");
 
-        }
 
     }
 
@@ -59,7 +56,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this,uid,Toast.LENGTH_SHORT).show();
 
             Post post=new Post(email,mTitle.getText().toString(), mContents.getText().toString());
-            mDatabase.child("USER").child("user_info").child("Board").push().setValue(post);
+            mDatabase.child("USER").child("Board").push().setValue(post);
             Toast.makeText(PostActivity.this,"DB에 저장완료",Toast.LENGTH_SHORT).show();
             Intent intent=new Intent(PostActivity.this, Board.class);
             startActivity(intent);

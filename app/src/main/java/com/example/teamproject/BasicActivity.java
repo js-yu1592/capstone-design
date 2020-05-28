@@ -42,7 +42,7 @@ public class BasicActivity extends AppCompatActivity {
 
                 Log.d(TAG,"basic온  uid:"+uid);
                 Intent intent=new Intent(BasicActivity.this,Board.class);
-                intent.putExtra("uid",uid);
+              //  intent.putExtra("uid",uid);
                 startActivity(intent);
                 finish();
             }

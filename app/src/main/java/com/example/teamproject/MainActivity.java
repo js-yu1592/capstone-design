@@ -27,12 +27,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.regex.Pattern;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextPassword;
     private Button btn_signUp;
     private Button btn_signIn;
+    private EditText editTextPhone;
+    private EditText editTextNickname;
+    private EditText editTextId;
+    private EditText editTextname;
     private String email = "";
     private String password = "";
     private String uid = "";
@@ -83,18 +95,7 @@ public class MainActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.et_password);
 
 
-//        retrofitInterface=RetrofitUtility.getRetrofitInterface();
-//        retrofitInterface.getData().enqueue(new Callback<Login>() {
-//            @Override
-//            public void onResponse(Call<Login> call, Response<Login> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Login> call, Throwable t) {
-//
-//            }
-//        });
+
 
         //Google 로그인을 앱에 통합
         //GoogleSignInOptions 개체를 구성할 때 requestIdToken을 호출
@@ -134,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         firebaseAuthListener=new FirebaseAuth.AuthStateListener() {
             @Override
 
@@ -141,22 +143,59 @@ public class MainActivity extends AppCompatActivity {
             //사용자가 로그인한 경우 , 사용자가 로그아웃한 경우 사용자가 변경될때 발생
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user=firebaseAuth.getCurrentUser();
-                String uid=user.getUid();
+
+                final String uid = user.getUid();
                 Log.d(TAG,"user uid:"+user.getUid());
-                if(user!=null){
+     user.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+         @Override
+         public void onComplete(@NonNull Task<GetTokenResult> task) {
+             if(task.isSuccessful()) {
+                 String idToken = task.getResult().getToken();
+                 Log.d(TAG,"IDtoKEN: "+idToken);
+
+                 try {
+                      OkHttpClient client=new OkHttpClient();
+                    RequestBody formBody=new FormBody.Builder()
+                            .add("idToken",idToken)
+                            .add("uid",uid)
+                            .build();
+
+                      Request request=new Request.Builder()
+                              .url("http://10.0.2.2:3000/user_info/my")
+                              .post(formBody)
+                              .build();
+                     //바동기 처리
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    System.out.println("error + Connection Server Error is"+e.toString());
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    Log.d(TAG,"success:"+response.body().toString());
+                    System.out.println("Response Body is "+ response.body().string());
+                }
+            });
+
+
+                 } catch (Exception e) {
+                     e.printStackTrace();
+                 }
+
+             }
+         }
+     });
+
                     Intent intent=new Intent(MainActivity.this, BasicActivity.class);
 
-                    intent.putExtra("uid",uid);
-                    Log.d(TAG,"basic가는 uid:"+uid);
-                    Toast.makeText(MainActivity.this,uid, Toast.LENGTH_SHORT).show();
+                   // intent.putExtra("uid",uid);
+
+                  //  Toast.makeText(MainActivity.this,uid, Toast.LENGTH_SHORT).show();
                     startActivity(intent);
 
-                }else{
-
                 }
-            }
-        };
-
+            };
 
 
         btn_signUp.setOnClickListener(new View.OnClickListener(){
@@ -183,21 +222,7 @@ public class MainActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
-                            FirebaseUser mUser=FirebaseAuth.getInstance().getCurrentUser();
-                            mUser.getIdToken(true)
-                                    .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<GetTokenResult> task) {
-                                            if(task.isSuccessful()){
-                                                String idToken=task.getResult().getToken();
-                                                  //How to send the token to server
-                                                Log.d(TAG,"idToken  send:"+idToken);
 
-                                            }else{
-
-                                            }
-                                        }
-                                    });
 
                             firebaseAuth.addAuthStateListener(firebaseAuthListener);
 
@@ -209,6 +234,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -256,15 +283,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    //활동을 초기화할떄 사용자가 현재 로그인 되어있는지 확인
-//   protected void onStart(){
-//
-//        super.onStart();
-//        FirebaseUser user=firebaseAuth.getCurrentUser();
-//        if(user!=null){
-//            Toast.makeText(this,"자동 로그인: "+user.getUid(),Toast.LENGTH_SHORT).show();
-//        }
-//   }
 
 
    protected void onStop(){
@@ -274,18 +292,6 @@ public class MainActivity extends AppCompatActivity {
         }
    }
 
-//   public void sendRegistrationToServer(String token){
-//
-//        class SendPostReqAsyncTask extends AsyncTask<String, Void,String>{
-//
-//            @Override
-//            protected String doInBackground(String ...params){
-//                String token=params[0];
-//
-//
-//            }
-//        }
-//   }
 
 
 

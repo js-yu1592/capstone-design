@@ -52,7 +52,7 @@ public class Marker extends AppCompatActivity implements OnMapReadyCallback {
 
     }
     public void makeRequest(){
-        String fish_url="http://localhost:3000/user_fish/fish";
+        String fish_url="https://kpu-lastproject.herokuapp.com/user_fish/fish";
         StringRequest request=new StringRequest(Request.Method.GET,fish_url,new Response.Listener<String>(){
             @Override
             public void onResponse(String response){

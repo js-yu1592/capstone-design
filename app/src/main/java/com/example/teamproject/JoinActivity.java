@@ -11,22 +11,38 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.teamproject.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.regex.Pattern;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 public class JoinActivity extends AppCompatActivity {
     // 비밀번호 정규식
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{4,16}$");
@@ -48,7 +64,7 @@ public class JoinActivity extends AppCompatActivity {
     private String phone = "";
     private String id = "";
     private String nickname="";
-
+  private FirebaseAuth mAuth=FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,33 +127,87 @@ public class JoinActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        FirebaseUser user=firebaseAuth.getCurrentUser();
-                        String uid=user.getUid();
+
+
                         if (task.isSuccessful()) {    //회원가입 성공시
 
-
+                         FirebaseUser mUser=FirebaseAuth.getInstance().getCurrentUser();
                             Toast.makeText(JoinActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
-                            mDatabase.addValueEventListener(new ValueEventListener() {
+
+                            mUser.getIdToken(true)
+                                    .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<GetTokenResult> task) {
+                                            if(task.isSuccessful()){
+                                                String idToken=task.getResult().getToken();
+                                                String email=editTextEmail.getText().toString();
+                                                String pwd=editTextPassword.getText().toString();
+                                                String nickname=editTextNickname.getText().toString();
+                                                String phone=editTextPhone.getText().toString();
+                                                String id=editTextId.getText().toString();
+                                                String name=editTextname.getText().toString();
+                                           try{
+
+                                               OkHttpClient client=new OkHttpClient();
+                                               RequestBody formBody = new FormBody.Builder()
+                                                       .add("idToken", idToken)
+                                                       .add("email",email)
+                                                       .add("password", pwd)
+                                                       .add("name",name)
+                                                       .add("phone",phone)
+                                                       .add("nickname",nickname)
+                                                       .add("id",id)
+                                                       .build();
+
+                                               Request request=new Request.Builder()
+                                                       .url("http://10.0.2.2:3000/user_info/login")
+                                                       .post(formBody)
+                                                       .build();
+                                               //바동기 처리
+                                               client.newCall(request).enqueue(new Callback() {
+                                                   @Override
+                                                   public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                                       Log.d(TAG,"fail:"+e.toString());
+                                                       System.out.println("error + Connection Server Error is"+e.toString());
+                                                   }
+
+                                                   @Override
+                                                   public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                                                       Log.d(TAG,"success:"+response.body().toString());
+                                                       System.out.println("Response Body is "+ response.body().string());
+                                                   }
+                                               });
+                                           }catch(Exception e){
+
+                                           }
+                                            }
+                                        }
+                                    });
+                            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
 
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(firebaseAuth.getCurrentUser()!=null) {
                                     String email=editTextEmail.getText().toString().trim();
                                     FirebaseUser user=firebaseAuth.getCurrentUser();
 
                                     String uid=user.getUid();
-                                    if(dataSnapshot.child("USER").child("user_info").exists()){
+                                    if(dataSnapshot.child("USER").child("유저정보").child(uid).exists()){
                                         Toast.makeText(JoinActivity.this,"DB에 이미존재",Toast.LENGTH_SHORT).show();
                                     }else{
 
 
-                                        User user_info=new User(uid,editTextId.getText().toString(),editTextEmail.getText().toString(),editTextPassword.getText().toString(),
-                                                editTextname.getText().toString(), editTextNickname.getText().toString(),editTextPhone.getText().toString());
+                                                       User user_info = new User(uid, editTextId.getText().toString(), editTextEmail.getText().toString(), editTextPassword.getText().toString(),
+                                                               editTextname.getText().toString(), editTextNickname.getText().toString(), editTextPhone.getText().toString());
 
-                                //전체 데이터삭제
-                                     // mDatabase.setValue(null);
-                                        mDatabase.child("USER").child("user_info").setValue(user_info);
-                                        Toast.makeText(JoinActivity.this,"DB에 저장완료",Toast.LENGTH_SHORT).show();
+                                                       //전체 데이터삭제
+                                                       // mDatabase.setValue(null);
+                                                       //String key = mDatabase.child("USER").push().getKey();
+                                                       mDatabase.child("USER").child("유저정보").push().setValue(user_info);
+                                                       Toast.makeText(JoinActivity.this, "DB에 저장완료", Toast.LENGTH_SHORT).show();
+                                                   }
                                     }
+
                                 }
 
                                 @Override
@@ -147,7 +217,7 @@ public class JoinActivity extends AppCompatActivity {
                             });
                             Intent intent = new Intent(JoinActivity.this, MainActivity.class);
                             startActivity(intent);
-                            finish();
+
                         } else {  //계정중복된경우
                             Toast.makeText(JoinActivity.this, "이미 존재하는 계정입니다", Toast.LENGTH_SHORT).show();
                             return;

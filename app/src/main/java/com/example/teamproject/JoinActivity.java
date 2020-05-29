@@ -76,10 +76,10 @@ public class JoinActivity extends AppCompatActivity {
 
         editTextEmail = (EditText)findViewById(R.id.join_email);
         editTextPassword = (EditText)findViewById(R.id.join_password);
-       editTextPhone=(EditText)findViewById(R.id.join_phone);
-       editTextNickname=(EditText)findViewById(R.id.join_nickname);
-       editTextname=(EditText)findViewById(R.id.join_name);
-       editTextId=(EditText) findViewById(R.id.join_id);
+        editTextPhone=(EditText)findViewById(R.id.join_phone);
+        editTextNickname=(EditText)findViewById(R.id.join_nickname);
+        editTextname=(EditText)findViewById(R.id.join_name);
+        editTextId=(EditText) findViewById(R.id.join_id);
         Button button=findViewById(R.id.btn_finish);
 
 
@@ -132,6 +132,8 @@ public class JoinActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {    //회원가입 성공시
 
                          FirebaseUser mUser=FirebaseAuth.getInstance().getCurrentUser();
+                            Log.d(TAG,"uid here : "+mUser.getUid());
+                         Log.d(TAG,"displayname : "+mUser.getDisplayName());
                             Toast.makeText(JoinActivity.this, "회원가입 성공", Toast.LENGTH_SHORT).show();
 
                             mUser.getIdToken(true)
@@ -160,7 +162,7 @@ public class JoinActivity extends AppCompatActivity {
                                                        .build();
 
                                                Request request=new Request.Builder()
-                                                       .url("http://10.0.2.2:3000/user_info/login")
+                                                       .url("https://kpu-lastproject.herokuapp.com/user_info/login")
                                                        .post(formBody)
                                                        .build();
                                                //바동기 처리
@@ -192,7 +194,7 @@ public class JoinActivity extends AppCompatActivity {
                                     FirebaseUser user=firebaseAuth.getCurrentUser();
 
                                     String uid=user.getUid();
-                                    if(dataSnapshot.child("USER").child("유저정보").child(uid).exists()){
+                                    if(dataSnapshot.child("USER").child("user_info").child(uid).exists()){
                                         Toast.makeText(JoinActivity.this,"DB에 이미존재",Toast.LENGTH_SHORT).show();
                                     }else{
 
@@ -203,7 +205,7 @@ public class JoinActivity extends AppCompatActivity {
                                                        //전체 데이터삭제
                                                        // mDatabase.setValue(null);
                                                        //String key = mDatabase.child("USER").push().getKey();
-                                                       mDatabase.child("USER").child("유저정보").push().setValue(user_info);
+                                                       mDatabase.child("USER").child("user_info").push().setValue(user_info);
                                                        Toast.makeText(JoinActivity.this, "DB에 저장완료", Toast.LENGTH_SHORT).show();
                                                    }
                                     }

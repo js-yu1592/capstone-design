@@ -97,7 +97,7 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
            @Override
 
            public void onDataChange( DataSnapshot dataSnapshot) {
-               Log.d(TAG,"user:"+"sada");
+
 
 
                //파이어베이스 데이터베이스의 데이터를 받아오는 곳

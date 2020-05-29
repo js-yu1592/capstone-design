@@ -146,46 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final String uid = user.getUid();
                 Log.d(TAG,"user uid:"+user.getUid());
-     user.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-         @Override
-         public void onComplete(@NonNull Task<GetTokenResult> task) {
-             if(task.isSuccessful()) {
-                 String idToken = task.getResult().getToken();
-                 Log.d(TAG,"IDtoKEN: "+idToken);
 
-                 try {
-                      OkHttpClient client=new OkHttpClient();
-                    RequestBody formBody=new FormBody.Builder()
-                            .add("idToken",idToken)
-                            .add("uid",uid)
-                            .build();
-
-                      Request request=new Request.Builder()
-                              .url("http://10.0.2.2:3000/user_info/my")
-                              .post(formBody)
-                              .build();
-                     //바동기 처리
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                    System.out.println("error + Connection Server Error is"+e.toString());
-                }
-
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    Log.d(TAG,"success:"+response.body().toString());
-                    System.out.println("Response Body is "+ response.body().string());
-                }
-            });
-
-
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                 }
-
-             }
-         }
-     });
 
                     Intent intent=new Intent(MainActivity.this, BasicActivity.class);
 

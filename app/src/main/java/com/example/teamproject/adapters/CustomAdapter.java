@@ -50,7 +50,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
    }
     @NonNull
     @Override
-    public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //리스트뷰가 어댑터에 연결된다음에 최초로 뷰홀더만듬
+    public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {         //리스트뷰가 어댑터에 연결된다음에 최초로 뷰홀더만듬
 
         context=parent.getContext();
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post,parent,false);
@@ -64,7 +64,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
 
     @Override
-    public void onBindViewHolder(@NonNull CustomAdapter.CustomViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull CustomAdapter.CustomViewHolder holder, final int position) {    //재활용되는 뷰가 호출하여 실행되는 메소드
        Post post=arrayList.get(holder.getAdapterPosition());
 
       holder.email.setText("작성자 : "+arrayList.get(position).getDocumentId());

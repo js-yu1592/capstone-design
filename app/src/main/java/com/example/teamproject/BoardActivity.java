@@ -85,7 +85,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
         Intent secondIntent=getIntent();
         uid=secondIntent.getStringExtra("uid");
         database=FirebaseDatabase.getInstance();  //Firebase 데이터베이스 연동
-        databaseReference=database.getReference("USER").child("user_info").child("Board"); //DB 테이블 연결
+        databaseReference=database.getReference("USER").child("Board"); //DB 테이블 연결
 
         findViewById(R.id.main_post_edit).setOnClickListener(this);
 

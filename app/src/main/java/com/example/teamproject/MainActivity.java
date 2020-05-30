@@ -2,7 +2,7 @@ package com.example.teamproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
-
+import java.io.IOException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,12 +25,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.annotations.NotNull;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import java.util.regex.Pattern;
+import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity {
 
-//    // 비밀번호 정규식
+    //    // 비밀번호 정규식
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9!@.#$%^&*?_~]{4,16}$");
 
     // 구글로그인 result 상수 , 구글로그인 버튼을 클릭하여 startactivityforresult 응답코드로 사용
@@ -51,12 +60,16 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextPassword;
     private Button btn_signUp;
     private Button btn_signIn;
+    private EditText editTextPhone;
+    private EditText editTextNickname;
+    private EditText editTextId;
+    private EditText editTextname;
     private String email = "";
     private String password = "";
     private String uid = "";
 
-    public static final String apiKey="AAAAsp7tChI:APA91bEXF0BtJoSRSkJf1xe6MJHXltY_Rl15Nf-g4_-vL9xuPeFnpiDDoCapkJ8VG24x9xdwnJ1ZFqTbQkyTNP7z01cffkTT5jHu_J_iZwqV35TVxtvVv-sWAXM2xOEMvLnmbOPqUaV2";
-    public static final String senderid="767170513426";
+//    public static final String apiKey="AAAAsp7tChI:APA91bEXF0BtJoSRSkJf1xe6MJHXltY_Rl15Nf-g4_-vL9xuPeFnpiDDoCapkJ8VG24x9xdwnJ1ZFqTbQkyTNP7z01cffkTT5jHu_J_iZwqV35TVxtvVv-sWAXM2xOEMvLnmbOPqUaV2";
+    //  public static final String senderid="767170513426";
 
 
 
@@ -77,18 +90,7 @@ public class MainActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.et_password);
 
 
-//        retrofitInterface=RetrofitUtility.getRetrofitInterface();
-//        retrofitInterface.getData().enqueue(new Callback<Login>() {
-//            @Override
-//            public void onResponse(Call<Login> call, Response<Login> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Login> call, Throwable t) {
-//
-//            }
-//        });
+
 
         //Google 로그인을 앱에 통합
         //GoogleSignInOptions 개체를 구성할 때 requestIdToken을 호출
@@ -128,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         firebaseAuthListener=new FirebaseAuth.AuthStateListener() {
             @Override
 
@@ -135,22 +138,59 @@ public class MainActivity extends AppCompatActivity {
             //사용자가 로그인한 경우 , 사용자가 로그아웃한 경우 사용자가 변경될때 발생
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user=firebaseAuth.getCurrentUser();
-                String uid=user.getUid();
+
+                final String uid = user.getUid();
                 Log.d(TAG,"user uid:"+user.getUid());
-                if(user!=null){
-                    Intent intent=new Intent(MainActivity.this, Main2Activity.class);
+                user.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+                        if(task.isSuccessful()) {
+                            String idToken = task.getResult().getToken();
+                            Log.d(TAG,"IDtoKEN: "+idToken);
 
-                    intent.putExtra("uid",uid);
-                    Log.d(TAG,"basic가는 uid:"+uid);
-                    Toast.makeText(MainActivity.this,uid, Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
+                            try {
+                                OkHttpClient client=new OkHttpClient();
+                                RequestBody formBody=new FormBody.Builder()
+                                        .add("idToken",idToken)
+                                        .add("uid",uid)
+                                        .build();
 
-                }else{
+                                Request request=new Request.Builder()
+                                        .url("https://kpu-lastproject.herokuapp.com/user_info/login")
+                                        .post(formBody)
+                                        .build();
+                                //바동기 처리
+                                client.newCall(request).enqueue(new Callback() {
+                                    @Override
+                                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                        System.out.println("error + Connection Server Error is"+e.toString());
+                                    }
 
-                }
+                                    @Override
+                                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                                        Log.d(TAG,"success:"+response.body().toString());
+                                        System.out.println("Response Body is "+ response.body().string());
+                                    }
+                                });
+
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                });
+
+                Intent intent=new Intent(MainActivity.this, Main2Activity.class);
+
+                // intent.putExtra("uid",uid);
+
+                //  Toast.makeText(MainActivity.this,uid, Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+
             }
         };
-
 
 
         btn_signUp.setOnClickListener(new View.OnClickListener(){
@@ -165,10 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
+
     private void loginUser(String email, String pwd) {
 
         firebaseAuth.signInWithEmailAndPassword(email,pwd)
@@ -180,21 +217,7 @@ public class MainActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
-                            FirebaseUser mUser=FirebaseAuth.getInstance().getCurrentUser();
-                            mUser.getIdToken(true)
-                                    .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<GetTokenResult> task) {
-                                            if(task.isSuccessful()){
-                                                String idToken=task.getResult().getToken();
-                                                  //How to send the token to server
-                                                Log.d(TAG,"idToken  send:"+idToken);
 
-                                            }else{
-
-                                            }
-                                        }
-                                    });
 
                             firebaseAuth.addAuthStateListener(firebaseAuthListener);
 
@@ -206,6 +229,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -240,9 +265,9 @@ public class MainActivity extends AppCompatActivity {
                             //로그인 성공
                             Toast.makeText(MainActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
 
-                                Intent intent=new Intent(MainActivity.this, Main2Activity.class);
-                                startActivity(intent);
-
+                            Intent intent=new Intent(MainActivity.this, Main2Activity.class);
+                            startActivity(intent);
+                            finish();
 
                         } else {
                             //로그인 실패
@@ -253,36 +278,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    //활동을 초기화할떄 사용자가 현재 로그인 되어있는지 확인
-//   protected void onStart(){
-//
-//        super.onStart();
-//        FirebaseUser user=firebaseAuth.getCurrentUser();
-//        if(user!=null){
-//            Toast.makeText(this,"자동 로그인: "+user.getUid(),Toast.LENGTH_SHORT).show();
-//        }
-//   }
 
 
-   protected void onStop(){
+    protected void onStop(){
         super.onStop();
         if(firebaseAuthListener!=null){
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
-   }
+    }
 
-//   public void sendRegistrationToServer(String token){
-//
-//        class SendPostReqAsyncTask extends AsyncTask<String, Void,String>{
-//
-//            @Override
-//            protected String doInBackground(String ...params){
-//                String token=params[0];
-//
-//
-//            }
-//        }
-//   }
+
+
 
 
 

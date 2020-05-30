@@ -48,12 +48,15 @@ public class Main2Activity extends AppCompatActivity {
 //            }
 //        });
 
-
+        if(requestQueue==null){
+            requestQueue= Volley.newRequestQueue(getApplicationContext());
+        }
+        makeRequest();
 //스트리밍 화면
         button_stream.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v){
-                Intent intent = new Intent(Main2Activity.this, StreamActivity.class);
+                Intent intent = new Intent(Main2Activity.this, SearchYoutubeActivity.class);
                 startActivity(intent);
 
             }
@@ -87,7 +90,7 @@ public class Main2Activity extends AppCompatActivity {
 
                 Log.d(TAG,"basic온  uid:"+uid);
                 Intent intent=new Intent(Main2Activity.this, BoardActivity.class);
-                intent.putExtra("uid",uid);
+                //intent.putExtra("uid",uid);
                 startActivity(intent);
 
             }
@@ -101,10 +104,7 @@ public class Main2Activity extends AppCompatActivity {
 
             }
         });
-        if(requestQueue==null){
-            requestQueue= Volley.newRequestQueue(getApplicationContext());
-        }
-        makeRequest();
+
     }
     public void makeRequest(){
         String fish_url="https://kpu-lastproject.herokuapp.com/user_fish/fish";
@@ -123,6 +123,7 @@ public class Main2Activity extends AppCompatActivity {
                 fishArr.get(0).fish_lon="126.9024348";
                 fishArr.get(1).fish_lat="37.3657562";
                 fishArr.get(1).fish_lon="126.8555483";
+               // Toast.makeText(Main2Activity.this, FishTankList.fish.get(0).fish_comment, Toast.LENGTH_SHORT).show();
             }
         },
                 new Response.ErrorListener(){

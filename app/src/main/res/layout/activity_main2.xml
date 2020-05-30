@@ -31,7 +31,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginTop="20dp"
         android:onClick="btnStreamClicked"
-        android:text="스트리밍" />
+        android:text="유튜브" />
 
     <Button
         android:id="@+id/btn_inform"

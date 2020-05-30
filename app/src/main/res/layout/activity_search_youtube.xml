@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/eturl"
+            android:layout_width="200dip"
+            android:layout_height="50dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:hint="검색어를 입력하세요"
+            android:imeOptions="actionGo"
+            android:singleLine="true"></EditText>
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_marginLeft="10dip"
+            android:background="#000000"
+            android:gravity="center"
+            android:text="검색"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/searchlist"
+        android:layout_width="fill_parent"
+        android:layout_height="500dip"></ListView>
+</LinearLayout>

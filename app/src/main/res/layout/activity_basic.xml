@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".BasicActivity">
     <Button
-        android:id="@+id/buttonA"
+        android:id="@+id/btn_fishing"
         android:layout_width="134dp"
         android:layout_height="141dp"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="200dp"
-        android:onClick="buttonAClicked"
+        android:onClick="btnFishingClicked"
         android:text="낚시" />
 
     <Button
@@ -20,36 +20,36 @@
         android:layout_height="141dp"
         android:layout_marginLeft="21dp"
         android:layout_marginTop="200dp"
-        android:layout_toRightOf="@id/buttonA"
-        android:onClick="buttonBClicked"
+        android:layout_toRightOf="@id/btn_fishing"
+        android:onClick="btnBoardClicked"
         android:text="게시판" />
     <Button
-        android:id="@+id/buttonC"
+        android:id="@+id/btn_stream"
         android:layout_width="134dp"
         android:layout_height="141dp"
-        android:layout_below="@id/buttonA"
+        android:layout_below="@id/btn_fishing"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="20dp"
-        android:onClick="buttonCClicked"
+        android:onClick="btnStreamClicked"
         android:text="스트리밍" />
 
     <Button
-        android:id="@+id/btn_marker"
+        android:id="@+id/btn_inform"
         android:layout_width="134dp"
         android:layout_height="141dp"
         android:layout_below="@id/btn_board"
         android:layout_marginLeft="21dp"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/buttonC"
-        android:onClick="buttonDClicked"
+        android:layout_toRightOf="@id/btn_stream"
+        android:onClick="buttonClicked"
         android:text="정보" />
     <Button
-        android:id="@+id/buttonE"
+        android:id="@+id/btn_set"
         android:layout_width="90dp"
         android:layout_height="70dp"
         android:layout_marginLeft="230dp"
         android:layout_marginTop="20dp"
-        android:onClick="buttonEClicked"
+        android:onClick="btnSetClicked"
         android:text="환경설정" />
     <Button
         android:id="@+id/btn_Gps"

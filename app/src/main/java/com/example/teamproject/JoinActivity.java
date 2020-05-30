@@ -162,7 +162,7 @@ public class JoinActivity extends AppCompatActivity {
                                                        .build();
 
                                                Request request=new Request.Builder()
-                                                       .url("https://kpu-lastproject.herokuapp.com/user_info/login")
+                                                       .url("http://kpu-lastproject.herokuapp.com/user_info/login")
                                                        .post(formBody)
                                                        .build();
                                                //바동기 처리

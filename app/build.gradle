@@ -5,22 +5,33 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.example.teamproject"
-        minSdkVersion 28
+        minSdkVersion defaultMinSdkVersion
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    packagingOptions{
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.google.firebase:firebase-database:19.1.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
@@ -59,6 +70,10 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.8.0'
 
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation files('libs/httpclient-4.5.6.jar')
+    implementation files('libs/httpcore-4.4.10.jar')
+
 
 }
 apply plugin: 'com.google.gms.google-services'

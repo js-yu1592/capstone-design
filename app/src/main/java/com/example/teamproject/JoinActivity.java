@@ -221,7 +221,7 @@ public class JoinActivity extends AppCompatActivity {
                             startActivity(intent);
 
                         } else {  //계정중복된경우
-                            Toast.makeText(JoinActivity.this, "이미 존재하는 계정입니다", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(JoinActivity.this, "이미 존재하는 계정이거나 비밀번호를 6자리 이상으로 적으십셔!", Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }

@@ -129,5 +129,12 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
 
        startActivity(new Intent(this,PostActivity.class));
     }
-
+    public void btnBackClicked(View v){
+        Intent intent = new Intent(Board.this, BasicActivity.class);
+        startActivity(intent);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

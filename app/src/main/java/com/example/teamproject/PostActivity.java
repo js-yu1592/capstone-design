@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -38,12 +39,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class PostActivity extends AppCompatActivity implements View.OnClickListener {
-
+    private final String APPID = "com.example.teamproject";
+    private final String CAFE_URL = "fishing0128";
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     private static final String TAG="BAAM";
     private FirebaseDatabase database=FirebaseDatabase.getInstance();
     private DatabaseReference mDatabase=database.getReference(); //데이터를 데이터베이스에 쓰기 위해
-
+    private CheckBox checkBox;
     private EditText mTitle, mContents;
     private String muid;
 
@@ -63,7 +65,16 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+    public void naverCafeOnclick(View v){
 
+        new NaverCafe(PostActivity.this, APPID).write(CAFE_URL, "1", mTitle.getText().toString(), mContents.getText().toString());
+
+
+    }
     @Override
     public void onClick(View v) {
         FirebaseUser user=mAuth.getCurrentUser();

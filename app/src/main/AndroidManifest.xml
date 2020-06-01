@@ -25,10 +25,10 @@
     <application
 
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/ic_fishing"
+        android:label="어풀"
         android:usesCleartextTraffic="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_fishing_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -37,6 +37,8 @@
         <activity android:name=".bluetoothActivity" />
         <activity android:name=".FishTankActivity" />
         <activity android:name=".InformFragActivity" />
+        <activity android:name=".YoutubePlayerActivity"></activity>
+        <activity android:name=".SearchYoutubeActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".StreamActivity" />
         <activity android:name=".FishingActivity" />

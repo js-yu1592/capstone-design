@@ -46,7 +46,12 @@
        android:layout_marginEnd="56dp"
        android:layout_marginBottom="3dp"
        android:src="@drawable/ic_delete" />
-
+   <Button
+       android:id="@+id/btn_back"
+       android:layout_width="136dp"
+       android:layout_height="wrap_content"
+       android:onClick="btnBackClicked"
+       android:text="뒤로" />
 
 </RelativeLayout>
 

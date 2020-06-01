@@ -26,9 +26,10 @@ import java.util.HashMap;
 import java.util.Map;
 public class BasicActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
-    private static final String TAG="BAAM";
+    private static final String TAG = "BAAM";
     static RequestQueue requestQueue;
-    public static ArrayList<fishListResult> fishArr=new ArrayList<fishListResult>();
+    public static ArrayList<fishListResult> fishArr = new ArrayList<fishListResult>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,10 +42,13 @@ public class BasicActivity extends AppCompatActivity {
         Button button_fishing = (Button) findViewById(R.id.btn_fishing);
         Button button_set = (Button) findViewById(R.id.btn_set);
 
-
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+        makeRequest();
         button_fishing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(BasicActivity.this, SettingActivity.class);
+                Intent intent = new Intent(BasicActivity.this, bluetoothActivity.class);
                 startActivity(intent);
 
             }
@@ -54,7 +58,7 @@ public class BasicActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(BasicActivity.this, StreamActivity.class);
+                Intent intent = new Intent(BasicActivity.this, SearchYoutubeActivity.class);
                 startActivity(intent);
 
             }
@@ -67,16 +71,15 @@ public class BasicActivity extends AppCompatActivity {
 
             }
         });
-        button_Board.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent secondIntent=getIntent();
+        button_Board.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent secondIntent = getIntent();
 
 
+                String uid = secondIntent.getStringExtra("uid");
 
-                String uid=secondIntent.getStringExtra("uid");
-
-                Log.d(TAG,"basic온  uid:"+uid);
-                Intent intent=new Intent(BasicActivity.this,Board.class);
+                Log.d(TAG, "basic온  uid:" + uid);
+                Intent intent = new Intent(BasicActivity.this, Board.class);
                 //  intent.putExtra("uid",uid);
                 startActivity(intent);
                 finish();
@@ -90,54 +93,51 @@ public class BasicActivity extends AppCompatActivity {
 
             }
         });
-//        if (requestQueue == null) {
-//            requestQueue = Volley.newRequestQueue(getApplicationContext());
-//        }
-////        makeRequest();
-//    }
 
 
-//    public void makeRequest(){
-//        String fish_url="https://kpu-lastproject.herokuapp.com/user_fish/fish";
-//        StringRequest request=new StringRequest(Request.Method.GET,fish_url,new Response.Listener<String>(){
-//            @Override
-//            public void onResponse(String response){
-//                processResponse(response);
-//            }
-//            public void processResponse(String response){
-//                Gson gson=new Gson();
-//                FishTankList FishTankList=gson.fromJson(response, FishTankList.class);
-//
-//
-//                fishArr=FishTankList.fish;
-//                fishArr.get(0).fish_lat="37.2836834";
-//                fishArr.get(0).fish_lon="126.9024348";
-//                fishArr.get(1).fish_lat="37.3657562";
-//                fishArr.get(1).fish_lon="126.8555483";
-//            }
-//        },
-//                new Response.ErrorListener(){
-//                    @Override
-//                    public void onErrorResponse(VolleyError error){
-//                        Toast.makeText(getApplicationContext(),"에러",Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//        ){
-//            @Override
-//            protected Map<String,String> getParams() throws AuthFailureError {
-//                Map<String,String> params=new HashMap<String,String>();
-//                return params;
-//            }
-//        };
-//        request.setShouldCache(false);
-//        requestQueue.add(request);
-    }
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//    }
 
 
 
     }
+    public void makeRequest () {
+        String fish_url = "https://kpu-lastproject.herokuapp.com/user_fish/fish";
+        StringRequest request = new StringRequest(Request.Method.GET, fish_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                processResponse(response);
+            }
 
+            public void processResponse(String response) {
+                Gson gson = new Gson();
+                FishTankList FishTankList = gson.fromJson(response, FishTankList.class);
+
+
+                fishArr = FishTankList.fish;
+                fishArr.get(0).fish_lat = "37.2836834";
+                fishArr.get(0).fish_lon = "126.9024348";
+                fishArr.get(1).fish_lat = "37.3657562";
+                fishArr.get(1).fish_lon = "126.8555483";
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "에러", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+        request.setShouldCache(false);
+        requestQueue.add(request);
+    }
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+    }
+
+}

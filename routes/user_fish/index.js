@@ -10,7 +10,7 @@ const { firebaseAuth } = require('../middleware')
 router
 
 
-.get('/fish',firebaseAuth,service.getFish)
+.get('/fish',service.getFish)
 
 
 module.exports = router

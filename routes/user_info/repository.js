@@ -1,13 +1,13 @@
 var qs = require('querystring');
 const {  users} = require('../../models')
+const board_Repository= require('../board/repository')
 
-
-function getInfo(uid) {
+function getInfo(email) {
 
   console.log("getInfo")
-  return Users.findAll({
+  return users.findAll({
       where: {
-          user_uid: uid
+          user_email: email
       }
   })
 }
@@ -16,9 +16,7 @@ function getInfo(uid) {
 
 
 function userFindOrCreate(uid, req) {
-
-  console.log("userFindOrcreate : " +req.id)
-  console.log("uid here2: "+uid)
+  console.log("--------------------------")
 
 
    return users.findOrCreate({
@@ -35,6 +33,7 @@ function userFindOrCreate(uid, req) {
    })
 
  }
+
  exports.userFindOrCreate=userFindOrCreate;
 
 

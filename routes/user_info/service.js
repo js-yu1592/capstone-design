@@ -86,7 +86,8 @@ firebase
 
 
 function getProfile(req, res) {
-repository.getInfo(uid)
+  let email=req.query.email
+repository.getInfo(email)
 .then(result=>{
   console.log("result : "+result)
   res.json(result)

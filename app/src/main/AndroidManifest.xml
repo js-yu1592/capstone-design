@@ -19,7 +19,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.camera2" />
 
     <application
@@ -30,7 +31,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".YoutubePlayerActivity"></activity>
+        <activity android:name=".PostViewActivity"></activity>
+        <activity android:name=".YoutubePlayerActivity" />
         <activity android:name=".SearchYoutubeActivity" />
         <activity android:name=".bluetoothActivity" />
         <activity android:name=".FishTankActivity" />
@@ -57,7 +59,6 @@
         <activity android:name=".Main2Activity" />
 
         <service android:name=".GpsTracker" />
-
     </application>
 
 </manifest>

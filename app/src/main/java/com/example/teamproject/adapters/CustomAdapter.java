@@ -1,8 +1,10 @@
 package com.example.teamproject.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -19,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teamproject.HeaderViewHolder;
+import com.example.teamproject.PostViewActivity;
 import com.example.teamproject.R;
 import com.example.teamproject.models.Post;
 
@@ -106,17 +109,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
                     final int position=getAdapterPosition(); //현재 클릭된 리사이클러뷰의 위치 파악
 
-                    if(mSelectedItems.get(position,false)){
-                        mSelectedItems.put(position,false);
-                        v.setBackgroundColor(Color.WHITE);
-
+                    if(position!=RecyclerView.NO_POSITION) {
+                        Intent intent = new Intent(context, PostViewActivity.class);
+                        intent.putExtra("pos",position);
+                        context.startActivity(intent);
                     }
-                    else{
-                        mSelectedItems.put(position,true);
-                        v.setBackgroundColor(Color.BLUE);
-
-
-                    }
+//                    if(mSelectedItems.get(position,false)){
+//                        mSelectedItems.put(position,false);
+//                        v.setBackgroundColor(Color.WHITE);
+//
+//                    }
+//                    else{
+//                        mSelectedItems.put(position,true);
+//                        v.setBackgroundColor(Color.BLUE);
+//
+//
+//                    }
 
                }
             });

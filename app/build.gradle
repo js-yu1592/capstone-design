@@ -12,7 +12,7 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
     }
 

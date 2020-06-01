@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_weather"
+        android:enabled="true"
+        android:icon="@drawable/ic_wb_sunny_black_24dp"
+        android:title="weather"/>
+
+    <item
+        android:id="@+id/bottom_fish"
+        android:enabled="true"
+        android:icon="@drawable/ic_directions_boat_black_24dp"
+        android:title="fish"/>
+</menu>

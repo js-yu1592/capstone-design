@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+
+    android:orientation="vertical"
+    tools:context=".bluetoothActivity">
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:onClick="btnBackClicked"
+        android:background="#1E90FF"
+
+        android:text="뒤로" />
+
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:background="#1E90FF"
+        android:textColor="#FFFFFF"
+        android:text="블루투스 연결" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="#1E90FF"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:text="낚시 시작" />
+
+
+</LinearLayout>

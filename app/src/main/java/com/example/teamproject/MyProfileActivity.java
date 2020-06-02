@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -16,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.teamproject.models.User;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
@@ -24,7 +26,7 @@ import java.util.Map;
 public class MyProfileActivity extends AppCompatActivity {
     static RequestQueue requestQueue;
     TextView textView;
-
+    public static String UserNickname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,13 +63,17 @@ public class MyProfileActivity extends AppCompatActivity {
                 Gson gson=new Gson();
                 myProfileList myProfileList =gson.fromJson(response, myProfileList.class);
 
-                println("id : "+ myProfileList.my_profile.get(0).user_id);
-
-                println("이름 : "+ myProfileList.my_profile.get(0).user_name);
-                println("닉네임 : "+ myProfileList.my_profile.get(0).user_nickname);
-                println("이메일 : "+ myProfileList.my_profile.get(0).user_email);
-                println("핸드폰 번호 : "+ myProfileList.my_profile.get(0).user_phone);
-
+                if(myProfileList.my_profile.size()==0){
+                    Toast.makeText(getApplicationContext(),"json파싱 실패",Toast.LENGTH_LONG).show();
+                    println("json파싱 실패");
+                }
+                else {
+                    println("이름 : " + myProfileList.my_profile.get(0).user_name);
+                    println("닉네임 : " + myProfileList.my_profile.get(0).user_nickname);
+                    println("이메일 : " + myProfileList.my_profile.get(0).user_email);
+                    println("핸드폰 번호 : " + myProfileList.my_profile.get(0).user_phone);
+                    UserNickname = myProfileList.my_profile.get(0).user_nickname;
+                }
             }
         },
                 new Response.ErrorListener(){

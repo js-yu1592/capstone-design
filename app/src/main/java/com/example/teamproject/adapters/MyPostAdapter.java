@@ -16,12 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
 import com.example.teamproject.HeaderViewHolder;
+import com.example.teamproject.Main2Activity;
+import com.example.teamproject.MyPostViewActivity;
+import com.example.teamproject.MyProfileActivity;
 import com.example.teamproject.PostViewActivity;
 import com.example.teamproject.R;
 import com.example.teamproject.models.Post;
@@ -34,6 +38,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.CustomView
 
     private SparseBooleanArray mSelectedItems=new SparseBooleanArray(0); //Item의 클릭 상태를 저장할 array 객체
     private ArrayList<myPostResult> arrayList;
+    public static ArrayList<myPostResult> myPostArr=new ArrayList<myPostResult>();
     private Context context;
     private final int TYPE_HEADER = 0;
     private final int TYPE_ITEM = 1;
@@ -65,9 +70,10 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.CustomView
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
 //        final Post post=arrayList.get(position);
 
-        holder.email.setText("작성자 : "+arrayList.get(position).getBoard_title());
+        holder.email.setText("작성자 : "+ MyProfileActivity.UserNickname);
         holder.title.setText(arrayList.get(position).getBoard_title());
         holder.contents.setText(arrayList.get(position).getBoard_content());
+        myPostArr=arrayList;
     }
 
 
@@ -109,10 +115,11 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.CustomView
                     final int position=getAdapterPosition(); //현재 클릭된 리사이클러뷰의 위치 파악
 
                     if(position!=RecyclerView.NO_POSITION) {
-                        Intent intent = new Intent(context, PostViewActivity.class);
+                        Intent intent = new Intent(context, MyPostViewActivity.class);
                         intent.putExtra("pos",position);
                         context.startActivity(intent);
                     }
+
 //                    if(mSelectedItems.get(position,false)){
 //                        mSelectedItems.put(position,false);
 //                        v.setBackgroundColor(Color.WHITE);

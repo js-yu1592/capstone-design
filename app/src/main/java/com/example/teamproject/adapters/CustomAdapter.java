@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teamproject.HeaderViewHolder;
+import com.example.teamproject.Main2Activity;
 import com.example.teamproject.PostViewActivity;
 import com.example.teamproject.R;
 import com.example.teamproject.models.Post;
@@ -63,7 +64,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public void onBindViewHolder(@NonNull CustomAdapter.CustomViewHolder holder, final int position) {
       final Post post=arrayList.get(position);
 
-      holder.email.setText("작성자 : "+arrayList.get(position).getDocumentId());
+      holder.email.setText("작성자 : "+ arrayList.get(position).getDocumentId());
        holder.title.setText((arrayList.get(position).getTitle()));
         holder.contents.setText((arrayList.get(position).getContents()));
 

@@ -16,7 +16,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main2Activity extends AppCompatActivity {
-    FirebaseAuth firebaseAuth;
     private static final String TAG="BAAM";
     static RequestQueue requestQueue;
     public static ArrayList<fishListResult> fishArr=new ArrayList<fishListResult>();
@@ -124,10 +122,10 @@ public class Main2Activity extends AppCompatActivity {
             }
             public void processResponse(String response){
                 Gson gson=new Gson();
-                FishTankList FishTankList=gson.fromJson(response, FishTankList.class);
+                fishTankList fishTankList=gson.fromJson(response, fishTankList.class);
 
 
-                fishArr=FishTankList.fish;
+                fishArr=fishTankList.fish;
                 fishArr.get(0).fish_lat="37.2836834";
                 fishArr.get(0).fish_lon="126.9024348";
                 fishArr.get(1).fish_lat="37.3657562";
@@ -150,6 +148,7 @@ public class Main2Activity extends AppCompatActivity {
         };
         request.setShouldCache(false);
         requestQueue.add(request);
+
     }
     @Override
     public void onBackPressed() {

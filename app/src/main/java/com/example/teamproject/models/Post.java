@@ -10,6 +10,7 @@ public class Post {
     private String contents;
     private String uid;
 
+
     public Post(String documentId) {
         this.documentId = documentId;
     }

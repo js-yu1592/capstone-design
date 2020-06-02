@@ -91,6 +91,9 @@ public class MyPostActivity extends AppCompatActivity {
                 Gson gson=new Gson();
                 myPostList myPostList=gson.fromJson(response, com.example.teamproject.myPostList.class);
 
+                if(myPostList.my_board.size()==0){
+                    Toast.makeText(getApplicationContext(), "에러", Toast.LENGTH_LONG).show();
+                }
 
                 adapter=new MyPostAdapter(myPostList.my_board, getApplicationContext()); //CustomAdapter로 설정.
                 //어댑터는 담긴 리스트들을 리사이클러 뷰에 바인딩 시켜주기 위한 사전작업이 이루어지는 객체

@@ -79,7 +79,7 @@ public class JoinActivity extends AppCompatActivity {
         editTextPhone=(EditText)findViewById(R.id.join_phone);
         editTextNickname=(EditText)findViewById(R.id.join_nickname);
         editTextname=(EditText)findViewById(R.id.join_name);
-        editTextId=(EditText) findViewById(R.id.join_id);
+
         Button button=findViewById(R.id.btn_finish);
 
 
@@ -92,7 +92,7 @@ public class JoinActivity extends AppCompatActivity {
         String name=editTextname.getText().toString();
         String nickname=editTextNickname.getText().toString();
         String phone=editTextPhone.getText().toString();
-        String id=editTextId.getText().toString();
+
 
 
 
@@ -146,7 +146,6 @@ public class JoinActivity extends AppCompatActivity {
                                                 String pwd=editTextPassword.getText().toString();
                                                 String nickname=editTextNickname.getText().toString();
                                                 String phone=editTextPhone.getText().toString();
-                                                String id=editTextId.getText().toString();
                                                 String name=editTextname.getText().toString();
                                            try{
 
@@ -158,7 +157,6 @@ public class JoinActivity extends AppCompatActivity {
                                                        .add("name",name)
                                                        .add("phone",phone)
                                                        .add("nickname",nickname)
-                                                       .add("id",id)
                                                        .build();
 
                                                Request request=new Request.Builder()
@@ -199,11 +197,11 @@ public class JoinActivity extends AppCompatActivity {
                                     }else{
 
 
-                                                       User user_info = new User(uid, editTextId.getText().toString(), editTextEmail.getText().toString(), editTextPassword.getText().toString(),
+                                                       User user_info = new User(uid, editTextEmail.getText().toString(), editTextPassword.getText().toString(),
                                                                editTextname.getText().toString(), editTextNickname.getText().toString(), editTextPhone.getText().toString());
 
                                                        //전체 데이터삭제
-                                                       // mDatabase.setValue(null);
+                                                      //  mDatabase.setValue(null);
                                                        //String key = mDatabase.child("USER").push().getKey();
                                                        mDatabase.child("USER").child("user_info").push().setValue(user_info);
                                                        Toast.makeText(JoinActivity.this, "DB에 저장완료", Toast.LENGTH_SHORT).show();

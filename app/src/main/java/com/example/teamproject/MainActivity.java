@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private String email = "";
     private String password = "";
     private String uid = "";
-
+    public static String UserEmail;
 //    public static final String apiKey="AAAAsp7tChI:APA91bEXF0BtJoSRSkJf1xe6MJHXltY_Rl15Nf-g4_-vL9xuPeFnpiDDoCapkJ8VG24x9xdwnJ1ZFqTbQkyTNP7z01cffkTT5jHu_J_iZwqV35TVxtvVv-sWAXM2xOEMvLnmbOPqUaV2";
   //  public static final String senderid="767170513426";
 

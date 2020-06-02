@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class User {
 
-        public String id;
+
     public String email;
         public String passwd;
         public String name;
@@ -17,9 +17,9 @@ public class User {
 
         }
 
-  public User(String uid,String id,String email, String passwd,String name, String nickname, String phone){
+  public User(String uid,String email, String passwd,String name, String nickname, String phone){
 this.uid=uid;
-            this.id=id;
+
       this.email=email;
       this.passwd=passwd;
       this.name=name;
@@ -27,13 +27,6 @@ this.uid=uid;
       this.phone=phone;
   }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getEmail() {
         return email;
@@ -97,7 +90,6 @@ this.uid=uid;
 public String toString() {
     return "User{" +
             "uid='" + uid + '\'' +
-            ", id='" + id + '\'' +
             ", passwd='" + passwd + '\'' +
             "name='"+ name +'\''+", nickname='"+nickname+
     '\''+", phone='"+phone+'\''+

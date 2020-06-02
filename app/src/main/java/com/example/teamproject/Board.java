@@ -47,7 +47,7 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
   private Button button;
     private FirebaseAuth mAuth=FirebaseAuth.getInstance();
 
-
+    public static final ArrayList<Post> boardArr=new ArrayList<Post>();
     private FirebaseAuth firebaseAuth;
 
     private static final String TAG="BAAM";
@@ -91,7 +91,7 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
 
 //        button=findViewById(R.id.main_post_delete);
 
-//        findViewById(R.id.main_post_delete).setOnClickListener(this);
+       findViewById(R.id.main_post_delete).setOnClickListener(this);
 
        databaseReference.addValueEventListener(new ValueEventListener() {
            @Override
@@ -102,12 +102,13 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
 
                //파이어베이스 데이터베이스의 데이터를 받아오는 곳
                arrayList.clear();  //기존 배열리스트가 존재하지 않게 초기화
+               boardArr.clear();
                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                    //반복문으로 데이터 리스트 추출
 
                    Post post=snapshot.getValue(Post.class);   //만들어뒀던 post 객체의 데이터들을 담는다
                    arrayList.add(post);  //담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
-
+                   boardArr.add(post);
                }
                 adapter.notifyDataSetChanged(); //리스트 저장 및 새로고침
            }
@@ -137,4 +138,6 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+
 }

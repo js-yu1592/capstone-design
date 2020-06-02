@@ -35,17 +35,17 @@ public class BasicActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic);
-        Button button_Gps = (Button) findViewById(R.id.btn_Gps);
+
         Button button_Board = (Button) findViewById(R.id.btn_board);
         Button button_inform = (Button) findViewById(R.id.btn_inform);
         Button button_stream = (Button) findViewById(R.id.btn_stream);
         Button button_fishing = (Button) findViewById(R.id.btn_fishing);
         Button button_set = (Button) findViewById(R.id.btn_set);
-
+        Button button_profile=(Button)findViewById(R.id.btn_profile);
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-        makeRequest();
+//        makeRequest();
         button_fishing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(BasicActivity.this, bluetoothActivity.class);
@@ -67,6 +67,14 @@ public class BasicActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 Intent intent = new Intent(BasicActivity.this, SettingActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        button_profile.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v){
+                Intent intent=new Intent(BasicActivity.this, MyProfileActivity.class);
                 startActivity(intent);
 
             }

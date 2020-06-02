@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -20,29 +19,35 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-feature android:name="android.hardware.camera2" />
 
     <application
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_fishing"
         android:label="어풀"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_fishing_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".MyPostViewActivity"></activity>
+        <activity android:name=".MyProfileActivity" />
+        <activity android:name=".MyPostActivity" />
+        <activity android:name=".PostViewActivity" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
+            android:value="@string/google_maps_key" />
+
         <activity android:name=".bluetoothActivity" />
         <activity android:name=".FishTankActivity" />
         <activity android:name=".InformFragActivity" />
-        <activity android:name=".YoutubePlayerActivity"></activity>
+        <activity android:name=".YoutubePlayerActivity" />
         <activity android:name=".SearchYoutubeActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".StreamActivity" />
         <activity android:name=".FishingActivity" />
-        <activity android:name=".WeatherActivity"></activity>
+        <activity android:name=".WeatherActivity" />
         <activity android:name=".InformActivity" />
         <activity android:name=".PostActivity" />
         <activity android:name=".Board" />
@@ -58,8 +63,6 @@
         <activity android:name=".Location" />
 
         <service android:name=".GpsTracker" />
-
-
     </application>
 
 </manifest>

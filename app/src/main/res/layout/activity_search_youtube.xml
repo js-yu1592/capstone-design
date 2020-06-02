@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:onClick="btn_backClicked"
+            android:background="#FF69B4"
+            android:text="뒤로" />
+
+        <EditText
+            android:id="@+id/eturl"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:hint="검색어를 입력하세요"
+            android:imeOptions="actionGo"
+            android:singleLine="true"></EditText>
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dip"
+            android:background="#000000"
+            android:gravity="center"
+            android:text="검색"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/searchlist"
+        android:layout_width="fill_parent"
+        android:layout_height="500dip"></ListView>
+</LinearLayout>

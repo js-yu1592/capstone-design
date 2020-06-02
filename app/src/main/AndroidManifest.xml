@@ -31,7 +31,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PostViewActivity"></activity>
+        <activity android:name=".MyPostActivity"></activity>
+        <activity android:name=".MyProfileActivity" />
+        <activity android:name=".PostViewActivity" />
         <activity android:name=".YoutubePlayerActivity" />
         <activity android:name=".SearchYoutubeActivity" />
         <activity android:name=".bluetoothActivity" />

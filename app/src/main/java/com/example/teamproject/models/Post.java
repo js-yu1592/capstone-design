@@ -8,6 +8,7 @@ public class Post {
     private String documentId;
     private String title;
     private String contents;
+    private String uid;
 
     public Post(String documentId) {
         this.documentId = documentId;
@@ -18,10 +19,11 @@ public class Post {
 
     }
 
-    public Post(String documentId, String title, String contents) {
+    public Post(String documentId, String title, String contents, String uid) {
         this.documentId = documentId;
         this.title = title;
         this.contents = contents;
+        this.uid=uid;
     }
 
     public String getDocumentId() {
@@ -36,9 +38,24 @@ public class Post {
         return title;
     }
 
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public Button getButton() {
+        return button;
+    }
+
+    public void setButton(Button button) {
+        this.button = button;
     }
 
     public String getContents() {
@@ -52,6 +69,7 @@ public class Post {
     @Override
     public String toString() {
         return "Post{" +
+                "uid='" + uid+'\''+
                 "documentId='" + documentId + '\'' +
                 ", title='" + title + '\'' +
                 ", contents='" + contents + '\'' +

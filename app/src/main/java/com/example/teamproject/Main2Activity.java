@@ -39,6 +39,7 @@ public class Main2Activity extends AppCompatActivity {
         Button button_stream=(Button)findViewById(R.id.btn_stream);
         Button button_fishing=(Button)findViewById(R.id.btn_fishing);
         Button button_set=(Button)findViewById(R.id.btn_set);
+        Button button_profile=(Button)findViewById(R.id.btn_profile);
 //        button_Gps.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View v){
@@ -100,6 +101,14 @@ public class Main2Activity extends AppCompatActivity {
 
             public void onClick(View v){
                 Intent intent=new Intent(Main2Activity.this, InformActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        button_profile.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v){
+                Intent intent=new Intent(Main2Activity.this, MyProfileActivity.class);
                 startActivity(intent);
 
             }

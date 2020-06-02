@@ -43,13 +43,22 @@
         android:layout_toRightOf="@id/btn_stream"
         android:onClick="btnInformClicked"
         android:text="정보" />
+
     <Button
         android:id="@+id/btn_set"
         android:layout_width="120dp"
         android:layout_height="70dp"
-        android:layout_marginLeft="230dp"
+        android:layout_marginLeft="150dp"
         android:layout_marginTop="20dp"
         android:onClick="btnSetClicked"
         android:text="환경설정" />
-
+    <Button
+        android:id="@+id/btn_profile"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="270dp"
+        android:layout_marginTop="20dp"
+        android:onClick="btnProfileClicked"
+        android:text="내 정보"
+    />
 </RelativeLayout>

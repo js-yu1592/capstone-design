@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
-
+    public static String UserEmail;
     // 구글  로그인 버튼
     private SignInButton buttonGoogle;
     // 이메일과 비밀번호
@@ -217,10 +217,8 @@ public class MainActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
-
-
                             firebaseAuth.addAuthStateListener(firebaseAuthListener);
-
+                            UserEmail=email;
 
                         }else{
                             //로그인 실패

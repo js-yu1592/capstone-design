@@ -108,6 +108,7 @@ public class WeatherActivity extends Fragment {
     public void println(String data){
         textView.append(data+"\n");
     }
+
     private String transferWeather(String weather){
         weather=weather.toLowerCase();
 

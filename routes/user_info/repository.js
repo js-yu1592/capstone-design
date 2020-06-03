@@ -22,20 +22,30 @@ function userFindOrCreate(uid, req) {
    return users.findOrCreate({
      where: {
        user_uid: uid,
-       user_id:req.id,
+       user_email:req.email,
        user_name:req.name,
        user_nickname:req.nickname,
        user_password:req.password,
-       user_email:req.email,
        user_phone:req.phone
  
      }
    })
 
  }
+ function getItem(email) {
+   
+  return users.findAll({
+
+    attributes:['user_nickname'],
+    where:{
+      user_email:email
+    }
+  });
+
+}
 
  exports.userFindOrCreate=userFindOrCreate;
-
+ exports.getItem=getItem
 
 exports.getInfo = getInfo;
 

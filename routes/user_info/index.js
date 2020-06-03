@@ -17,5 +17,6 @@ router
 .post('/login',firebaseAuth,service.loginprocess)
 
 .get('/my', service.getProfile)
+.get('/nickname',service.getItemDetail)
 
 module.exports = router;

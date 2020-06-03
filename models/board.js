@@ -10,19 +10,26 @@ module.exports = (sequelize, DataTypes) => {
     board_uid:{
       type:DataTypes.STRING,
       allowNull:false,
-    },
-    board_nickname:{
-      type:DataTypes.STRING(20),
+    },   
+     board_title:{
+      type:DataTypes.STRING(100),
       allowNull:false
-    },
+    },   
+ 
     board_content:{
       type:DataTypes.STRING(255),
       allowNull:false
     },
-    board_hit:{
-      type:DataTypes.STRING(10),
+    
+    board_nickname:{
+      type:DataTypes.STRING(20),
       allowNull:false
     },
+    board_email:{
+      type:DataTypes.STRING(100),
+      allowNull:false
+    },  
+
   
   }, {
 

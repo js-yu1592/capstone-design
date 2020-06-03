@@ -31,71 +31,51 @@ function getUseralldata(page) {
 }
 
 
-function writeBoard(uid,email,content,title) {
+function writeBoard(uid,nickname,content,title,email) {
 
     console.log("writebOARD")
 
   return board.create({
 
       board_uid: uid,
-      board_nickname:email,
-    board_hit: title,
-    board_content: content
+      board_title: title,
+      board_nickname:nickname,
+    board_content: content,
+    board_email:email
   })
 
 }
 
 
 
-function getUserFeed(page,email,content) {
+function getUserFeed(page,email) {
 let offset1=0;
 
-console.log(email)
-console.log(content)
-  let param={}
 
     if(page>1){
       offset1=20*(page)-1
     }
 
 
-   
-      if(content!=undefined){
-        param={
-          board_content:{
-            [Op.like]:"%"+content+"%"
-          },
-        
-        }
-        if(email!=undefined){
-          param={
-            board_content:{
-              [Op.like]:"%"+content+"%"
+       
+    console.log(email)
+     
+         return board.findAll({
+            attributes:['board_nickname','board_content','board_title'],
+            where:{
+              board_email:{
+                [Op.like]:"%"+email+"%"
+              }
+              
             },
-     
-            board_nickname:{
-              [Op.like]:"%"+email+"%"
-            }
-          }
-        }
-      }else if(email!=undefined){
-        param={
+          
+          })
         
-     
-          board_nickname:{
-            [Op.like]:"%"+email+"%"
-          }
-        }
-      }
+      
   
 
   
-  return board.findAll({
-    where : param,
-    limite:20,
-    offset:offset1,
-    order:[['createdAt','ASC']]
-  })
+
 }
 
 function getUserInfo(uid) {

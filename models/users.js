@@ -14,13 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:true,
     },
-    user_id: {
-      type:DataTypes.STRING(50),
-      allowNull:false,
-      unique:true,
  
-
-    },
     user_name:{
       type:DataTypes.STRING(100),
       allowNull:false

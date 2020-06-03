@@ -87,16 +87,31 @@ firebase
 
 function getProfile(req, res) {
   let email=req.query.email
+  console.log(email)
 repository.getInfo(email)
 .then(result=>{
   console.log("result : "+result)
-  res.json(result)
+  res.json({
+    my_profile:result
+  })
 })
 
 }
 
+function getItemDetail(req, res) {
+  var email = req.query.email
 
+  console.log(email)
+  repository.getItem(email)
+    .then(result => {
+      res.json({
+        my_nickname:result
+      
+      })
+    })
+
+}
 
 exports.getProfile=getProfile;
-
+exports.getItemDetail=getItemDetail
 exports.loginprocess=loginprocess

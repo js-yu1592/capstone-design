@@ -14,10 +14,11 @@ function firebaseAuth(req, res, next) {
 //    console.log(req.body)
 //    board_Repository.writeBoard(uid,req.body)
    console.log("here")
-     console.log(req)
+     console.log(req.body)
   console.log(token)
   
-     authCheck(String(token))
+     authCheck(token)
+  
         .then(decodedToken => {
             let uid=decodedToken.uid;
              console.log("decodedToken: "+decodedToken)

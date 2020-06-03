@@ -107,42 +107,42 @@ public class BasicActivity extends AppCompatActivity {
 
 
     }
-    public void makeRequest () {
-        String fish_url = "https://kpu-lastproject.herokuapp.com/user_fish/fish";
-        StringRequest request = new StringRequest(Request.Method.GET, fish_url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                processResponse(response);
-            }
-
-            public void processResponse(String response) {
-                Gson gson = new Gson();
-                FishTankList FishTankList = gson.fromJson(response, FishTankList.class);
-
-
-                fishArr = FishTankList.fish;
-                fishArr.get(0).fish_lat = "37.2836834";
-                fishArr.get(0).fish_lon = "126.9024348";
-                fishArr.get(1).fish_lat = "37.3657562";
-                fishArr.get(1).fish_lon = "126.8555483";
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "에러", Toast.LENGTH_LONG).show();
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
-            }
-        };
-        request.setShouldCache(false);
-        requestQueue.add(request);
-    }
+//    public void makeRequest () {
+//        String fish_url = "https://kpu-lastproject.herokuapp.com/user_fish/fish";
+//        StringRequest request = new StringRequest(Request.Method.GET, fish_url, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                processResponse(response);
+//            }
+//
+//            public void processResponse(String response) {
+//                Gson gson = new Gson();
+//                FishTankList FishTankList = gson.fromJson(response, FishTankList.class);
+//
+//
+//                fishArr = FishTankList.fish;
+//                fishArr.get(0).fish_lat = "37.2836834";
+//                fishArr.get(0).fish_lon = "126.9024348";
+//                fishArr.get(1).fish_lat = "37.3657562";
+//                fishArr.get(1).fish_lon = "126.8555483";
+//            }
+//        },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(getApplicationContext(), "에러", Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//        ) {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                return params;
+//            }
+//        };
+//        request.setShouldCache(false);
+//        requestQueue.add(request);
+//    }
     @Override
     public void onBackPressed () {
         super.onBackPressed();

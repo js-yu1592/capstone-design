@@ -22,7 +22,7 @@ public class PostViewActivity extends AppCompatActivity {
         TextView contentText=(TextView)findViewById(R.id.contentText);
 
         titleText.setText(BoardActivity.boardArr.get(pos).getTitle());
-        writerText.setText(BoardActivity.boardArr.get(pos).getDocumentId());
+        writerText.setText(BoardActivity.boardArr.get(pos).getNickname());
         contentText.setText(BoardActivity.boardArr.get(pos).getContents());
 
     }

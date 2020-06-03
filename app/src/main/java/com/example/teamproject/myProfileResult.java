@@ -1,7 +1,7 @@
 package com.example.teamproject;
 
 public class myProfileResult {
-    String user_id;
+
     String user_name;
     String user_nickname;
     String user_email;

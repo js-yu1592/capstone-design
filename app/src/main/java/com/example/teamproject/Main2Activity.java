@@ -128,8 +128,8 @@ public class Main2Activity extends AppCompatActivity {
                 fishArr=fishTankList.fish;
                 fishArr.get(0).fish_lat="37.2836834";
                 fishArr.get(0).fish_lon="126.9024348";
-                fishArr.get(1).fish_lat="37.3657562";
-                fishArr.get(1).fish_lon="126.8555483";
+                //fishArr.get(1).fish_lat="37.3657562";
+                //fishArr.get(1).fish_lon="126.8555483";
                // Toast.makeText(Main2Activity.this, FishTankList.fish.get(0).fish_comment, Toast.LENGTH_SHORT).show();
             }
         },

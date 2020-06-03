@@ -7,15 +7,15 @@
     android:orientation="vertical"
     tools:context=".JoinActivity">
 
+
     <EditText
-        android:id="@+id/join_id"
+        android:id="@+id/join_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginRight="50dp"
-        android:hint="아이디" />
-
+        android:hint="이메일" />
     <EditText
         android:id="@+id/join_password"
         android:layout_width="match_parent"
@@ -43,14 +43,7 @@
         android:layout_marginRight="50dp"
         android:hint="이름" />
 
-    <EditText
-        android:id="@+id/join_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
-        android:hint="이메일" />
+
     <EditText
         android:id="@+id/join_phone"
         android:layout_width="match_parent"
@@ -73,6 +66,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"/>
 
     </LinearLayout>

@@ -22,6 +22,7 @@ import com.example.teamproject.adapters.CustomAdapter;
 import com.example.teamproject.adapters.MyPostAdapter;
 import com.example.teamproject.models.Post;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -80,8 +81,11 @@ public class MyPostActivity extends AppCompatActivity {
 
     };
     public void makeRequest(){
-        String mypost_url= "https://kpu-lastproject.herokuapp.com/board/searchFeed?email="+MainActivity.UserEmail;
-
+        FirebaseUser user=mAuth.getCurrentUser();
+        String email=user.getEmail();
+        String mypost_url= "https://kpu-lastproject.herokuapp.com/board/searchFeed?email="+email;
+        // String mypost_url= "http://10.0.2.2/board/searchFeed?email="+email;
+        Log.d(TAG,"here email111:"+email);
         StringRequest request=new StringRequest(Request.Method.GET,mypost_url,new Response.Listener<String>(){
             @Override
             public void onResponse(String response){
@@ -92,7 +96,7 @@ public class MyPostActivity extends AppCompatActivity {
                 myPostList myPostList=gson.fromJson(response, com.example.teamproject.myPostList.class);
 
                 if(myPostList.my_board.size()==0){
-                    Toast.makeText(getApplicationContext(), "에러", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "에러1", Toast.LENGTH_LONG).show();
                 }
 
                 adapter=new MyPostAdapter(myPostList.my_board, getApplicationContext()); //CustomAdapter로 설정.
@@ -105,7 +109,7 @@ public class MyPostActivity extends AppCompatActivity {
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
-                        Toast.makeText(MyPostActivity.this, "에러", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyPostActivity.this, "에러2", Toast.LENGTH_SHORT).show();
                     }
                 }
         ){

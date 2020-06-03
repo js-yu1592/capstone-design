@@ -5,14 +5,12 @@ import android.widget.Button;
 import com.example.teamproject.R;
 
 public class Post {
-    private String documentId;
+    private String nickname;
     private String title;
     private String contents;
     private String uid;
-
-
-    public Post(String documentId) {
-        this.documentId = documentId;
+    public Post(String nickname) {
+        this.nickname = nickname;
     }
 
     private Button button;
@@ -20,19 +18,19 @@ public class Post {
 
     }
 
-    public Post(String documentId, String title, String contents, String uid) {
-        this.documentId = documentId;
+    public Post(String nickname, String title, String contents, String uid) {
+        this.nickname = nickname;
         this.title = title;
         this.contents = contents;
         this.uid=uid;
     }
 
-    public String getDocumentId() {
-        return documentId;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getTitle() {
@@ -71,7 +69,7 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "uid='" + uid+'\''+
-                "documentId='" + documentId + '\'' +
+                "nickname='" + nickname + '\'' +
                 ", title='" + title + '\'' +
                 ", contents='" + contents + '\'' +
                 '}';

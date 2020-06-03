@@ -63,17 +63,13 @@ public class MyProfileActivity extends AppCompatActivity {
                 Gson gson=new Gson();
                 myProfileList myProfileList =gson.fromJson(response, myProfileList.class);
 
-                if(myProfileList.my_profile.size()==0){
-                    Toast.makeText(getApplicationContext(),"json파싱 실패",Toast.LENGTH_LONG).show();
-                    println("json파싱 실패");
-                }
-                else {
+
                     println("이름 : " + myProfileList.my_profile.get(0).user_name);
                     println("닉네임 : " + myProfileList.my_profile.get(0).user_nickname);
                     println("이메일 : " + myProfileList.my_profile.get(0).user_email);
                     println("핸드폰 번호 : " + myProfileList.my_profile.get(0).user_phone);
                     UserNickname = myProfileList.my_profile.get(0).user_nickname;
-                }
+
             }
         },
                 new Response.ErrorListener(){

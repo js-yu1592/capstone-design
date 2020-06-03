@@ -45,7 +45,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.CustomView
     private final int TYPE_FOOTER = 2;
     private Button button ;
 
-
+    private static final String TAG="BAAM";
 
     public MyPostAdapter(ArrayList<myPostResult> arrayList, Context context ) {
         this.arrayList = arrayList;
@@ -71,6 +71,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.CustomView
 //        final Post post=arrayList.get(position);
 
         holder.email.setText("작성자 : "+ MyProfileActivity.UserNickname);
+        Log.d(TAG,"POSTADATER : "+MyProfileActivity.UserNickname);
         holder.title.setText(arrayList.get(position).getBoard_title());
         holder.contents.setText(arrayList.get(position).getBoard_content());
         myPostArr=arrayList;
@@ -116,6 +117,8 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.CustomView
 
                     if(position!=RecyclerView.NO_POSITION) {
                         Intent intent = new Intent(context, MyPostViewActivity.class);
+                        Log.d(TAG,"POSTADATER : "+MyProfileActivity.UserNickname);
+                        Log.d(TAG,"POSTADATER pos : "+position);
                         intent.putExtra("pos",position);
                         context.startActivity(intent);
                     }

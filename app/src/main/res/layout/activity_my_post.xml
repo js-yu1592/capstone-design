@@ -24,6 +24,25 @@
         android:scrollbars="vertical"
         />
 
+    <Button
+        android:id='@+id/btn_delete'
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="삭제버튼"
+        android:onClick="btnDeleteClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/board_delete"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        android:layout_marginTop="650dp"-->
+<!--        android:layout_marginLeft="335dp"-->
+<!--        android:layout_marginBottom="10dp"-->
+
+<!--        android:src="@drawable/ic_delete" />-->
+
 
 
 </RelativeLayout>

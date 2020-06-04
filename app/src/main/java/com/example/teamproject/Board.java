@@ -91,7 +91,7 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
 
 //        button=findViewById(R.id.main_post_delete);
 
-       findViewById(R.id.main_post_delete).setOnClickListener(this);
+
 
        databaseReference.addValueEventListener(new ValueEventListener() {
            @Override

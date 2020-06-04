@@ -1,5 +1,6 @@
 package com.example.teamproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.teamproject.adapters.CustomAdapter;
 import com.example.teamproject.adapters.MyPostAdapter;
 import com.example.teamproject.models.Post;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,25 +43,30 @@ public class MyPostActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private FirebaseDatabase database=FirebaseDatabase.getInstance();
+    private DatabaseReference mDatabase=database.getReference(); //데이터를 데이터베이스에 쓰기 위해
 
+    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    FirebaseUser user=mAuth.getCurrentUser();
     private ArrayList<Post> arrayList;
-    private FirebaseAuth mAuth=FirebaseAuth.getInstance();
+
 
     static RequestQueue requestQueue;
     private static final String TAG="BAAM";
     private RecyclerDecoration spaceDecoration;
-
+    String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post);
-
+        Button button=findViewById(R.id.btn_delete);
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
         }
         makeRequest();
 
         //Board는 게시판
+
 
         recyclerView=findViewById(R.id.main_recyclerview); //아이디 연결
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존 성능강화
@@ -75,9 +83,28 @@ public class MyPostActivity extends AppCompatActivity {
 
         arrayList=new ArrayList<>();   // Boardd 객체담을 어레이 리스트 (어댑터쪽으로 날리기위해)
 
+        Intent intent = getIntent();
+        int pos = intent.getIntExtra("pos", 0);
+        Log.d(TAG,"MY POST ACTIVITY POS:"+MyPostAdapter.position);
+        button.setOnClickListener(new View.OnClickListener(){
 
-
-
+            public void onClick(View view){
+                uid=user.getUid();
+                String title=MyPostAdapter.myPostArr.get(pos).getBoard_title();
+                Log.d(TAG,"MY BOARD TITLE: "+title);
+                mDatabase.child("USER").child("Board").child(uid).child(title).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MyPostActivity.this,"삭제 성공",Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MyPostActivity.this,"삭제 실패",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
     };
     public void makeRequest(){

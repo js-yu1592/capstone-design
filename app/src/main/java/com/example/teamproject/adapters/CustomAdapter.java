@@ -117,7 +117,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             this.email=ItemView.findViewById(R.id.item_post_email);
             this.title=ItemView.findViewById(R.id.item_post_title);
             this.contents=ItemView.findViewById(R.id.item_post_contents);
-            this.deleteBtn=ItemView.findViewById(R.id.main_post_delete);
+
 
 
             itemView.setOnClickListener(new View.OnClickListener(){

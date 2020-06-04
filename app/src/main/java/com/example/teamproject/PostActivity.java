@@ -64,6 +64,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     static RequestQueue requestQueue;
     public static String nickname;
     String email;
+    String uid;
     FirebaseUser user=mAuth.getCurrentUser();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,12 +140,12 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                     println("json파싱 실패");
                 }
                 else {
-
+                        uid=user.getUid();
                     nickname = myNicknameList.my_nickname.get(0).user_nickname;
 
                     Post post=new Post(nickname,mTitle.getText().toString(), mContents.getText().toString(),user.getUid());
 
-                    mDatabase.child("USER").child("Board").push().setValue(post);
+                    mDatabase.child("USER").child("Board").child(uid).setValue(post);
                     mAuth.getCurrentUser().getIdToken(true)
                             .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                                 @Override
@@ -153,7 +154,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                                         String idToken=task.getResult().getToken();
                                         Log.d(TAG,"TOKEN:"+idToken);
                                         FirebaseUser user=mAuth.getCurrentUser();
-                                        String uid=user.getUid();
+
                                         //String email=user.getEmail();
                                         String title=mTitle.getText().toString();
                                         String content= mContents.getText().toString();

@@ -40,26 +40,26 @@
             import java.util.logging.Handler;
 
             public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.CustomViewHolder> {
-                private CompoundButton.OnCheckedChangeListener onCheckedChangeListener;
+
                 private SparseBooleanArray mSelectedItems = new SparseBooleanArray(0); //Item의 클릭 상태를 저장할 array 객체
-                private ArrayList<myPostResult> arrayList;
+                public static ArrayList<myPostResult> arrayList;
                 public static ArrayList<myPostResult> myPostArr = new ArrayList<myPostResult>();
                 private Context context;
                 private final int TYPE_HEADER = 0;
                 private final int TYPE_ITEM = 1;
                 private final int TYPE_FOOTER = 2;
                 private Button button;
-                private View.OnLongClickListener onLongClickListener;
+
                 private static final String TAG = "BAAM";
-               private String[] checkarray;
-               public static int position;
-                private boolean isMyValueChecked;
+
+
+     public Integer pos;
                 public CheckBox checkBox;
-              public SharedPreferences sharedPreferences;
 
                 public MyPostAdapter(ArrayList<myPostResult> arrayList, Context context) {
                     this.arrayList = arrayList;
                     this.context = context;
+
 
 
 
@@ -72,8 +72,7 @@
                     context = parent.getContext();
                     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post, parent, false);
                     CustomViewHolder holder = new CustomViewHolder(view);
-                    SharedPreferences sharedPreferences= view.getContext().getSharedPreferences("My preference",Context.MODE_PRIVATE);
-                    isMyValueChecked= sharedPreferences.getBoolean("checkbox",false);
+
 
 
                     return holder;
@@ -90,8 +89,8 @@
                     holder.title.setText(arrayList.get(position).getBoard_title());
                     holder.contents.setText(arrayList.get(position).getBoard_content());
 
-                    holder.checkBox.setText("Checkbox"+position);
-
+                    holder.checkBox.setText("선택"+position);
+                    myPostArr = arrayList;
                    // holder.checkBox.setOnCheckedChangeListener(null);
                     holder.checkBox.setChecked(objincome.isSelected());
 
@@ -103,7 +102,7 @@
                   public void onClick(View v) {
 
 
-                      Integer pos=(Integer) holder.checkBox.getTag();
+                   pos=(Integer) holder.checkBox.getTag();
 
                       Toast.makeText(context, arrayList.get(pos).getBoard_title() +"clicked!",Toast.LENGTH_SHORT).show();
                       Log.d(TAG,"checkbox pos111 ;"+pos);
@@ -117,14 +116,10 @@
 
                           arrayList.get(pos).setSelected(false);
                       }else{
-                          Intent intent1 = new Intent(context, MyPostActivity.class);
-                          intent1.putExtra("pos", pos);
-                          context.startActivity(intent1);
+//                          Intent intent1 = new Intent(context, MyPostActivity.class);
+//                          intent1.putExtra("pos", pos);
+//                          context.startActivity(intent1);
 
-                           sharedPreferences= v.getContext().getSharedPreferences("My preference", Context.MODE_PRIVATE);
-                          SharedPreferences.Editor editor = sharedPreferences.edit();
-                         editor.putBoolean("id",holder.checkBox.isChecked());
-                          editor.commit();
 
                           arrayList.get(pos).setSelected(true);
 
@@ -136,10 +131,9 @@
                   }
               });
 
-            isMyValueChecked =sharedPreferences.getBoolean("id",false);
-            holder.checkBox.setChecked(isMyValueChecked);
 
-                    myPostArr = arrayList;
+
+
                 }
 
 

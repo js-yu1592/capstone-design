@@ -81,11 +81,11 @@ public class Board extends AppCompatActivity implements View.OnClickListener {
 
         arrayList=new ArrayList<>();   // Boardd 객체담을 어레이 리스트 (어댑터쪽으로 날리기위해)
 
+        FirebaseUser user=mAuth.getCurrentUser();
 
-        Intent secondIntent=getIntent();
-        uid=secondIntent.getStringExtra("uid");
+        uid=user.getUid();
         database=FirebaseDatabase.getInstance();  //Firebase 데이터베이스 연동
-        databaseReference=database.getReference("USER").child("Board"); //DB 테이블 연결
+        databaseReference=database.getReference("USER").child("Board").child(uid); //DB 테이블 연결
 
         findViewById(R.id.main_post_edit).setOnClickListener(this);
 

@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,15 +32,24 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyPostActivity extends AppCompatActivity {
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 
+public class MyPostActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -49,17 +60,21 @@ public class MyPostActivity extends AppCompatActivity {
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
     private ArrayList<Post> arrayList;
-
-
+     private ArrayList<myPostResult> modelArraylist;
+   private CustomAdapter customAdapter;
     static RequestQueue requestQueue;
     private static final String TAG="BAAM";
+    String title;
     private RecyclerDecoration spaceDecoration;
     String uid;
+    public boolean pos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post);
         Button button=findViewById(R.id.btn_delete);
+
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
         }
@@ -67,13 +82,15 @@ public class MyPostActivity extends AppCompatActivity {
 
         //Board는 게시판
 
-
         recyclerView=findViewById(R.id.main_recyclerview); //아이디 연결
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존 성능강화
         layoutManager=new LinearLayoutManager(this);
         spaceDecoration=new RecyclerDecoration(40);     //위아래 간격조정
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getResources())); // 왼쪽 오른쪽 마진
         recyclerView.addItemDecoration(spaceDecoration);
+      //  modelArraylist=getModel(false);
+       // customAdapter=new CustomAdapter(this,modelArraylist);
+        //recyclerView.setAdapter(customAdapter);
         // recyclerView.addItemDecoration(dividerItemDecoration);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -83,30 +100,50 @@ public class MyPostActivity extends AppCompatActivity {
 
         arrayList=new ArrayList<>();   // Boardd 객체담을 어레이 리스트 (어댑터쪽으로 날리기위해)
 
-        Intent intent = getIntent();
-        int pos = intent.getIntExtra("pos", 0);
-        Log.d(TAG,"MY POST ACTIVITY POS:"+MyPostAdapter.position);
+//        Intent intent1 = getIntent();
+//        int pos = intent1.getIntExtra("pos", 0);
+
         button.setOnClickListener(new View.OnClickListener(){
+
 
             public void onClick(View view){
                 uid=user.getUid();
-                String title=MyPostAdapter.myPostArr.get(pos).getBoard_title();
-                Log.d(TAG,"MY BOARD TITLE: "+title);
-                mDatabase.child("USER").child("Board").child(uid).child(title).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(MyPostActivity.this,"삭제 성공",Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MyPostActivity.this,"삭제 실패",Toast.LENGTH_SHORT).show();
-                    }
-                });
+               // arrayList=getModel(true);
+
+
+            for(int i=0; i<MyPostAdapter.arrayList.size(); i++){
+                 if(MyPostAdapter.arrayList.get(i).isSelected()){
+                  title=MyPostAdapter.arrayList.get(i).getBoard_title();
+                  Log.d(TAG,"MY BOARD TITLE: "+title);
+                     Query boardQuery = mDatabase.child("USER").child("Board").child(uid).orderByChild("title").equalTo(title);
+                     boardQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                         @Override
+                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                             for(DataSnapshot boardSnapshot: dataSnapshot.getChildren())
+                             {
+                                 boardSnapshot.getRef().removeValue();
+                                  makeRequest1();
+
+                                 Log.d(TAG,"remove success:"+dataSnapshot.getChildren());
+                             }
+                         }
+
+                         @Override
+                         public void onCancelled(@NonNull DatabaseError databaseError) {
+                             Log.d(TAG,"remove failed:"+databaseError.toException());
+                         }
+                     });
+
+
+         }
+
+     }
+
             }
         });
 
     };
+
     public void makeRequest(){
         FirebaseUser user=mAuth.getCurrentUser();
         String email=user.getEmail();
@@ -150,7 +187,45 @@ public class MyPostActivity extends AppCompatActivity {
         requestQueue.add(request);
 
     }
+    public void makeRequest1(){
+        FirebaseUser user=mAuth.getCurrentUser();
 
 
 
-}
+        Log.d(TAG,"here remove title:"+title);
+
+        try{
+            OkHttpClient client=new OkHttpClient();
+            Gson gson=new Gson();
+
+
+          RequestBody formBody= new FormBody.Builder()
+                  .add("title",title)
+                  .build();
+          final okhttp3.Request request1=new okhttp3.Request.Builder()
+                  .url("http://10.0.2.2:3000/board/removeFeed")
+                //  .url("https://kpu-lastproject.herokuapp.com/board/removeFeed")
+                  .post(formBody)
+                  .build();
+            client.newCall(request1).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    Log.d(TAG,"fail:"+e.toString());
+                    System.out.println("error + Connection Server Error is"+e.toString());
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
+                    Log.d(TAG,"success:"+response.body().toString());
+                    System.out.println("Response Body is "+ response.body().string());
+                }
+            });
+        }catch(Exception e){
+
+        }
+        }
+        };
+
+
+
+

@@ -24,6 +24,7 @@
            tools:text="TITLE">
 
        </TextView>
+
        <TextView
            android:id="@+id/item_post_email"
            android:layout_width="wrap_content"
@@ -31,19 +32,20 @@
 
            android:layout_marginTop="15dp"
            android:layout_marginEnd="8dp"
-           android:layout_marginRight="10dp"
+           android:layout_marginRight="50dp"
            android:textColor="@android:color/black"
            android:textSize="14sp"
            tools:text="작성자: email">
 
        </TextView>
+
        <CheckBox
            android:id="@+id/checkBox"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_weight="1"
            android:layout_marginTop="15dp"
-           android:text="CheckBox" />
+           android:layout_weight="1"
+            />
    </LinearLayout>
     <TextView
         android:id="@+id/item_post_contents"

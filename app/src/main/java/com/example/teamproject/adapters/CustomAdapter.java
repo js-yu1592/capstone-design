@@ -55,7 +55,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {         //리스트뷰가 어댑터에 연결된다음에 최초로 뷰홀더만듬
 
         context=parent.getContext();
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_board,parent,false);
         CustomViewHolder holder=new CustomViewHolder(view);
 
 

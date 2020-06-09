@@ -135,7 +135,7 @@ public class MyPostActivity extends AppCompatActivity {
                  if(MyPostAdapter.arrayList.get(i).isSelected()){
                   title=MyPostAdapter.arrayList.get(i).getBoard_title();
                   Log.d(TAG,"MY BOARD TITLE: "+title);
-                     Query boardQuery = mDatabase.child("USER").child("Board").child(uid).orderByChild("title").equalTo(title);
+                     Query boardQuery = mDatabase.child("USER").child("Board").orderByChild("title").equalTo(title);
                      boardQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                          @Override
                          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -244,6 +244,10 @@ public class MyPostActivity extends AppCompatActivity {
 
         }
         }
+    public void btnBackClicked(View v){
+        Intent intent = new Intent(MyPostActivity.this, MyProfileActivity.class);
+        startActivity(intent);
+    }
         };
 
 

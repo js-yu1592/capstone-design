@@ -77,8 +77,8 @@ public class updatePost extends AppCompatActivity {
                 Log.d(TAG,"updateBtn start pos : "+pos);
                 uid=user.getUid();
                 oldtitle=MyPostAdapter.arrayList.get(pos).getBoard_title();
-                final DatabaseReference updateRef=mDatabase.child("USER").child("Board").child(uid);
-                Query boardQuery=mDatabase.child("USER").child("Board").child(uid).orderByChild("title").equalTo(oldtitle);
+                final DatabaseReference updateRef=mDatabase.child("USER").child("Board");
+                Query boardQuery=mDatabase.child("USER").child("Board").orderByChild("title").equalTo(oldtitle);
                 boardQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

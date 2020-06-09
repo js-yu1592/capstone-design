@@ -146,6 +146,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                     Post post=new Post(nickname,mTitle.getText().toString(), mContents.getText().toString(),user.getUid());
 
                     mDatabase.child("USER").child("Board").child(uid).push().setValue(post);
+
                     mAuth.getCurrentUser().getIdToken(true)
                             .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
                                 @Override

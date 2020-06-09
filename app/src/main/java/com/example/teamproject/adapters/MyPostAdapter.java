@@ -85,7 +85,6 @@
                    final myPostResult objincome=arrayList.get(position);
 
                     holder.email.setText("작성자 : " + MyProfileActivity.UserNickname);
-                    Log.d(TAG, "POSTADATER : " + MyProfileActivity.UserNickname);
                     holder.title.setText(arrayList.get(position).getBoard_title());
                     holder.contents.setText(arrayList.get(position).getBoard_content());
 
@@ -176,7 +175,7 @@
                                     Intent intent = new Intent(context, MyPostViewActivity.class);
                                     intent.putExtra("pos", position);
 
-                                    Log.d(TAG, "POSTADATER : " + MyProfileActivity.UserNickname);
+                                    Log.d(TAG, "POSTADATER nickname: " + MyProfileActivity.UserNickname);
                                     Log.d(TAG, "POSTADATER pos : " + position);
 
                                     context.startActivity(intent);

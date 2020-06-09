@@ -74,7 +74,7 @@ public class MyPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post);
         Button button=findViewById(R.id.btn_delete);
-
+        Button update=findViewById(R.id.btn_update);
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
         }
@@ -102,6 +102,26 @@ public class MyPostActivity extends AppCompatActivity {
 
 //        Intent intent1 = getIntent();
 //        int pos = intent1.getIntExtra("pos", 0);
+
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uid=user.getUid();
+                for(int i=0; i<MyPostAdapter.arrayList.size(); i++){
+                    if(MyPostAdapter.arrayList.get(i).isSelected()){
+                        title=MyPostAdapter.arrayList.get(i).getBoard_title();
+                        Intent intent=new Intent(getApplicationContext(), updatePost.class);
+                        intent.putExtra("pos",i);
+                        startActivity(intent);
+
+                    }
+
+                }
+
+
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener(){
 
@@ -149,7 +169,7 @@ public class MyPostActivity extends AppCompatActivity {
         String email=user.getEmail();
       String mypost_url= "https://kpu-lastproject.herokuapp.com/board/searchFeed?email="+email;
        // String mypost_url= "http://10.0.2.2/board/searchFeed?email="+email;
-        Log.d(TAG,"here email111:"+email);
+
         StringRequest request=new StringRequest(Request.Method.GET,mypost_url,new Response.Listener<String>(){
             @Override
             public void onResponse(String response){

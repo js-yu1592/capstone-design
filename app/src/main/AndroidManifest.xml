@@ -30,7 +30,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyPostViewActivity"></activity>
+        <activity android:name=".updatePost"></activity>
+        <activity android:name=".MyPostViewActivity" />
         <activity android:name=".MyProfileActivity" />
         <activity android:name=".MyPostActivity" />
         <activity android:name=".PostViewActivity" />

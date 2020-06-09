@@ -96,6 +96,20 @@ function removeFeed(title){
   })
 }
 
+function updateFeed(title,content,oldtitle){
+   console.log("title:"+title);
+   console.log("content : "+content)
+   console.log("oldtitle: "+oldtitle)
+  return board.update({
+    board_title:title,
+    board_content:content
+  },{
+    where:{
+         board_title:oldtitle
+    }
+  })
+}
+exports.updateFeed=updateFeed
 exports.getUseralldata = getUseralldata
 exports.removeFeed=removeFeed
 exports.getUserInfo = getUserInfo

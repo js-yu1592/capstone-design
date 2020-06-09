@@ -22,7 +22,7 @@ const { firebaseAuth } = require('../middleware')
   })
   
   
-  
+  router.post('/updateFeed',service.getUpdateContent)
 router.get('/', service.getAllData) 
  router.get('/searchFeed',service.getUserContent)
  router.post('/removeFeed',service.getRemoveContent)

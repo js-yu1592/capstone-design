@@ -72,8 +72,21 @@ function getRemoveContent(req,res){
 
 }
 
-exports.getWriteFeed = getWriteFeed
+function getUpdateContent(req,res){
 
+  var title=req.body.title;
+  var content=req.body.content;
+  var oldtitle=req.body.oldtitle;
+  repository.updateFeed(title,content,oldtitle)
+  .then(result=>{
+    res.json({
+      status: "ok", message: "글작성 완료" 
+    })
+  })
+}
+
+exports.getWriteFeed = getWriteFeed
+exports.getUpdateContent=getUpdateContent
 exports.getAllData=getAllData
 exports.getRemoveContent=getRemoveContent
 exports.getUserContent=getUserContent

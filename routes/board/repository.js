@@ -22,7 +22,7 @@ function getUseralldata(page) {
     //   attributes: ['user_id', 'user_name', 'user_nickname', 'user_password','user_email','user_phone','createdAt']
     //   //  where:{user_uid :Sequelize.col('users.uid')}
     // }],
-    attributes: ['board_num', 'board_nickname', 'board_content','board_hit','createdAt'],
+    attributes: ['board_num', 'board_title', 'board_content','board_nickname','createdAt'],
     limit: 20,
     offset: offset1
 
@@ -80,7 +80,7 @@ let offset1=0;
 
 function getUserInfo(uid) {
 
-  return Board.findAll({
+  return board.findAll({
     where: {
       user_uid: uid
     },
@@ -88,10 +88,16 @@ function getUserInfo(uid) {
   })
 }
 
-
+function removeFeed(title){
+  return board.destroy({
+    where:{
+      board_title : title
+    }
+  })
+}
 
 exports.getUseralldata = getUseralldata
-
+exports.removeFeed=removeFeed
 exports.getUserInfo = getUserInfo
 exports.writeBoard = writeBoard
 exports.getUserFeed = getUserFeed

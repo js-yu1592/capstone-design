@@ -118,7 +118,7 @@ public class FishRegistActivity extends AppCompatActivity {
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FishRegistActivity.this, MyProfileActivity.class);
+                Intent intent = new Intent(FishRegistActivity.this, MyFishActivity.class);
                 startActivity(intent);
 
             }

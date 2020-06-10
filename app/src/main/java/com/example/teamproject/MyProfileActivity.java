@@ -53,7 +53,7 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                Intent intent=new Intent(MyProfileActivity.this, FishRegistActivity.class);
+                Intent intent=new Intent(MyProfileActivity.this, MyFishActivity.class);
                 //intent.putExtra("uid",uid);
                 startActivity(intent);
 

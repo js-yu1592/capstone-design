@@ -43,9 +43,6 @@ public class WeatherActivity extends Fragment {
 
             textView=view.findViewById(R.id.textView);
 
-            Intent intent=getActivity().getIntent();
-            lati=intent.getExtras().getStringArrayList("lati");
-            longi=intent.getExtras().getStringArrayList("longi");
 
             lat= getArguments().getString("lat");
             lon= getArguments().getString("lon");
@@ -136,6 +133,6 @@ public class WeatherActivity extends Fragment {
         else if(weather.equals("clear sky")){
             return "맑음";
         }
-        return "";
+        return weather;
     }
 }

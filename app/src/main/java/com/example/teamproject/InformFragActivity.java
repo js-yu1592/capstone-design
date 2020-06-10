@@ -56,13 +56,15 @@ public class InformFragActivity extends AppCompatActivity {
             }
         });
         weatherActivity= new WeatherActivity();
+        fishTankActivity=new FishTankActivity();
+
         Bundle bundle=new Bundle();
         bundle.putString("lat",lat);
         bundle.putString("lon",lon);
 
         weatherActivity.setArguments(bundle);
+        fishTankActivity.setArguments(bundle);
 
-        fishTankActivity= new FishTankActivity();
         setFrag(0);
 
     }

@@ -19,11 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_marginBottom="80dp"
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="10dp"
         android:scrollbars="vertical"
-        />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <Button
         android:id='@+id/btn_delete'

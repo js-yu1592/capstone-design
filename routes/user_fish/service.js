@@ -21,4 +21,20 @@ function getFish(req,res){
 
 }
 
+function saveFish(req,res){
+
+  var lat=req.body.lat
+  var lon=req.body.lon
+  var uid=req.body.uid
+  var fishing=req.body.fishing
+  var name=req.body.name
+  var length=req.body.length
+  var weight=req.body.weight
+  var comment=req.body.comment
+  console.log(lat)
+  console.log(lon)
+
+  repository.saveFishInfo(uid,name, length, weight, lat, lon, fishing, comment);
+}
 exports.getFish=getFish;
+exports.saveFish=saveFish;

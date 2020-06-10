@@ -34,4 +34,22 @@ function getFishInfo(page,keyword){
 
 }
 
+function saveFishInfo(uid,name, length, weight, lat, lon, fishing, comment){
+
+   return user_fish.create({
+
+      fish_uid: uid,
+      fish_name: name,
+      fish_length:length,
+    fish_weight: weight,
+    fish_comment:comment,
+    fish_fishing:fishing,
+    fish_lat:lat,
+    fish_lon:lon,
+   
+  })
+
+}
+
 exports.getFishInfo=getFishInfo;
+exports.saveFishInfo=saveFishInfo

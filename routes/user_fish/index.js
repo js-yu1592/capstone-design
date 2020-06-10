@@ -11,6 +11,6 @@ router
 
 
 .get('/fish',service.getFish)
-
+.post('/saveFish',service.saveFish)
 
 module.exports = router

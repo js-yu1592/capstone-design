@@ -10,6 +10,7 @@
         android:id="@+id/btn_back"
         android:layout_width="136dp"
         android:layout_height="40dp"
+        android:layout_marginTop="50dp"
         android:textSize="20dp"
         android:text="나의 게시물" />
 
@@ -17,12 +18,54 @@
         android:id="@+id/main_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:scrollbarFadeDuration="0"
         android:scrollbarSize="10dp"
         android:scrollbars="vertical"
         />
+
+    <Button
+        android:id='@+id/btn_delete'
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="삭제버튼"
+        android:onClick="btnDeleteClicked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id='@+id/btn_update'
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="89dp"
+        android:layout_marginBottom="3dp"
+        android:onClick="btnUpdateClicked"
+        android:text="수정버튼" />
+
+    <Button
+        android:id='@+id/btn_back'
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="318dp"
+        android:layout_marginBottom="5dp"
+        android:onClick="btnBackClicked"
+
+        android:text="뒤로가기" />
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/board_delete"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+
+    <!--        android:layout_marginTop="650dp"-->
+    <!--        android:layout_marginLeft="335dp"-->
+    <!--        android:layout_marginBottom="10dp"-->
+
+    <!--        android:src="@drawable/ic_delete" />-->
 
 
 

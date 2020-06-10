@@ -68,5 +68,6 @@ dependencies {
     implementation files('libs/httpcore-4.4.10.jar')
 
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

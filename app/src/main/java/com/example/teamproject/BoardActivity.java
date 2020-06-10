@@ -81,9 +81,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
 
         arrayList=new ArrayList<>();   // Boardd 객체담을 어레이 리스트 (어댑터쪽으로 날리기위해)
 
+        FirebaseUser user=mAuth.getCurrentUser();
 
-        Intent secondIntent=getIntent();
-        uid=secondIntent.getStringExtra("uid");
+        uid=user.getUid();
         database=FirebaseDatabase.getInstance();  //Firebase 데이터베이스 연동
         databaseReference=database.getReference("USER").child("Board"); //DB 테이블 연결
 
@@ -91,7 +91,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
 
 //        button=findViewById(R.id.main_post_delete);
 
-        findViewById(R.id.main_post_delete).setOnClickListener(this);
+
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -105,7 +105,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
                 boardArr.clear();
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                     //반복문으로 데이터 리스트 추출
-
+                    Log.d(TAG,"BoardActivity"+snapshot.getValue());
                     Post post=snapshot.getValue(Post.class);   //만들어뒀던 post 객체의 데이터들을 담는다
                     arrayList.add(post);  //담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
                     boardArr.add(post);

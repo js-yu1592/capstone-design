@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PostActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/update_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="title"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            tools:ignore="HardcodedText"
+
+            />
+        <Button
+            android:id="@+id/update_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:background="@android:color/holo_blue_bright"
+            ></Button>
+        <Button
+            android:id="@+id/update_naverCafe_button"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:onClick="naverCafeOnclick"
+            android:layout_height="wrap_content"
+            android:text="NaverCafe Save"
+            android:background="@android:color/holo_blue_bright"
+            ></Button>
+    </LinearLayout>
+    <EditText
+        android:id="@+id/update_contents"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_blue_bright"
+        android:background="@null"
+        android:hint="Contents" />
+
+
+</LinearLayout>

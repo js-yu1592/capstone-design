@@ -30,7 +30,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".updatePost"></activity>
+        <activity android:name=".FishRegistActivity"></activity>
+        <activity android:name=".FishRegisterActivity" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".MapActiivty" />
+        <activity android:name=".updatePost" />
         <activity android:name=".MyPostViewActivity" />
         <activity android:name=".MyProfileActivity" />
         <activity android:name=".MyPostActivity" />

@@ -223,8 +223,8 @@ public class MyPostActivity extends AppCompatActivity {
                   .add("title",title)
                   .build();
           final okhttp3.Request request1=new okhttp3.Request.Builder()
-                  .url("http://10.0.2.2:3000/board/removeFeed")
-                //  .url("https://kpu-lastproject.herokuapp.com/board/removeFeed")
+                  //.url("http://10.0.2.2:3000/board/removeFeed")
+                 .url("https://kpu-lastproject.herokuapp.com/board/removeFeed")
                   .post(formBody)
                   .build();
             client.newCall(request1).enqueue(new Callback() {

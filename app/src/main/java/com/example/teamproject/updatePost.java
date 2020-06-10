@@ -139,8 +139,8 @@ public class updatePost extends AppCompatActivity {
                     .add("content",newContent)
                     .build();
             final okhttp3.Request request1=new okhttp3.Request.Builder()
-                    .url("http://10.0.2.2:3000/board/updateFeed")
-                    //  .url("https://kpu-lastproject.herokuapp.com/board/removeFeed")
+                    //.url("http://10.0.2.2:3000/board/updateFeed")
+                      .url("https://kpu-lastproject.herokuapp.com/board/updateFeed")
                     .post(formBody)
                     .build();
             client.newCall(request1).enqueue(new Callback() {

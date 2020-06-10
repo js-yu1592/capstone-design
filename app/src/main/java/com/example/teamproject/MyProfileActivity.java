@@ -36,12 +36,21 @@ public class MyProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_profile);
         textView=(TextView)findViewById(R.id.viewMyProfile);
         Button btn_Mypost=(Button)findViewById(R.id.btn_MyPost);
-
+        Button btn_MyFishTank=(Button)findViewById(R.id.btn_MyFishTank);
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
         }
         makeRequest();
+        btn_MyFishTank.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
 
+                Intent intent=new Intent(MyProfileActivity.this, FishRegistActivity.class);
+                //intent.putExtra("uid",uid);
+                startActivity(intent);
+
+            }
+        });
         btn_Mypost.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

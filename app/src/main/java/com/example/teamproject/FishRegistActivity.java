@@ -22,6 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,6 +34,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +44,12 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 
 public class FishRegistActivity extends AppCompatActivity {
     private GoogleMap mMap;
@@ -51,13 +61,16 @@ public class FishRegistActivity extends AppCompatActivity {
     private String fish_spot;
     private String fishing;
     private String fish_comment;
+    private static final String TAG="BAAM";
     EditText fish_name_edit;
     EditText fish_len_edit;
     EditText fish_weight_edit;
     EditText fish_spot_edit;
     EditText fishing_edit;
     EditText fish_com_edit;
-
+    String uid;
+    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    FirebaseUser user=mAuth.getCurrentUser();
     private GpsTracker gpsTracker;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -118,7 +131,8 @@ public class FishRegistActivity extends AppCompatActivity {
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FishRegistActivity.this, MyFishActivity.class);
+                makeRequest1();
+                Intent intent = new Intent(FishRegistActivity.this, MyProfileActivity.class);
                 startActivity(intent);
 
             }
@@ -225,7 +239,48 @@ public class FishRegistActivity extends AppCompatActivity {
         }
 
     }
+    public void makeRequest1(){
+        FirebaseUser user=mAuth.getCurrentUser();
 
+        uid=user.getUid();
+
+        try{
+            OkHttpClient client=new OkHttpClient();
+            Gson gson=new Gson();
+
+
+            RequestBody formBody= new FormBody.Builder()
+                    .add("uid",uid)
+                    .add("lat",lat)
+                    .add("lon",lon)
+                    .add("name",fish_name_edit.getText().toString())
+                    .add("length",fish_len_edit.getText().toString())
+                    .add("weight",fish_weight_edit.getText().toString())
+                    .add("fishing",   fishing_edit.getText().toString())
+                    .add("comment",fish_com_edit.getText().toString())
+                    .build();
+            final okhttp3.Request request1=new okhttp3.Request.Builder()
+                    //.url("http://10.0.2.2:3000/user_fish/saveFish")
+                    .url("https://kpu-lastproject.herokuapp.com/user_fish/saveFish")
+                    .post(formBody)
+                    .build();
+            client.newCall(request1).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    Log.d(TAG,"fail:"+e.toString());
+                    System.out.println("error + Connection Server Error is"+e.toString());
+                }
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
+                    Log.d(TAG,"success:"+response.body().toString());
+                    System.out.println("Response Body is "+ response.body().string());
+                }
+            });
+        }catch(Exception e){
+
+        }
+    }
 
     public String getCurrentAddress(double latitude, double longitude) {
 

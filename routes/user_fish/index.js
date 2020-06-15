@@ -12,5 +12,6 @@ router
 
 .get('/fish',service.getFish)
 .post('/saveFish',service.saveFish)
-
+.post('/upload',service.photoUpload)
+.get('/fishbowl',service.getUserFish)
 module.exports = router

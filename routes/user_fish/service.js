@@ -3,7 +3,9 @@ const users=require('../../models');
 const repository = require('./repository')
 
 
+function photoUpload(req,res){
 
+}
 
 function getFish(req,res){
   console.log(req);
@@ -31,10 +33,27 @@ function saveFish(req,res){
   var length=req.body.length
   var weight=req.body.weight
   var comment=req.body.comment
+  var nickname=req.body.nickname
   console.log(lat)
+  console.log(nickname)
   console.log(lon)
 
-  repository.saveFishInfo(uid,name, length, weight, lat, lon, fishing, comment);
+  repository.saveFishInfo(uid,nickname,name, length, weight, lat, lon, fishing, comment);
 }
+
+function getUserFish(req,res){
+
+  var nickname=req.query.nickname;
+
+  repository.getUserFishInfo(nickname)
+  .then(result =>{
+    res.json({
+      user_fishBowl: result
+    })
+  })
+
+}
+exports.getUserFish=getUserFish
 exports.getFish=getFish;
 exports.saveFish=saveFish;
+exports.photoUpload=photoUpload;

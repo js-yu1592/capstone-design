@@ -2,8 +2,9 @@ package com.example.teamproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
-import java.io.IOException;
+
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +26,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.annotations.NotNull;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -34,7 +40,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import java.util.regex.Pattern;
 import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity {
@@ -67,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private String email = "";
     private String password = "";
     private String uid = "";
-
+    public static String UserEmail;
 //    public static final String apiKey="AAAAsp7tChI:APA91bEXF0BtJoSRSkJf1xe6MJHXltY_Rl15Nf-g4_-vL9xuPeFnpiDDoCapkJ8VG24x9xdwnJ1ZFqTbQkyTNP7z01cffkTT5jHu_J_iZwqV35TVxtvVv-sWAXM2xOEMvLnmbOPqUaV2";
     //  public static final String senderid="767170513426";
 
@@ -88,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         buttonGoogle = findViewById(R.id.btn_googleSignIn);
         editTextEmail = findViewById(R.id.et_eamil);
         editTextPassword = findViewById(R.id.et_password);
-
 
 
 
@@ -142,46 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final String uid = user.getUid();
                 Log.d(TAG,"user uid:"+user.getUid());
-                user.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<GetTokenResult> task) {
-                        if(task.isSuccessful()) {
-                            String idToken = task.getResult().getToken();
-                            Log.d(TAG,"IDtoKEN: "+idToken);
 
-                            try {
-                                OkHttpClient client=new OkHttpClient();
-                                RequestBody formBody=new FormBody.Builder()
-                                        .add("idToken",idToken)
-                                        .add("uid",uid)
-                                        .build();
-
-                                Request request=new Request.Builder()
-                                        .url("https://kpu-lastproject.herokuapp.com/user_info/login")
-                                        .post(formBody)
-                                        .build();
-                                //바동기 처리
-                                client.newCall(request).enqueue(new Callback() {
-                                    @Override
-                                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                        System.out.println("error + Connection Server Error is"+e.toString());
-                                    }
-
-                                    @Override
-                                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                                        Log.d(TAG,"success:"+response.body().toString());
-                                        System.out.println("Response Body is "+ response.body().string());
-                                    }
-                                });
-
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    }
-                });
 
                 Intent intent=new Intent(MainActivity.this, Main2Activity.class);
 
@@ -217,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                         //login
                         if(task.isSuccessful()){
                             Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-
+                            UserEmail=email;
 
 
                             firebaseAuth.addAuthStateListener(firebaseAuthListener);
@@ -287,8 +252,6 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
     }
-
-
 
 
 

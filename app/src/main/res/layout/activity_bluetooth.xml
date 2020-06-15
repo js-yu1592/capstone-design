@@ -4,19 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back"
+
 
     android:orientation="vertical"
     tools:context=".bluetoothActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:onClick="btnBackClicked"
-        android:background="#1E90FF"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#87CEFA"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
 
-        android:text="뒤로" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="30dp"
+                android:fontFamily="@font/font1"
+
+                android:textColor="#FFFFFF"
+                android:text="낚시">
+
+            </TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <Button
         android:id="@+id/btnConnect"
@@ -24,8 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="150dp"
-        android:background="#1E90FF"
-        android:textColor="#FFFFFF"
+        android:fontFamily="@font/font1"
+        android:background="@drawable/edit"
         android:text="블루투스 연결" />
 
     <Button
@@ -33,9 +52,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:background="#1E90FF"
+        android:background="@drawable/edit"
+        android:fontFamily="@font/font1"
         android:layout_gravity="center_horizontal"
-        android:textColor="#FFFFFF"
         android:text="낚시 시작" />
 
 

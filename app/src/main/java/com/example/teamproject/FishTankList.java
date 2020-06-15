@@ -5,5 +5,5 @@ import java.util.ArrayList;
 public class FishTankList {
 
 
-    ArrayList<fishListResult> fish = new ArrayList<fishListResult>();
+    public static ArrayList<fishListResult> fish;
 }

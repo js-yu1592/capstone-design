@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FishRegistActivity">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        tools:src="@tools:sample/avatars" />-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/fish_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:textSize="20dp"
+            android:textColor="	#87CEFA"
+            android:fontFamily="@font/font1"
+            android:text="물고기 이름 :" />
+
+        <EditText
+            android:id="@+id/fish_name_edit"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+           android:layout_toRightOf="@+id/fish_name"
+            android:background="@drawable/edit"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint=""
+            />
+        <TextView
+            android:id="@+id/fish_len"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fish_name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:textSize="20dp"
+            android:textColor="	#87CEFA"
+            android:fontFamily="@font/font1"
+            android:text="물고기 길이 :" />
+
+        <EditText
+            android:id="@+id/fish_len_edit"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fish_name_edit"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/fish_len"
+            android:background="@drawable/edit"
+
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint=""
+            />
+        <TextView
+            android:id="@+id/fish_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fish_len"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:textSize="20dp"
+            android:textColor="	#87CEFA"
+            android:fontFamily="@font/font1"
+            android:text="물고기 무게 :" />
+
+        <EditText
+            android:id="@+id/fish_weight_edit"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fish_len_edit"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/fish_weight"
+            android:ems="10"
+            android:background="@drawable/edit"
+
+            android:inputType="textPersonName"
+            android:hint=""
+            />
+        <TextView
+            android:id="@+id/fish_spot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fish_weight"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:textSize="20dp"
+            android:textColor="	#87CEFA"
+            android:fontFamily="@font/font1"
+            android:text="물고기 위치 :" />
+
+
+        <EditText
+            android:id="@+id/fish_spot_edit"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fish_weight"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/fish_spot"
+            android:ems="10"
+            android:background="@drawable/edit"
+
+            android:inputType="textPersonName"
+            android:hint=""
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_map"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="130dp"
+            android:layout_below="@+id/fish_spot"
+            android:background="@drawable/edit"
+            android:text="지도에서 위치 선택"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btn_map"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/btn_myLoca"
+            android:background="@drawable/edit"
+
+            android:layout_below="@+id/fish_spot"
+            android:text="내 위치"
+            />
+
+        <TextView
+            android:id="@+id/fishing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_map"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/font1"
+            android:text="낚시터 : "
+            android:textColor="	#87CEFA"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/fishing_edit"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_map"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/fishing"
+            android:ems="10"
+            android:background="@drawable/edit"
+
+            android:inputType="textPersonName"
+            android:hint=""
+            />
+        <TextView
+            android:id="@+id/fish_com"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fishing"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textSize="20dp"
+            android:textColor="	#87CEFA"
+            android:fontFamily="@font/font1"
+            android:text="코멘트 :" />
+
+        <LinearLayout
+            android:id="@+id/linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:layout_below="@+id/fish_com">
+
+            <EditText
+                android:id="@+id/fish_com_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/border"
+                android:inputType="textPersonName"
+                android:hint=""
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_regist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/linearlayout"
+            android:layout_centerInParent="true"
+            android:background="@drawable/edit"
+            android:text="등록" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

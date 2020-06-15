@@ -8,9 +8,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
-public class NaverCafe {
+public class NaverCafe extends AppCompatActivity {
     public static final String APP_NAVER_APPSTORE = "com.nhn.android.appstore";
     public static final String CAFE_INSTALL_URL = "market://details?id=com.nhn.android.navercafe";
     public static final String CAFE_INSTALL_URL_NAVER = "appstore://store?version=7&action=view&packageName=com.nhn.android.navercafe";

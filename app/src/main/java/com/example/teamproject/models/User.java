@@ -28,6 +28,9 @@ public class User {
         this.phone=phone;
     }
 
+    public User(String uid, String toString, String toString1, String toString2, String toString3, String toString4) {
+    }
+
     public String getId() {
         return id;
     }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:title="@string/signin"
-    android:background="@drawable/first">
+    android:background="@drawable/xx">
 
     <EditText
         android:id="@+id/et_eamil"
@@ -16,10 +16,14 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="370dp"
         android:layout_marginRight="50dp"
-        android:textSize="23dp"
-        android:background="@drawable/edit"
+        android:textSize="16dp"
+        android:fontFamily="@font/font1"
 
-        android:hint="  email을 입력하세요." />
+        android:background="@drawable/edit"
+        android:textColorHint="#00BFFF"
+
+
+        android:hint="  E-MAIL" />
 
     <EditText
         android:id="@+id/et_password"
@@ -29,8 +33,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/edit"
-        android:textSize="23dp"
-        android:hint="  비밀번호를 입력하세요." />
+        android:textSize="16dp"
+        android:fontFamily="@font/font1"
+
+        android:textColorHint="#00BFFF"
+        android:hint="  PASSWORD" />
 
     <LinearLayout
         android:id="@+id/linearlayout"
@@ -49,6 +56,8 @@
             android:text="회원가입"
             android:background="@drawable/button"
             android:textColor="#000000"
+            android:fontFamily="@font/font1"
+
             android:textSize="21dp" />
 
         <Button
@@ -63,6 +72,8 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/button"
             android:text="로그인"
+            android:fontFamily="@font/font1"
+
             android:textSize="21dp" />
 
     </LinearLayout>
@@ -75,6 +86,7 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="15dp"
         android:textColor="#000000"
+
         android:layout_marginLeft="140dp">
 
     </com.google.android.gms.common.SignInButton>

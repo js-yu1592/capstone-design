@@ -24,6 +24,10 @@ public class Post {
         this.contents = contents;
     }
 
+    public Post(String nickname, String toString, String toString1, String uid) {
+
+    }
+
     public String getDocumentId() {
         return documentId;
     }

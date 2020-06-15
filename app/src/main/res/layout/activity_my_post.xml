@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MyPostActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#87CEFA"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="30dp"
+                android:fontFamily="@font/font1"
+
+                android:textColor="#FFFFFF"
+                android:text="나의 게시물">
+
+            </TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/btn_back"-->
+<!--        android:layout_width="136dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:textSize="20dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:textColor="	#87CEFA"-->
+<!--        android:fontFamily="@font/font1"-->
+<!--        android:text="나의 게시물" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="10dp"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <Button
+        android:id='@+id/btn_delete'
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="삭제버튼"
+        android:onClick="btnDeleteClicked"
+        android:layout_width="wrap_content"
+        android:background="@drawable/edit"
+        android:layout_marginBottom="3dp"
+
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id='@+id/btn_update'
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="89dp"
+        android:layout_marginBottom="3dp"
+        android:onClick="btnUpdateClicked"
+        android:background="@drawable/edit"
+        android:text="수정버튼" />
+
+
+
+</RelativeLayout>

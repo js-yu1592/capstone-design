@@ -1,11 +1,15 @@
 package com.example.teamproject;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,7 +37,13 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import okhttp3.Call;
@@ -83,6 +93,8 @@ public class JoinActivity extends AppCompatActivity {
         Button button=findViewById(R.id.btn_finish);
 
 
+
+
         //파이어베이스 데이터베이스 객체선언
         database=FirebaseDatabase.getInstance();
         mDatabase=database.getReference();
@@ -121,6 +133,9 @@ public class JoinActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
     private void createUser(String email, String password,String name, String phone, String nickname) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)

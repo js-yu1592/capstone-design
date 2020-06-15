@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,7 +19,7 @@ import app.akexorcist.bluetotohspp.library.DeviceList;
 public class bluetoothActivity extends AppCompatActivity {
     public String flag;
     private BluetoothSPP bt;
-
+    private static final String TAG = "BAAM";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +37,10 @@ public class bluetoothActivity extends AppCompatActivity {
 
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //아두이노에서 넘어오는 데이터 수신
             public void onDataReceived(byte[] data, String message) { //1바이트씩 던져주기때문에 data에 아두이노에서 온 데이터를 넣어 바이트를 모두 합쳐 message로 return
-                Toast.makeText(bluetoothActivity.this, "입질이 감지되었습니다!"
+
+                Log.d(TAG,"arduino data:"+message);
+                Toast.makeText(bluetoothActivity.this, message
+
                         , Toast.LENGTH_SHORT).show(); //결국 사용할건 message
 
             }
@@ -96,7 +101,7 @@ public class bluetoothActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Toast.makeText(MainActivity.this,"눌림",Toast.LENGTH_LONG).show();
-                bt.send("s", true);
+                bt.send("입질이 감지되었습니다!", true);
                 Toast.makeText(bluetoothActivity.this,"낚시를 시작했습니다.",Toast.LENGTH_LONG).show();
 
             }
@@ -125,6 +130,7 @@ public class bluetoothActivity extends AppCompatActivity {
         Intent intent = new Intent(bluetoothActivity.this, BasicActivity.class);
         startActivity(intent);
     }
+
 
 }
 

@@ -61,6 +61,7 @@ public class FishRegistActivity extends AppCompatActivity {
     private String fish_spot;
     private String fishing;
     private String fish_comment;
+    private String nickname;
     private static final String TAG="BAAM";
     EditText fish_name_edit;
     EditText fish_len_edit;
@@ -68,7 +69,7 @@ public class FishRegistActivity extends AppCompatActivity {
     EditText fish_spot_edit;
     EditText fishing_edit;
     EditText fish_com_edit;
-    String uid;
+    String uid, email;
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
     private GpsTracker gpsTracker;
@@ -90,6 +91,10 @@ public class FishRegistActivity extends AppCompatActivity {
         fishing_edit= (EditText) findViewById(R.id.fishing_edit);
         fish_com_edit= (EditText) findViewById(R.id.fish_com_edit);
 
+        Intent intent= getIntent();
+         nickname=intent.getExtras().getString("nickname");
+
+         Log.d(TAG,"FishRegist Nickname: "+nickname);
         if (!checkLocationServicesStatus()) {
 
             showDialogForLocationServiceSetting();
@@ -119,6 +124,7 @@ public class FishRegistActivity extends AppCompatActivity {
 
             }
         });
+
         btn_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +134,7 @@ public class FishRegistActivity extends AppCompatActivity {
 
             }
         });
+
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -244,13 +251,14 @@ public class FishRegistActivity extends AppCompatActivity {
 
         uid=user.getUid();
 
+        Log.d(TAG,"FishRegist Nickname11: "+nickname);
         try{
             OkHttpClient client=new OkHttpClient();
             Gson gson=new Gson();
 
-
             RequestBody formBody= new FormBody.Builder()
                     .add("uid",uid)
+                    .add("nickname",nickname)
                     .add("lat",lat)
                     .add("lon",lon)
                     .add("name",fish_name_edit.getText().toString())
@@ -260,8 +268,8 @@ public class FishRegistActivity extends AppCompatActivity {
                     .add("comment",fish_com_edit.getText().toString())
                     .build();
             final okhttp3.Request request1=new okhttp3.Request.Builder()
-                    .url("http://10.0.2.2:3000/user_fish/saveFish")
-                    //.url("https://kpu-lastproject.herokuapp.com/board/removeFeed")
+                    //.url("http://10.0.2.2:3000/user_fish/saveFish")
+                    .url("https://kpu-lastproject.herokuapp.com/user_fish/saveFish")
                     .post(formBody)
                     .build();
             client.newCall(request1).enqueue(new Callback() {

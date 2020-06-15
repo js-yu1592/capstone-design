@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ImageUpload">
+
+    <Button android:id="@+id/btnImageSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_x="3dp"
+        android:layout_y="681dp"
+        android:text="보내기"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="667dp" />
+    <Button android:id="@+id/btnImageSelection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="316dp"
+        android:layout_y="682dp"
+        android:text="이미지 선택"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="667dp" />
+    <ImageView android:id="@+id/imgVwSelected"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="13dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

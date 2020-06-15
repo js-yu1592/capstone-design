@@ -53,16 +53,18 @@
         android:layout_marginRight="50dp"
         android:hint="핸드폰번호" />
 
+
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_password">
 
-
         <Button
             android:id="@+id/btn_finish"
             android:text="작성완료"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

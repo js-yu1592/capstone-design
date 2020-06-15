@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.teamproject">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -11,7 +12,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:remove="android:maxSdkVersion"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,10 +32,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".FishRegistActivity"></activity>
-        <activity android:name=".FishRegisterActivity" />
+        <activity android:name=".ImageUpload"></activity>
+        <activity android:name=".Bluetooth2" />
+        <activity android:name=".FishRegistActivity" />
         <activity android:name=".MapActivity" />
-        <activity android:name=".MapActiivty" />
         <activity android:name=".updatePost" />
         <activity android:name=".MyPostViewActivity" />
         <activity android:name=".MyProfileActivity" />

@@ -95,8 +95,9 @@ public class SearchYoutubeActivity extends Activity {
         HttpGet httpGet = new HttpGet(
                 "https://www.googleapis.com/youtube/v3/search?"
                         + "part=snippet&q=" + et.getText().toString()
-                        + "&key="+ serverKey+"&maxResults=50");  //EditText에 입력된 값으로 겁색을 합니다.
+                        + "&key="+ serverKey+"&maxResults=10");  //EditText에 입력된 값으로 겁색을 합니다.
         // part(snippet),  q(검색값) , key(서버키)
+        //https://www.googleapis.com/youtube/v3/search?part=snippet&q=fishing&key=AIzaSyBj4yVlu1hSs1zCfNS99LuLCSw85YVGiSQ&maxResults=10
         HttpClient client = new DefaultHttpClient();
         HttpResponse response;
         StringBuilder stringBuilder = new StringBuilder();

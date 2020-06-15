@@ -35,8 +35,7 @@ public class MyFishActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-
-
+    private String nickname;
 
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
@@ -53,6 +52,7 @@ public class MyFishActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_fish);
         Button btn_regist=(Button)findViewById(R.id.btn_regist);
+
 
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
@@ -88,10 +88,13 @@ public class MyFishActivity extends AppCompatActivity {
     }
     public void makeRequest(){
         String email=user.getEmail();
-        String mypost_url= "https://kpu-lastproject.herokuapp.com/user_fish/fish";
+        String myfish_url= "https://kpu-lastproject.herokuapp.com/user_fish/fishbowl?nickname="+MyProfileActivity.UserNickname;
+        //                  https://kpu-lastproject.herokuapp.com/user_fish/fishbowl?nickname=zzoon
+//        Toast.makeText(this,MyProfileActivity.UserNickname , Toast.LENGTH_SHORT).show();
+       // String myfish_url= "https://kpu-lastproject.herokuapp.com/user_fish/fish";
         // String mypost_url= "http://10.0.2.2/board/searchFeed?email="+email;
 
-        StringRequest request=new StringRequest(Request.Method.GET,mypost_url,new Response.Listener<String>(){
+        StringRequest request=new StringRequest(Request.Method.GET,myfish_url,new Response.Listener<String>(){
             @Override
             public void onResponse(String response){
                 processResponse(response);
@@ -100,9 +103,6 @@ public class MyFishActivity extends AppCompatActivity {
                 Gson gson=new Gson();
                 fishTankList fishTankList=gson.fromJson(response, com.example.teamproject.fishTankList.class);
 
-                if(fishTankList.fish.size()==0){
-                    Toast.makeText(getApplicationContext(), "에러1", Toast.LENGTH_LONG).show();
-                }
 
                 adapter=new MyfishAdapter(fishTankList.fish, getApplicationContext()); //CustomAdapter로 설정.
                 //어댑터는 담긴 리스트들을 리사이클러 뷰에 바인딩 시켜주기 위한 사전작업이 이루어지는 객체

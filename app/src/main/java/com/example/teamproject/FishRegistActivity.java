@@ -56,6 +56,7 @@ public class FishRegistActivity extends AppCompatActivity {
     private String lat;
     private String lon;
     private String fish_name;
+    private String nickname;
     private String fish_len;
     private String fish_weight;
     private String fish_spot;
@@ -68,7 +69,7 @@ public class FishRegistActivity extends AppCompatActivity {
     EditText fish_spot_edit;
     EditText fishing_edit;
     EditText fish_com_edit;
-    String uid;
+    String uid, email;
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
     private GpsTracker gpsTracker;
@@ -89,6 +90,11 @@ public class FishRegistActivity extends AppCompatActivity {
         fish_spot_edit = (EditText) findViewById(R.id.fish_spot_edit);
         fishing_edit= (EditText) findViewById(R.id.fishing_edit);
         fish_com_edit= (EditText) findViewById(R.id.fish_com_edit);
+
+//        Intent intent= getIntent();
+//        nickname=intent.getExtras().getString("nickname");
+//
+//        Log.d(TAG,"FishRegist Nickname: "+nickname);
 
         if (!checkLocationServicesStatus()) {
 
@@ -251,6 +257,7 @@ public class FishRegistActivity extends AppCompatActivity {
 
             RequestBody formBody= new FormBody.Builder()
                     .add("uid",uid)
+                    .add("nickname",MyProfileActivity.UserNickname)
                     .add("lat",lat)
                     .add("lon",lon)
                     .add("name",fish_name_edit.getText().toString())

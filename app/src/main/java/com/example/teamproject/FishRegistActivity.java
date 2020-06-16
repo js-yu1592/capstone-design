@@ -140,9 +140,17 @@ public class FishRegistActivity extends AppCompatActivity {
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeRequest1();
-                Intent intent = new Intent(FishRegistActivity.this, MyProfileActivity.class);
-                startActivity(intent);
+                if(!fish_name_edit.getText().toString().equals("")&&
+                        !fish_weight_edit.getText().toString().equals("")&&!fish_len_edit.getText().toString().equals("")
+                        &&!fishing_edit.getText().toString().equals("")&&!fish_com_edit.getText().toString().equals("")){
+                    makeRequest1();
+                    Intent intent = new Intent(FishRegistActivity.this, MyProfileActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(FishRegistActivity.this, "기입하지 않은 부분이 있습니다.",Toast.LENGTH_SHORT).show();
+                }
+
+
 
             }
         });

@@ -24,7 +24,11 @@ cmt_nickname:{
 
     
   
-  }, {});
+  }, { 
+    
+    tableName:"comment"
+  
+  });
   comment.associate = function(models) {
     // associations can be defined here
   };

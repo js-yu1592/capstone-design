@@ -8,6 +8,12 @@
     tools:context=".MyProfileActivity">
 
 
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:onClick="btnBackClicked"
+        android:text="뒤로" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"

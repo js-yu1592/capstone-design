@@ -143,7 +143,8 @@ public class MyPostActivity extends AppCompatActivity {
                              {
                                  boardSnapshot.getRef().removeValue();
                                   makeRequest1();
-
+                                Intent intent= new Intent(getApplicationContext(),MyProfileActivity.class);
+                                startActivity(intent);
                                  Log.d(TAG,"remove success:"+dataSnapshot.getChildren());
                              }
                          }
@@ -161,6 +162,7 @@ public class MyPostActivity extends AppCompatActivity {
 
             }
         });
+
 
     };
 
@@ -180,7 +182,7 @@ public class MyPostActivity extends AppCompatActivity {
                 myPostList myPostList=gson.fromJson(response, com.example.teamproject.myPostList.class);
 
                 if(myPostList.my_board.size()==0){
-                    Toast.makeText(getApplicationContext(), "에러1", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "게시글이 없습니다.", Toast.LENGTH_LONG).show();
                 }
 
                 adapter=new MyPostAdapter(myPostList.my_board, getApplicationContext()); //CustomAdapter로 설정.

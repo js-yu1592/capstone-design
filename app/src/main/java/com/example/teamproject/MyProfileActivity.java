@@ -135,6 +135,11 @@ public class MyProfileActivity extends AppCompatActivity {
        btnImageSend.setEnabled(true);
     }
 
+    public void btnBackClicked(View v){
+        Intent intent = new Intent(MyProfileActivity.this, BasicActivity.class);
+        startActivity(intent);
+    }
+
     public void makeRequest(){
         FirebaseUser user=mAuth.getCurrentUser();
         String email=user.getEmail();
@@ -166,7 +171,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
-                        println("에러 -> "+error.getMessage());
+                        println("게시글이 없습니다. -> "+error.getMessage());
                     }
                 }
         ){

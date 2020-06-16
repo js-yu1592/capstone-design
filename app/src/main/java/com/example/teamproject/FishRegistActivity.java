@@ -106,6 +106,8 @@ public class FishRegistActivity extends AppCompatActivity {
         Button btn_map = (Button) findViewById(R.id.btn_map);
         Button btn_regist=(Button)findViewById(R.id.btn_regist);
 
+
+
         btn_myLoca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,11 +157,11 @@ public class FishRegistActivity extends AppCompatActivity {
 //        fish_spot_edit.setText(address);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+
+    public void btnBackClicked(View v){
+        Intent intent = new Intent(FishRegistActivity.this, MyProfileActivity.class);
+        startActivity(intent);
     }
-    @Override
     public void onRequestPermissionsResult(int permsRequestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grandResults) {

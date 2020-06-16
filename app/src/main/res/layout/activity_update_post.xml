@@ -24,6 +24,7 @@
             tools:ignore="HardcodedText"
 
             />
+
         <Button
             android:id="@+id/update_save_button"
             android:layout_width="wrap_content"
@@ -31,6 +32,7 @@
             android:text="Save"
             android:background="@android:color/holo_blue_bright"
             ></Button>
+
         <Button
             android:id="@+id/update_naverCafe_button"
             android:layout_width="wrap_content"

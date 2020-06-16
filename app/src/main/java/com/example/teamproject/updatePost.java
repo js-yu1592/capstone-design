@@ -94,7 +94,10 @@ public class updatePost extends AppCompatActivity {
                                 Log.d(TAG,"update title: "+newTitle);
                                 Log.d(TAG,"update content:"+newContent);
                                 makeRequest1();
+
                             }
+                            Intent intent=new Intent(getApplicationContext(), MyProfileActivity.class);
+                            startActivity(intent);
                         }
                     }
 

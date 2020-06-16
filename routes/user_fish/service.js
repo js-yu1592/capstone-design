@@ -48,7 +48,7 @@ function getUserFish(req,res){
   repository.getUserFishInfo(nickname)
   .then(result =>{
     res.json({
-      user_fishBowl: result
+      fish: result
     })
   })
 

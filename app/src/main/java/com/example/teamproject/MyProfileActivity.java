@@ -80,6 +80,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
+            Log.d(TAG,"Profile requestQueue:"+requestQueue);
         }
         makeRequest();
 

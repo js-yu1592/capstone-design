@@ -25,6 +25,7 @@ public class CommentAdapter extends BaseAdapter  {
     private TextView nickname;
     private TextView content;
     private Activity mActivity;
+
     private static final String TAG = "BAAM";
     //Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<comment> commetItem = new ArrayList<comment>();
@@ -67,15 +68,13 @@ public class CommentAdapter extends BaseAdapter  {
     public Object getItem(int positon){
               return commetItem.get(positon);
     }
-   public void addItem(String nickname, String content){
 
+   public void addItem(String nickname, String content){
+   Log.d(TAG,"addItem");
 
         comment item=new comment();
         item.setNickname(nickname);
-
         item.setContent(content);
-
-
         commetItem.add(item);
 
    }

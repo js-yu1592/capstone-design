@@ -14,11 +14,12 @@ function saveComment(req, res) {
     console.log("hi")
     console.log(req.body)
     var nickname=req.body.nickname;
-    var comment=req.body.comment;
+    var comment1=req.body.comment;
     var uid=req.body.uid;
+    var title=req.body.title;
 
 
-    repository.saveComment1(uid,nickname,comment)
+    repository.saveComment1(uid,nickname,comment1,title)
     .then(result=>{
         res.json({
             status: "ok", message: "글수정 완료" 

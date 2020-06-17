@@ -6,11 +6,12 @@ module.exports = (sequelize, DataTypes) => {
        primaryKey:true,
        allowNull:false,
        autoIncrement: true
-      },
- cmt_uid:{
-  type:DataTypes.STRING,
-  allowNull:false,
- },
+      }, 
+  board_title:{
+  type:DataTypes.STRING(100),
+  allowNull:false
+     },   
+
 cmt_context:{
   type:DataTypes.STRING(255),
   allowNull:false,

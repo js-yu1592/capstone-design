@@ -4,17 +4,17 @@ var qs = require('querystring');
 const {comment} = require('../../models')
 const { Sequelize } = require("sequelize");
 
-function saveComment1(uid,nickname,comment) {
+function saveComment1(uid,nickname,comment1,title) {
 console.log(uid)
     console.log(nickname);
-    console.log(comment)
-  return comment.create({
+    console.log(comment1)
 
-      cmt_uid: uid,
-      cmt_nickname: nickname,
-    cmt_context: comment
-   
-  })
+return comment.create({
+  board_title:title,
+  cmt_uid:uid,
+  cmt_context:comment1,
+  cmt_nickname:nickname
+})
 
 }
 

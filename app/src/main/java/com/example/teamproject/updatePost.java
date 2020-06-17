@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
@@ -54,7 +55,7 @@ public class updatePost extends AppCompatActivity {
     String uid, oldtitle;
     String newTitle, newContent;
     FirebaseUser user=mAuth.getCurrentUser();
-
+    private final Handler handler=new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,9 +97,11 @@ public class updatePost extends AppCompatActivity {
                                 makeRequest1();
 
                             }
-                            Intent intent=new Intent(getApplicationContext(), MyProfileActivity.class);
+                            Intent intent=new Intent(getApplicationContext(), MyPostActivity.class);
                             startActivity(intent);
+
                         }
+                        doTheAutoRefresh();
                     }
 
                     @Override
@@ -107,12 +110,22 @@ public class updatePost extends AppCompatActivity {
                     }
                 });
 
-                Intent intent=new Intent(getApplicationContext(), MyPostActivity.class);
-                 startActivity(intent);
+
 
             }
         });
 
+    }
+    private void doTheAutoRefresh(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                doTheAutoRefresh();
+                makeRequest1();
+
+            }
+        },3000);
     }
     public void onBackPressed() {
         super.onBackPressed();

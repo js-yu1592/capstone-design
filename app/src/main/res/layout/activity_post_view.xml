@@ -62,7 +62,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="334dp"
+        android:layout_height="195dp"
         android:background="@drawable/border"
         android:orientation="vertical">
 
@@ -83,14 +83,14 @@
 
         <EditText
             android:id="@+id/Writecomment"
-            android:layout_width="320dp"
+            android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:text="댓글을 입력해주세요"/>
         <Button
             android:id="@+id/saveComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="댓글작성" />
+            android:text="작성" />
     </LinearLayout>
 
     <LinearLayout

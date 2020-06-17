@@ -8,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -68,7 +69,7 @@ public class MyPostActivity extends AppCompatActivity {
     private RecyclerDecoration spaceDecoration;
     String uid;
     public boolean pos;
-
+    private final Handler handler=new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,7 @@ public class MyPostActivity extends AppCompatActivity {
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
         }
+        doTheAutoRefresh();
         makeRequest();
 
         //Board는 게시판
@@ -143,8 +145,7 @@ public class MyPostActivity extends AppCompatActivity {
                              {
                                  boardSnapshot.getRef().removeValue();
                                   makeRequest1();
-                                Intent intent= new Intent(getApplicationContext(),MyProfileActivity.class);
-                                startActivity(intent);
+                                 doTheAutoRefresh();
                                  Log.d(TAG,"remove success:"+dataSnapshot.getChildren());
                              }
                          }
@@ -165,7 +166,17 @@ public class MyPostActivity extends AppCompatActivity {
 
 
     };
+    private void doTheAutoRefresh(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
+                doTheAutoRefresh();
+                makeRequest();
+
+            }
+        },3000);
+    }
     public void makeRequest(){
         FirebaseUser user=mAuth.getCurrentUser();
         String email=user.getEmail();

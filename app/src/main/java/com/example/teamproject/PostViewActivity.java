@@ -97,12 +97,12 @@ public class PostViewActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG,"REFRESH");
+
                 doTheAutoRefresh();
                 makeRequest();
 
             }
-        },1000);
+        },3000);
    }
     public void makeRequest1(){
       String uid=user.getUid();

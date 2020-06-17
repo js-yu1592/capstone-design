@@ -28,5 +28,18 @@ function saveComment(req, res) {
   
 }
 
-exports.saveComment = saveComment
+function getComment(req,res){
 
+   title=req.query.title;
+    console.log(title)
+   repository.getComment1(title)
+   .then(result=>{
+       res.json({
+           comment : result
+       })
+   })
+
+
+}
+exports.saveComment = saveComment
+exports.getComment=getComment

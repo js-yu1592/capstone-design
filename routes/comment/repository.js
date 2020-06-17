@@ -18,4 +18,15 @@ return comment.create({
 
 }
 
+
+function getComment1(title){
+  
+  return comment.findAll({
+    where:{
+      board_title:title
+    }
+  })
+
+}
+exports.getComment1=getComment1
 exports.saveComment1=saveComment1

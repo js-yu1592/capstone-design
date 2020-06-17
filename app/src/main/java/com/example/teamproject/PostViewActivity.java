@@ -45,7 +45,7 @@ import static java.sql.DriverManager.println;
 
 public class PostViewActivity extends AppCompatActivity {
     private static final String TAG="BAAM";
-     private  CommentList commentList;
+    private  CommentList commentList;
     private ListView comment_list;
     public static CommentAdapter adapter;
     private final Handler handler=new Handler();
@@ -53,10 +53,10 @@ public class PostViewActivity extends AppCompatActivity {
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     private Runnable runnable;
     FirebaseUser user=mAuth.getCurrentUser();
-   EditText editText;
-   String nickname;
+    EditText editText;
+    String nickname;
     static RequestQueue requestQueue;
-   int pos;
+    int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +68,8 @@ public class PostViewActivity extends AppCompatActivity {
         TextView titleText=(TextView)findViewById(R.id.titleText);
         TextView writerText=(TextView)findViewById(R.id.writerText);
         TextView contentText=(TextView)findViewById(R.id.contentText);
-         Button button=(Button)findViewById(R.id.saveComment);
-         editText=(EditText)findViewById(R.id.Writecomment);
+        Button button=(Button)findViewById(R.id.saveComment);
+        editText=(EditText)findViewById(R.id.Writecomment);
 
         titleText.setText(Board.boardArr.get(pos).getTitle());
         writerText.setText(Board.boardArr.get(pos).getNickname());
@@ -85,15 +85,15 @@ public class PostViewActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-           Toast.makeText(getApplicationContext(),"댓글작성이 완료되었습니다.",Toast.LENGTH_SHORT).show();
-          makeRequest1();
-          editText.setText(null);
+                Toast.makeText(getApplicationContext(),"댓글작성이 완료되었습니다.",Toast.LENGTH_SHORT).show();
+                makeRequest1();
+                editText.setText(null);
             }
         });
 
 
     }
-   private void doTheAutoRefresh(){
+    private void doTheAutoRefresh(){
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -103,9 +103,9 @@ public class PostViewActivity extends AppCompatActivity {
 
             }
         },3000);
-   }
+    }
     public void makeRequest1(){
-      String uid=user.getUid();
+        String uid=user.getUid();
 //        Log.d(TAG,"댓글 : "+ editText.getText().toString());
 //        Log.d(TAG,"title : "+Board.boardArr.get(pos).getTitle());
 //        Log.d(TAG,"닉네임 : "+Board.boardArr.get(pos).getNickname());
@@ -120,7 +120,7 @@ public class PostViewActivity extends AppCompatActivity {
                     .build();
             final okhttp3.Request request1=new okhttp3.Request.Builder()
                     //.url("http://10.0.2.2:3000/comment/save_comment")
-                   .url("https://kpu-lastproject.herokuapp.com/comment/save_comment")
+                    .url("https://kpu-lastproject.herokuapp.com/comment/save_comment")
                     .post(formBody)
                     .build();
             client.newCall(request1).enqueue(new Callback() {
@@ -153,36 +153,36 @@ public class PostViewActivity extends AppCompatActivity {
             }
             public void processResponse(String response){
                 Gson gson=new Gson();
-               // commentArr.clear();
+                // commentArr.clear();
                 CommentList commentList =gson.fromJson(response, CommentList.class);
-                    commentArr.clear();
+                commentArr.clear();
                 commentArr=commentList.comment;
                 if(commentList.comment.size()==0){
                     Toast.makeText(getApplicationContext(),"작성된 댓글이 없습니다.",Toast.LENGTH_LONG).show();
                 }
-               else {
+                else {
 //                    println("글 제목 : " + commentList.comment.get(0).board_title);
 //                    println("닉네임 : " + commentList.comment.get(0).cmt_nickname);
 //                    println("댓글내용 : " + commentList.comment.get(0).cmt_context);
                     Log.d(TAG,"글 제목 파싱 : "+commentList.comment.get(0).board_title);
                     Log.d(TAG,"닉네임 파싱: "+commentList.comment.get(0).cmt_nickname);
                     Log.d(TAG,"댓글 내용 파싱: "+commentList.comment.get(0).cmt_context);
-                adapter=new CommentAdapter();
+                    adapter=new CommentAdapter();
 
 
-              for(int i=0; i<commentArr.size(); i++){
+                    for(int i=0; i<commentArr.size(); i++){
 
 
-                  adapter.addItem(commentList.comment.get(i).cmt_nickname,commentList.comment.get(i).cmt_context);
+                        adapter.addItem(commentList.comment.get(i).cmt_nickname,commentList.comment.get(i).cmt_context);
 
 
-              }
+                    }
 
 
-            comment_list.setAdapter(adapter);
+                    comment_list.setAdapter(adapter);
 
 
-               }
+                }
 
             }
         },

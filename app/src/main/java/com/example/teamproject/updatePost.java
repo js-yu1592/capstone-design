@@ -87,8 +87,8 @@ public class updatePost extends AppCompatActivity {
                             for(DataSnapshot child: dataSnapshot.getChildren()){
                                 String postkey=child.getRef().getKey();
 
-                                 newTitle=titleText.getText().toString();
-                                 newContent=contentText.getText().toString();
+                                newTitle=titleText.getText().toString();
+                                newContent=contentText.getText().toString();
                                 updateRef.child(postkey).child("title").setValue(newTitle);
                                 updateRef.child(postkey).child("contents").setValue(newContent);
 
@@ -125,7 +125,7 @@ public class updatePost extends AppCompatActivity {
                 makeRequest1();
 
             }
-        },3000);
+        },5000);
     }
     public void onBackPressed() {
         super.onBackPressed();
@@ -156,7 +156,7 @@ public class updatePost extends AppCompatActivity {
                     .build();
             final okhttp3.Request request1=new okhttp3.Request.Builder()
                     //.url("http://10.0.2.2:3000/board/updateFeed")
-                     .url("https://kpu-lastproject.herokuapp.com/board/updateFeed")
+                    .url("https://kpu-lastproject.herokuapp.com/board/updateFeed")
                     .post(formBody)
                     .build();
             client.newCall(request1).enqueue(new Callback() {

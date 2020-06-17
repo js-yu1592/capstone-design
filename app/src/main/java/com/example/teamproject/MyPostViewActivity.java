@@ -69,7 +69,7 @@ public class MyPostViewActivity extends AppCompatActivity {
             Log.d(TAG,"requestQueue:"+requestQueue);
         }
 
-        Log.d(TAG,"MY POST VIE title : "+MyPostAdapter.myPostArr.get(pos).getBoard_title());
+        Log.d(TAG,"MY POST VIE title : "+Board.boardArr.get(pos).getTitle());
 
             TextView titleText = (TextView) findViewById(R.id.titleText);
             TextView writerText = (TextView) findViewById(R.id.writerText);
@@ -97,7 +97,7 @@ public class MyPostViewActivity extends AppCompatActivity {
 
     public void makeRequest(){
         Log.d(TAG,"MY POSTIVEW makeReuqest 시작");
-        String comment_url= "https://kpu-lastproject.herokuapp.com/comment/getCmt?title="+MyPostAdapter.myPostArr.get(pos).getBoard_title();
+        String comment_url= "https://kpu-lastproject.herokuapp.com/comment/getCmt?title="+Board.boardArr.get(pos).getTitle();
 
         StringRequest request=new StringRequest(Request.Method.GET,comment_url,new Response.Listener<String>(){
             @Override

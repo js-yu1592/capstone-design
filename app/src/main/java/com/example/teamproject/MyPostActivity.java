@@ -61,8 +61,8 @@ public class MyPostActivity extends AppCompatActivity {
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
     private ArrayList<Post> arrayList;
-     private ArrayList<myPostResult> modelArraylist;
-   private CustomAdapter customAdapter;
+    private ArrayList<myPostResult> modelArraylist;
+    private CustomAdapter customAdapter;
     static RequestQueue requestQueue;
     private static final String TAG="BAAM";
     String title;
@@ -79,7 +79,7 @@ public class MyPostActivity extends AppCompatActivity {
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
         }
-        doTheAutoRefresh();
+
         makeRequest();
 
         //Board는 게시판
@@ -90,8 +90,8 @@ public class MyPostActivity extends AppCompatActivity {
         spaceDecoration=new RecyclerDecoration(40);     //위아래 간격조정
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getResources())); // 왼쪽 오른쪽 마진
         recyclerView.addItemDecoration(spaceDecoration);
-      //  modelArraylist=getModel(false);
-       // customAdapter=new CustomAdapter(this,modelArraylist);
+        //  modelArraylist=getModel(false);
+        // customAdapter=new CustomAdapter(this,modelArraylist);
         //recyclerView.setAdapter(customAdapter);
         // recyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -130,58 +130,58 @@ public class MyPostActivity extends AppCompatActivity {
 
             public void onClick(View view){
                 uid=user.getUid();
-               // arrayList=getModel(true);
+                // arrayList=getModel(true);
 
 
-            for(int i=0; i<MyPostAdapter.arrayList.size(); i++){
-                 if(MyPostAdapter.arrayList.get(i).isSelected()){
-                  title=MyPostAdapter.arrayList.get(i).getBoard_title();
-                  Log.d(TAG,"MY BOARD TITLE: "+title);
-                     Query boardQuery = mDatabase.child("USER").child("Board").orderByChild("title").equalTo(title);
-                     boardQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                         @Override
-                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                             for(DataSnapshot boardSnapshot: dataSnapshot.getChildren())
-                             {
-                                 boardSnapshot.getRef().removeValue();
-                                  makeRequest1();
-                                 doTheAutoRefresh();
-                                 Log.d(TAG,"remove success:"+dataSnapshot.getChildren());
-                             }
-                         }
+                for(int i=0; i<MyPostAdapter.arrayList.size(); i++){
+                    if(MyPostAdapter.arrayList.get(i).isSelected()){
+                        title=MyPostAdapter.arrayList.get(i).getBoard_title();
+                        Log.d(TAG,"MY BOARD TITLE: "+title);
+                        Query boardQuery = mDatabase.child("USER").child("Board").orderByChild("title").equalTo(title);
+                        boardQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for(DataSnapshot boardSnapshot: dataSnapshot.getChildren())
+                                {
+                                    boardSnapshot.getRef().removeValue();
+                                    makeRequest1();
 
-                         @Override
-                         public void onCancelled(@NonNull DatabaseError databaseError) {
-                             Log.d(TAG,"remove failed:"+databaseError.toException());
-                         }
-                     });
+                                    Log.d(TAG,"remove success:"+dataSnapshot.getChildren());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.d(TAG,"remove failed:"+databaseError.toException());
+                            }
+                        });
 
 
-         }
+                    }
 
-     }
+                }
 
             }
         });
 
 
     };
-    private void doTheAutoRefresh(){
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                doTheAutoRefresh();
-                makeRequest();
-
-            }
-        },3000);
-    }
+//    private void doTheAutoRefresh(){
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                doTheAutoRefresh();
+//                makeRequest();
+//
+//            }
+//        },3000);
+//    }
     public void makeRequest(){
         FirebaseUser user=mAuth.getCurrentUser();
         String email=user.getEmail();
-      String mypost_url= "https://kpu-lastproject.herokuapp.com/board/searchFeed?email="+email;
-       // String mypost_url= "http://10.0.2.2/board/searchFeed?email="+email;
+        String mypost_url= "https://kpu-lastproject.herokuapp.com/board/searchFeed?email="+email;
+        // String mypost_url= "http://10.0.2.2/board/searchFeed?email="+email;
 
         StringRequest request=new StringRequest(Request.Method.GET,mypost_url,new Response.Listener<String>(){
             @Override
@@ -232,14 +232,15 @@ public class MyPostActivity extends AppCompatActivity {
             Gson gson=new Gson();
 
 
-          RequestBody formBody= new FormBody.Builder()
-                  .add("title",title)
-                  .build();
-          final okhttp3.Request request1=new okhttp3.Request.Builder()
-                  //.url("http://10.0.2.2:3000/board/removeFeed")
-                 .url("https://kpu-lastproject.herokuapp.com/board/removeFeed")
-                  .post(formBody)
-                  .build();
+            RequestBody formBody= new FormBody.Builder()
+                    .add("title",title)
+                    .build();
+            final okhttp3.Request request1=new okhttp3.Request.Builder()
+                    //.url("http://10.0.2.2:3000/board/removeFeed")
+                    .url("https://kpu-lastproject.herokuapp.com/board/removeFeed")
+                   // .url("http://10.0.2.2:3000/comment/removeCmt")
+                    .post(formBody)
+                    .build();
             client.newCall(request1).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -256,13 +257,9 @@ public class MyPostActivity extends AppCompatActivity {
         }catch(Exception e){
 
         }
-        }
+    }
     public void btnBackClicked(View v){
         Intent intent = new Intent(MyPostActivity.this, MyProfileActivity.class);
         startActivity(intent);
     }
-        };
-
-
-
-
+};

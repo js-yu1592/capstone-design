@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
 import com.example.teamproject.HeaderViewHolder;
+import com.example.teamproject.Main2Activity;
 import com.example.teamproject.MyPostActivity;
 import com.example.teamproject.MyPostViewActivity;
 import com.example.teamproject.MyProfileActivity;

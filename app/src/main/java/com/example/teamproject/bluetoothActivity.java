@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,7 +18,7 @@ import app.akexorcist.bluetotohspp.library.DeviceList;
 public class bluetoothActivity extends AppCompatActivity {
     public String flag;
     private BluetoothSPP bt;
-
+    public static final String TAG="TAG";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class bluetoothActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext()
                     , "Bluetooth is not available"
                     , Toast.LENGTH_SHORT).show();
+            Log.d(TAG,"블루투스 사용불가");
             finish();
         }
 
@@ -46,16 +48,19 @@ public class bluetoothActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext()
                         , "Connected to " + name + "\n" + address
                         , Toast.LENGTH_SHORT).show();
+                Log.d(TAG,"블루투스 연결");
             }
 
             public void onDeviceDisconnected() { //연결해제
                 Toast.makeText(getApplicationContext()
                         , "Connection lost", Toast.LENGTH_SHORT).show();
+                Log.d(TAG,"블루투스 연결해제");
             }
 
             public void onDeviceConnectionFailed() { //연결실패
                 Toast.makeText(getApplicationContext()
                         , "Unable to connect", Toast.LENGTH_SHORT).show();
+                Log.d(TAG,"블루투스 연결실패");
             }
         });
 
@@ -68,6 +73,7 @@ public class bluetoothActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), DeviceList.class);
                     startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
                 }
+                Log.d(TAG,"블루투스 연결시도");
             }
         });
     }
@@ -75,6 +81,7 @@ public class bluetoothActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         bt.stopService(); //블루투스 중지
+        Log.d(TAG,"블루투스 중지");
     }
 
     public void onStart() {

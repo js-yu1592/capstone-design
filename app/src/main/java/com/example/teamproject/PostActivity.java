@@ -123,7 +123,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void makeRequest(){
         String nickname_url= "https://kpu-lastproject.herokuapp.com/user_info/nickname?email="+email;
-        Log.d(TAG,"Current email : "+email);
+
         StringRequest request=new StringRequest(com.android.volley.Request.Method.GET, nickname_url,new com.android.volley.Response.Listener<String>(){
             @Override
             public void onResponse(String response){
@@ -135,7 +135,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 myNicknameList myNicknameList =gson.fromJson(response, myNicknameList.class);
 
                 if(myNicknameList.my_nickname.size()==0){
-                    Log.d(TAG,"asdfa email : "+"here111");
+
                     Toast.makeText(getApplicationContext(),"json파싱 실패",Toast.LENGTH_LONG).show();
                     println("json파싱 실패");
                 }
@@ -153,7 +153,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                                 public void onComplete(@NonNull Task<GetTokenResult> task) {
                                     if(task.isSuccessful()){
                                         String idToken=task.getResult().getToken();
-                                        Log.d(TAG,"TOKEN:"+idToken);
+
                                         FirebaseUser user=mAuth.getCurrentUser();
 
                                         //String email=user.getEmail();

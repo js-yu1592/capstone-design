@@ -1,10 +1,13 @@
 package com.example.teamproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
@@ -54,12 +57,11 @@ public class UpdatePostActivity extends AppCompatActivity {
     String uid, oldtitle;
     String newTitle, newContent;
     FirebaseUser user=mAuth.getCurrentUser();
-
+    private final Handler handler=new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_post);
-
         TextView titleText=(TextView)findViewById(R.id.update_title);
         TextView contentText=(TextView)findViewById(R.id.update_contents);
 
@@ -94,8 +96,25 @@ public class UpdatePostActivity extends AppCompatActivity {
                                 Log.d(TAG,"update title: "+newTitle);
                                 Log.d(TAG,"update content:"+newContent);
                                 makeRequest1();
+
                             }
+                            AlertDialog.Builder builder=new AlertDialog.Builder(UpdatePostActivity.this);
+                            builder.setMessage("게시글을 수정합니다.")
+                                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent=new Intent(getApplicationContext(), MyProfileActivity.class);
+                                            startActivity(intent);
+
+                                        }
+                                    });
+                            builder.create();
+                            builder.show();
+
+
+
                         }
+
                     }
 
                     @Override
@@ -104,13 +123,14 @@ public class UpdatePostActivity extends AppCompatActivity {
                     }
                 });
 
-                Intent intent=new Intent(getApplicationContext(), MyPostActivity.class);
-                startActivity(intent);
+
 
             }
         });
 
     }
+
+
     public void onBackPressed() {
         super.onBackPressed();
     }

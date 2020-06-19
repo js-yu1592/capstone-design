@@ -1,0 +1,26 @@
+package com.example.teamproject.models;
+
+public class Comment {
+    private static final String TAG = "BAAM";
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getNickname() {
+
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    private String content;
+    private String nickname;
+
+
+}

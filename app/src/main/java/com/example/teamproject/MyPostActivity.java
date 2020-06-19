@@ -1,13 +1,17 @@
 package com.example.teamproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -56,30 +60,25 @@ public class MyPostActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private FirebaseDatabase database=FirebaseDatabase.getInstance();
     private DatabaseReference mDatabase=database.getReference(); //데이터를 데이터베이스에 쓰기 위해
-
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
-    private ArrayList<Post> arrayList;
+    public static ArrayList<myPostResult> MyPostArr=new ArrayList<myPostResult>();
     private ArrayList<myPostResult> modelArraylist;
     private CustomAdapter customAdapter;
     static RequestQueue requestQueue;
     private static final String TAG="BAAM";
-    String title;
     private RecyclerDecoration spaceDecoration;
-    String uid;
+    String uid,title;
     public boolean pos;
-
+    private final Handler handler=new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post);
         Button button=findViewById(R.id.btn_delete);
         Button update=findViewById(R.id.btn_update);
-        if(requestQueue==null){
-            requestQueue= Volley.newRequestQueue(getApplicationContext());
-        }
-        makeRequest();
 
+        //startActivity(getIntent());
         //Board는 게시판
 
         recyclerView=findViewById(R.id.main_recyclerview); //아이디 연결
@@ -97,12 +96,14 @@ public class MyPostActivity extends AppCompatActivity {
 
         //layoutManager은 많은 역할을 하지만 간단하게 스크롤을 위아래로 할지 좌우로 할지 결정하는것
 
-
-        arrayList=new ArrayList<>();   // Boardd 객체담을 어레이 리스트 (어댑터쪽으로 날리기위해)
-
 //        Intent intent1 = getIntent();
 //        int pos = intent1.getIntExtra("pos", 0);
 
+        if(requestQueue==null){
+            requestQueue= Volley.newRequestQueue(getApplicationContext());
+        }
+
+        makeRequest();
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +112,7 @@ public class MyPostActivity extends AppCompatActivity {
                 for(int i=0; i<MyPostAdapter.arrayList.size(); i++){
                     if(MyPostAdapter.arrayList.get(i).isSelected()){
                         title=MyPostAdapter.arrayList.get(i).getBoard_title();
+
                         Intent intent=new Intent(getApplicationContext(), UpdatePostActivity.class);
                         intent.putExtra("pos",i);
                         startActivity(intent);
@@ -145,6 +147,18 @@ public class MyPostActivity extends AppCompatActivity {
                                     makeRequest1();
 
                                     Log.d(TAG,"remove success:"+dataSnapshot.getChildren());
+                                    AlertDialog.Builder builder=new AlertDialog.Builder(MyPostActivity.this);
+                                    builder.setMessage("게시글을 삭제합니다.")
+                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    finish();
+                                                    startActivity(getIntent());
+
+                                                }
+                                            });
+                                    builder.create();
+                                    builder.show();
                                 }
                             }
 
@@ -162,8 +176,19 @@ public class MyPostActivity extends AppCompatActivity {
             }
         });
 
-    };
 
+    };
+    //    private void doTheAutoRefresh(){
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                doTheAutoRefresh();
+//                makeRequest();
+//
+//            }
+//        },3000);
+//    }
     public void makeRequest(){
         FirebaseUser user=mAuth.getCurrentUser();
         String email=user.getEmail();
@@ -178,14 +203,17 @@ public class MyPostActivity extends AppCompatActivity {
             public void processResponse(String response){
                 Gson gson=new Gson();
                 myPostList myPostList=gson.fromJson(response, com.example.teamproject.myPostList.class);
-
+                MyPostArr=myPostList.my_board;
                 if(myPostList.my_board.size()==0){
-                    Toast.makeText(getApplicationContext(), "에러1", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "게시글이 없습니다.", Toast.LENGTH_LONG).show();
                 }
 
                 adapter=new MyPostAdapter(myPostList.my_board, getApplicationContext()); //CustomAdapter로 설정.
                 //어댑터는 담긴 리스트들을 리사이클러 뷰에 바인딩 시켜주기 위한 사전작업이 이루어지는 객체
                 recyclerView.setAdapter(adapter); //리사이클러뷰 어댑터 연결
+
+                adapter.notifyDataSetChanged();
+
 
 
             }
@@ -224,7 +252,8 @@ public class MyPostActivity extends AppCompatActivity {
                     .build();
             final okhttp3.Request request1=new okhttp3.Request.Builder()
                     //.url("http://10.0.2.2:3000/board/removeFeed")
-                      .url("https://kpu-lastproject.herokuapp.com/board/removeFeed")
+                    .url("https://kpu-lastproject.herokuapp.com/board/removeFeed")
+                    // .url("http://10.0.2.2:3000/comment/removeCmt")
                     .post(formBody)
                     .build();
             client.newCall(request1).enqueue(new Callback() {

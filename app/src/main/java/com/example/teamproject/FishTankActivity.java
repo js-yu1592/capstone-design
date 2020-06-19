@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.teamproject.Main2Activity;
+import com.example.teamproject.R;
+
 import kotlin.internal.PlatformImplementations;
 
 public class FishTankActivity extends Fragment {
@@ -34,7 +37,7 @@ public class FishTankActivity extends Fragment {
         lati=Double.parseDouble(lat);
         longi=Double.parseDouble(lon);
 
-        for(int i=0;i<Main2Activity.fishArr.size();i++) {
+        for(int i = 0; i< Main2Activity.fishArr.size(); i++) {
             if((lati-0.05)<=Double.parseDouble(Main2Activity.fishArr.get(i).fish_lat)&&
                     (lati+0.05)>=Double.parseDouble(Main2Activity.fishArr.get(i).fish_lat)&&
                     (longi-0.05)<=Double.parseDouble(Main2Activity.fishArr.get(i).fish_lon)&&

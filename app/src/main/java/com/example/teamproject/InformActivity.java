@@ -19,13 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -33,14 +26,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 
 public class InformActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -83,7 +72,7 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
                 String address = getCurrentAddress(latitude, longitude);
 
                 Toast.makeText(InformActivity.this,address, Toast.LENGTH_LONG).show();
-                Intent intent=new Intent(getApplicationContext(),InformFragActivity.class);
+                Intent intent=new Intent(getApplicationContext(), InformFragActivity.class);
 
                 intent.putExtra("lat",String.valueOf(latitude));
                 intent.putExtra("lon",String.valueOf(longitude));
@@ -116,7 +105,7 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
 
 
 
-        for(int i=0;i<Main2Activity.fishArr.size();i++){
+        for(int i = 0; i< Main2Activity.fishArr.size(); i++){
             MarkerOptions markerOptions=new MarkerOptions();
             markerOptions.position(new LatLng(Double.valueOf(Main2Activity.fishArr.get(i).fish_lat),Double.valueOf(Main2Activity.fishArr.get(i).fish_lon))).title(Main2Activity.fishArr.get(i).fish_fishing);
             mMap.addMarker(markerOptions);

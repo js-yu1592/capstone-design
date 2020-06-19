@@ -11,8 +11,6 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-
 public class InformFragActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView; //바텀 네비게이션 뷰

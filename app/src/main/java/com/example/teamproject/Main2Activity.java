@@ -125,8 +125,10 @@ public class Main2Activity extends AppCompatActivity {
                 fishTankList fishTankList=gson.fromJson(response, fishTankList.class);
 
                 fishArr=fishTankList.fish;
+                if(fishArr.size()==0){
 
-                Toast.makeText(Main2Activity.this, fishTankList.fish.get(0).fish_comment, Toast.LENGTH_LONG).show();
+                }
+                //Toast.makeText(Main2Activity.this, fishTankList.fish.get(0).fish_comment, Toast.LENGTH_LONG).show();
             }
         },
                 new Response.ErrorListener(){

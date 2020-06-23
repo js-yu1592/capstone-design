@@ -39,7 +39,11 @@ public class bluetoothActivity extends AppCompatActivity {
             public void onDataReceived(byte[] data, String message) { //1바이트씩 던져주기때문에 data에 아두이노에서 온 데이터를 넣어 바이트를 모두 합쳐 message로 return
                 Toast.makeText(bluetoothActivity.this, "입질이 감지되었습니다!"
                         , Toast.LENGTH_SHORT).show(); //결국 사용할건 message
-
+                //Toast.makeText(getApplicationContext(),"service start",Toast.LENGTH_LONG).show();
+                Intent intent= new Intent(bluetoothActivity.this,MyService.class);
+                startService(intent);
+               // Toast.makeText(getApplicationContext(),"service end",Toast.LENGTH_LONG).show();
+                stopService(intent);
             }
         });
 

@@ -1,6 +1,7 @@
 package com.example.teamproject.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.teamproject.MyFishViewActivity;
 import com.example.teamproject.MyProfileActivity;
 import com.example.teamproject.R;
 import com.example.teamproject.fishListResult;
@@ -62,7 +64,7 @@ public class MyfishAdapter extends RecyclerView.Adapter<MyfishAdapter.CustomView
         //     final Post post=arrayList.get(position);
 
         final fishListResult objincome=arrayList.get(position);
-
+        myFishArr=arrayList;
         holder.email.setText("작성자 : " + MyProfileActivity.UserNickname);
         holder.title.setText(arrayList.get(position).getFish_name());
         holder.contents.setText(arrayList.get(position).getFish_fishing());
@@ -108,13 +110,12 @@ public class MyfishAdapter extends RecyclerView.Adapter<MyfishAdapter.CustomView
                     final int position=getAdapterPosition(); //현재 클릭된 리사이클러뷰의 위치 파악
 
                     if(position!=RecyclerView.NO_POSITION) {
-//                        Intent intent = new Intent(context, MyPostViewActivity.class);
-//                        intent.putExtra("pos", position);
-//
-//                        Log.d(TAG, "POSTADATER nickname: " + MyProfileActivity.UserNickname);
-//                        Log.d(TAG, "POSTADATER pos : " + position);
-//
-//                        context.startActivity(intent);
+                        Intent intent = new Intent(context, MyFishViewActivity.class);
+                        intent.putExtra("pos", position);
+
+
+
+                        context.startActivity(intent);
 
                     }
 

@@ -7,13 +7,44 @@
     android:orientation="vertical"
     tools:context=".PostViewActivity">
 
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#87CEFA"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="30dp"
+                android:fontFamily="@font/font1"
+
+                android:textColor="#FFFFFF"
+                >
+
+            </TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@drawable/border"
@@ -25,6 +56,9 @@
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/font1"
                 android:layout_weight="1"
                 android:text="제목" />
 
@@ -33,6 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#000000"
                 android:text="TextView" />
         </LinearLayout>
 
@@ -47,6 +83,9 @@
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/font1"
                 android:layout_weight="1"
                 android:text="작성자" />
 
@@ -55,6 +94,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textColor="#000000"
+
                 android:text="TextView" />
 
         </LinearLayout>
@@ -62,7 +104,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="195dp"
+        android:layout_height="220dp"
         android:background="@drawable/border"
         android:orientation="vertical">
 
@@ -71,6 +113,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:textColor="#000000"
+
             android:textSize="20dp" />
 
 
@@ -90,6 +134,7 @@
             android:id="@+id/saveComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit"
             android:text="작성" />
     </LinearLayout>
 

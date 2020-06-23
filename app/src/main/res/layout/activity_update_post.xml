@@ -6,7 +6,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PostActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#87CEFA"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/font1"
+                android:textSize="30dp">
+
+            </TextView>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,10 +36,9 @@
 
         <EditText
             android:id="@+id/update_title"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:hint="title"
-            android:layout_weight="1"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -28,8 +49,8 @@
             android:id="@+id/update_save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
-            android:background="@android:color/holo_blue_bright"
+            android:text="저장"
+            android:background="@drawable/edit"
             ></Button>
         <Button
             android:id="@+id/update_naverCafe_button"
@@ -37,8 +58,8 @@
             android:layout_marginLeft="5dp"
             android:onClick="naverCafeOnclick"
             android:layout_height="wrap_content"
-            android:text="NaverCafe Save"
-            android:background="@android:color/holo_blue_bright"
+            android:text="네이버 카페 저장"
+            android:background="@drawable/edit"
             ></Button>
     </LinearLayout>
     <EditText

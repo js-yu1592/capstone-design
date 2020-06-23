@@ -5,70 +5,128 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".JoinActivity">
+    android:background="#FFFFFF">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#87CEFA"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="26dp"
+                android:fontFamily="@font/font1"
+
+                android:textColor="#FFFFFF"
+                android:text="회원가입">
+
+            </TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <EditText
         android:id="@+id/join_email"
+        android:ems="10"
+        android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="50dp"
-        android:hint="이메일" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="70dp"
+        android:fontFamily="@font/font1"
+
+        android:background="@drawable/edit"
+
+
+        android:hint="  이메일" />
     <EditText
         android:id="@+id/join_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
-        android:hint="비밀번호" />
+        android:layout_marginRight="70dp"
+        android:fontFamily="@font/font1"
 
-    <EditText
-        android:id="@+id/join_nickname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
-        android:hint="닉네임" />
+        android:background="@drawable/edit"
+        android:hint="  비밀번호" />
 
     <EditText
         android:id="@+id/join_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
-        android:hint="이름" />
+        android:layout_marginRight="70dp"
+        android:fontFamily="@font/font1"
+
+        android:background="@drawable/edit"
+
+        android:hint="  이름" />
+
+    <EditText
+        android:id="@+id/join_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="70dp"
+        android:background="@drawable/edit"
+        android:fontFamily="@font/font1"
+
+
+        android:hint="  닉네임" />
+
+
 
 
     <EditText
         android:id="@+id/join_phone"
+        android:ems="10"
+        android:inputType="phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
-        android:hint="핸드폰번호" />
+        android:layout_marginRight="70dp"
+        android:background="@drawable/edit"
+        android:fontFamily="@font/font1"
+
+        android:hint="  핸드폰번호" />
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_password">
 
-
         <Button
             android:id="@+id/btn_finish"
-            android:text="작성완료"
-
             android:layout_width="match_parent"
+            android:fontFamily="@font/font1"
+
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"/>
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="120dp"
+            android:layout_marginTop="30dp"
+            android:background="#1E90FF"
+            android:textColor="#FFFFFF"
+            android:text="작성완료" />
 
     </LinearLayout>
+
 </LinearLayout>

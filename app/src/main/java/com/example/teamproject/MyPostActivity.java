@@ -1,6 +1,7 @@
 package com.example.teamproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +14,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -78,6 +81,12 @@ public class MyPostActivity extends AppCompatActivity {
         Button button=findViewById(R.id.btn_delete);
         Button update=findViewById(R.id.btn_update);
 
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+        actionBar.setDisplayHomeAsUpEnabled(true);
         //startActivity(getIntent());
         //Board는 게시판
 
@@ -205,7 +214,7 @@ public class MyPostActivity extends AppCompatActivity {
                 myPostList myPostList=gson.fromJson(response, com.example.teamproject.myPostList.class);
                 MyPostArr=myPostList.my_board;
                 if(myPostList.my_board.size()==0){
-                    Toast.makeText(getApplicationContext(), "게시글이 없습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "등록된 게시글이 없습니다.", Toast.LENGTH_LONG).show();
                 }
 
                 adapter=new MyPostAdapter(myPostList.my_board, getApplicationContext()); //CustomAdapter로 설정.
@@ -277,4 +286,30 @@ public class MyPostActivity extends AppCompatActivity {
         Intent intent = new Intent(MyPostActivity.this, MyProfileActivity.class);
         startActivity(intent);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.join, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch(item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 };

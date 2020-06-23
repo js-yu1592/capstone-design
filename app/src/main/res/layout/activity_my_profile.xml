@@ -6,46 +6,102 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MyProfileActivity">
-
-
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="136dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="btnBackClicked"
-        android:text="뒤로" />
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#87CEFA"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="26dp"
+                android:fontFamily="@font/font1"
+                android:textColor="#FFFFFF"
+                android:text="마이페이지">
+
+            </TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical">
-        <ImageView
-
-            android:id="@+id/imgVwSelected"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true"
-            />
 
         <TextView
             android:id="@+id/myProfile"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="30dp"
             android:textSize="20dp"
+            android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="	#87CEFA"
+            android:fontFamily="@font/font1"
             android:text="내 정보" />
 
         <TextView
-            android:id="@+id/viewMyProfile"
+            android:id="@+id/textView2"
+            android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/border"
-            android:text=""
-            android:textSize="15dp" />
+            android:layout_height="wrap_content"
+            android:textColor="	#87CEFA"
+            android:fontFamily="@font/font1"
+            android:textSize="20dp"
+            android:layout_marginTop="25dp"
+
+            android:text="" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="20dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="	#87CEFA"
+            android:fontFamily="@font/font1"
+            android:textSize="20dp"
+
+            android:text="" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_marginLeft="20dp"
+
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="	#87CEFA"
+            android:fontFamily="@font/font1"
+            android:textSize="20dp"
+
+            android:text="" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_marginLeft="20dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="	#87CEFA"
+            android:fontFamily="@font/font1"
+            android:layout_marginTop="25dp"
+
+            android:textSize="20dp"
+
+            android:text="" />
+
 
     </LinearLayout>
 
@@ -57,33 +113,40 @@
 
         <Button
             android:id="@+id/btn_MyPost"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/edit"
+            android:fontFamily="@font/font1"
             android:text="내 게시글 보기" />
 
         <Button
             android:id="@+id/btn_MyFishTank"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/edit"
+            android:fontFamily="@font/font1"
             android:text="어항" />
-        <Button
-            android:id="@+id/btnImageSelection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
 
-            android:text="사진 선택"
-            />
-        <Button
-            android:id="@+id/btnImageSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
 
-            android:text="사진 저장"
-            />
+        <!--        <Button-->
+        <!--            android:id="@+id/btnImageSelection"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_weight="1"-->
+
+        <!--            android:text="사진 선택"-->
+        <!--            />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/btnImageSend"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_weight="1"-->
+
+        <!--            android:text="사진 저장"-->
+        <!--            />-->
+
     </LinearLayout>
 
 </LinearLayout>

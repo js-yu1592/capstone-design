@@ -1,12 +1,14 @@
 package com.example.teamproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,6 +28,8 @@ public class InformFragActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inform_frag);
+
+
 
         Intent intent=getIntent();
         lat=intent.getExtras().getString("lat");
@@ -87,4 +91,5 @@ public class InformFragActivity extends AppCompatActivity {
         }
 
     }
+
 }

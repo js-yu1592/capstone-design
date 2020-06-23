@@ -5,13 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     tools:context=".BoardActivity">
-   <Button
-       android:id="@+id/btn_back"
-       android:layout_width="136dp"
+
+   <com.google.android.material.appbar.AppBarLayout
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:onClick="btnBackClicked"
-       android:text="뒤로" />
+       android:theme="@style/AppTheme.AppBarOverlay">
+
+      <androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="#87CEFA"
+          app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:textSize="26dp"
+             android:fontFamily="@font/font1"
+             android:textColor="#FFFFFF"
+             android:text="게시판">
+
+         </TextView>
+
+      </androidx.appcompat.widget.Toolbar>
+
+
+   </com.google.android.material.appbar.AppBarLayout>
+
+   <!--   <Button-->
+   <!--       android:id="@+id/btn_back"-->
+   <!--       android:layout_width="70dp"-->
+   <!--       android:layout_height="30dp"-->
+   <!--       android:onClick="btnBackClicked"-->
+   <!--       android:background="#1E90FF"-->
+   <!--       android:text="뒤로" />-->
 
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/main_recyclerview"
@@ -33,23 +64,22 @@
 
        android:src="@drawable/ic_edit" />
 
-<!--   <Button-->
-<!--       android:id="@+id/main_post_delete"-->
-<!--       android:layout_width="wrap_content"-->
-<!--       android:layout_height="wrap_content"-->
-<!--       android:layout_alignParentEnd="true"-->
-<!--       android:layout_alignParentBottom="true"-->
-<!--       android:layout_marginEnd="40dp"-->
-<!--       android:layout_marginBottom="4dp"-->
-<!--       android:text="삭제" />-->
+   <!--   <Button-->
+   <!--       android:id="@+id/main_post_delete"-->
+   <!--       android:layout_width="wrap_content"-->
+   <!--       android:layout_height="wrap_content"-->
+   <!--       android:layout_alignParentEnd="true"-->
+   <!--       android:layout_alignParentBottom="true"-->
+   <!--       android:layout_marginEnd="40dp"-->
+   <!--       android:layout_marginBottom="4dp"-->
+   <!--       android:text="삭제" />-->
 
-      <com.google.android.material.floatingactionbutton.FloatingActionButton
+   <com.google.android.material.floatingactionbutton.FloatingActionButton
        android:id="@+id/main_post_delete"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_width="73dp"
+       android:layout_height="72dp"
        android:layout_alignParentEnd="true"
        android:layout_alignParentBottom="true"
-
        android:layout_marginEnd="56dp"
        android:layout_marginBottom="3dp"
        android:src="@drawable/ic_delete" />

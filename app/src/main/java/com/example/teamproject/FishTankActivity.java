@@ -2,6 +2,7 @@ package com.example.teamproject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,11 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.teamproject.Main2Activity;
 import com.example.teamproject.R;
@@ -44,6 +48,7 @@ public class FishTankActivity extends Fragment {
         view=inflater.inflate(R.layout.activity_fish_tank,container, false);
 
 
+
         recyclerView=(RecyclerView)view.findViewById(R.id.main_recyclerview); //아이디 연결
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존 성능강화
         layoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
@@ -72,7 +77,9 @@ public class FishTankActivity extends Fragment {
                     (longi-0.05)<=Double.parseDouble(Main2Activity.fishArr.get(i).fish_lon)&&
                     (longi+0.05)>=Double.parseDouble(Main2Activity.fishArr.get(i).fish_lon)) {
                     mapfish.add(Main2Activity.fishArr.get(i));
-//
+                    if(mapfish.size()==0){
+                        Toast.makeText(getActivity().getApplicationContext(),"주변에서 잡힌 물고기가 없습니다.",Toast.LENGTH_LONG).show();
+                    }
 //                println("fish_name : " + Main2Activity.fishArr.get(i).fish_name);
 //                println("fish_length : " + Main2Activity.fishArr.get(i).fish_length);
 //                println("fish_weight : " + Main2Activity.fishArr.get(i).fish_weight);
@@ -89,5 +96,6 @@ public class FishTankActivity extends Fragment {
     public void println(String data){
         textView.append(data+"\n");
     }
+
 }
 

@@ -16,7 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
+
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     // 구글  로그인 버튼
-    private SignInButton buttonGoogle;
+
     // 이메일과 비밀번호
     private EditText editTextEmail;
     private EditText editTextPassword;
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         btn_signUp=findViewById(R.id.btn_signUp);
         btn_signIn=findViewById(R.id.btn_signIn);
-        buttonGoogle = findViewById(R.id.btn_googleSignIn);
+
         editTextEmail = findViewById(R.id.et_eamil);
         editTextPassword = findViewById(R.id.et_password);
 
@@ -110,14 +110,7 @@ public class MainActivity extends AppCompatActivity {
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
         //google 로그인 버튼
-        buttonGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent signInIntent = googleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);
 
-            }
-        });
 
         btn_signIn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -181,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
                         //login
                         if(task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+
                             UserEmail=email;
 
 

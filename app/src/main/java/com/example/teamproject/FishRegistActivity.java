@@ -140,8 +140,19 @@ public class FishRegistActivity extends AppCompatActivity {
                         !fish_weight_edit.getText().toString().equals("")&&!fish_len_edit.getText().toString().equals("")
                         &&!fishing_edit.getText().toString().equals("")&&!fish_com_edit.getText().toString().equals("")){
                     makeRequest1();
-                    Intent intent = new Intent(FishRegistActivity.this, MyFishActivity.class);
-                    startActivity(intent);
+                    androidx.appcompat.app.AlertDialog.Builder builder=new androidx.appcompat.app.AlertDialog.Builder(FishRegistActivity.this);
+                    builder.setMessage("어항에 물고기가 등록되었습니다.")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(FishRegistActivity.this, MyProfileActivity.class);
+                                    startActivity(intent);
+
+                                }
+                            });
+                    builder.create();
+                    builder.show();
+
                 }else{
                     Toast.makeText(FishRegistActivity.this, "기입하지 않은 부분이 있습니다.",Toast.LENGTH_SHORT).show();
                 }

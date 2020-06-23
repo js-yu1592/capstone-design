@@ -103,7 +103,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.CustomView
 
                 pos=(Integer) holder.checkBox.getTag();
 
-                Toast.makeText(context, arrayList.get(pos).getBoard_title() +"clicked!",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, arrayList.get(pos).getBoard_title() +"clicked!",Toast.LENGTH_SHORT).show();
                 Log.d(TAG,"checkbox pos111 ;"+pos);
 
                 if(arrayList.get(pos).isSelected()){

@@ -96,18 +96,22 @@ public class MyProfileActivity extends AppCompatActivity {
             public void processResponse(String response){
                 Gson gson=new Gson();
                 myProfileList myProfileList =gson.fromJson(response, myProfileList.class);
-
-                //만약 그 바꿀꺼 이름이 textView 면 이런식으로 하면
-                textView2.setText("이름 : " +myProfileList.my_profile.get(0).user_name);
-                textView6.setText("닉네임 : " +myProfileList.my_profile.get(0).user_nickname);
-                textView7.setText("이메일 : " +myProfileList.my_profile.get(0).user_email);
-                textView8.setText("핸드폰 번호 : " +myProfileList.my_profile.get(0).user_phone);
+                if(myProfileList.my_profile.size()==0){
+                    Toast.makeText(getApplicationContext(),"아직 정보를 불러오지 못했습니다. 메인화면에 다녀와주세요.",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //만약 그 바꿀꺼 이름이 textView 면 이런식으로 하면
+                    textView2.setText("이름 : " + myProfileList.my_profile.get(0).user_name);
+                    textView6.setText("닉네임 : " + myProfileList.my_profile.get(0).user_nickname);
+                    textView7.setText("이메일 : " + myProfileList.my_profile.get(0).user_email);
+                    textView8.setText("핸드폰 번호 : " + myProfileList.my_profile.get(0).user_phone);
 
 //                println("이름 : " + myProfileList.my_profile.get(0).user_name);
 //                println("닉네임 : " + myProfileList.my_profile.get(0).user_nickname);
 //                println("이메일 : " + myProfileList.my_profile.get(0).user_email);
 //                println("핸드폰 번호 : " + myProfileList.my_profile.get(0).user_phone);
-                UserNickname = myProfileList.my_profile.get(0).user_nickname;
+                    UserNickname = myProfileList.my_profile.get(0).user_nickname;
+                }
 
             }
         },

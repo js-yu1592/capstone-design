@@ -35,15 +35,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".SplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MyFishViewActivity"></activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true" />
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="unspecified"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <activity android:name=".MyFishActivity" />
         <activity android:name=".UpdatePostActivity" />
@@ -59,6 +64,7 @@
         <activity android:name=".FishTankActivity" />
         <activity android:name=".InformFragActivity" />
         <activity android:name=".SettingActivity" />
+        <activity android:name=".FishingActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -68,9 +74,10 @@
         <activity android:name=".InformActivity" />
         <activity android:name=".PostActivity" />
         <activity android:name=".BoardActivity" />
+        <activity android:name=".MainActivity"/>
+
         <activity android:name=".JoinActivity" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".MainActivity" />
 
         <service android:name=".GpsTracker" />
     </application>

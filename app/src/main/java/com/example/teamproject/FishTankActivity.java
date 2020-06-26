@@ -80,12 +80,7 @@ public class FishTankActivity extends Fragment {
                     if(mapfish.size()==0){
                         Toast.makeText(getActivity().getApplicationContext(),"주변에서 잡힌 물고기가 없습니다.",Toast.LENGTH_LONG).show();
                     }
-//                println("fish_name : " + Main2Activity.fishArr.get(i).fish_name);
-//                println("fish_length : " + Main2Activity.fishArr.get(i).fish_length);
-//                println("fish_weight : " + Main2Activity.fishArr.get(i).fish_weight);
-//                println("fish_lat : " + Main2Activity.fishArr.get(i).fish_lat);
-//                println("fish_lon : " + Main2Activity.fishArr.get(i).fish_lon);
-//                println("fish_fishing : " + Main2Activity.fishArr.get(i).fish_fishing);
+
             }
         }
         adapter=new MapfishAdapter(mapfish, getActivity().getApplicationContext()); //CustomAdapter로 설정.

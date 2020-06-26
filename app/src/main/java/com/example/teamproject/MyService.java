@@ -11,15 +11,18 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 
 
 public class MyService extends Service {
     NotificationManager Notifi_M;
     ServiceThread thread;
     Notification Notifi ;
+    public static String TAG="BAAM";
     NotificationManager notificationManager;
 
     PendingIntent intent;
@@ -49,36 +52,69 @@ public class MyService extends Service {
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void handleMessage(android.os.Message msg) {
-            intent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), MainActivity.class),
+            intent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(getApplicationContext(), bluetoothActivity.class),
 
                     PendingIntent.FLAG_UPDATE_CURRENT);
             createNotificationChannel();
 
 //                Notification.Builder builder = new Notification.Builder(getApplicationContext(),NotificationChannel)
-            Notification noti=new Notification.Builder(getApplicationContext(),"channel_id")
-                    .setSmallIcon(R.drawable.ic_launcher_background) // 아이콘 설정하지 않으면 오류남
+            //Notification noti=new Notification.Builder(getApplicationContext(),"channel_id")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Notification noti = new NotificationCompat.Builder(getApplicationContext(), "channel_id")
+                        .setSmallIcon(R.drawable.ic_launcher_background) // 아이콘 설정하지 않으면 오류남
 
-                    .setDefaults(Notification.DEFAULT_ALL)
+                        .setDefaults(Notification.DEFAULT_ALL)
 
-                    .setContentTitle("입질 감지") // 제목 설정
+                        .setPriority(NotificationCompat.PRIORITY_MAX)
 
-                    .setContentText("입질이 감지되었습니다. 낚시대를 확인해주세요!") // 내용 설정
+                        .setContentTitle("입질 감지") // 제목 설정
 
-                    //.setTicker("한줄 출력") // 상태바에 표시될 한줄 출력
+                        .setContentText("입질이 감지되었습니다. 낚시대를 확인해주세요!") // 내용 설정
 
-                    .setAutoCancel(true)
+                        //.setTicker("한줄 출력") // 상태바에 표시될 한줄 출력
 
-                    .setContentIntent(intent).build();
+                        .setAutoCancel(true)
 
-            noti.flags=Notification.FLAG_AUTO_CANCEL;
+                        .setContentIntent(intent).build();
 
-            notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                noti.flags = Notification.FLAG_AUTO_CANCEL;
 
-            notificationManager.notify(0, noti);
+                notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-            //토스트 띄우기
-            Toast.makeText(MyService.this, "뜸?", Toast.LENGTH_LONG).show();
+                notificationManager.notify(0, noti);
 
+                //토스트 띄우기
+                //Toast.makeText(MyService.this, "뜸?", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "뜸?");
+            }
+            else{
+                Notification noti = new Notification.Builder(getApplicationContext())
+                        .setSmallIcon(R.drawable.ic_launcher_background) // 아이콘 설정하지 않으면 오류남
+
+                        .setDefaults(Notification.DEFAULT_ALL)
+
+                        .setContentTitle("입질 감지") // 제목 설정
+
+                        .setContentText("입질이 감지되었습니다. 낚시대를 확인해주세요!") // 내용 설정
+
+                        .setPriority(Notification.PRIORITY_MAX)
+
+                        //.setTicker("한줄 출력") // 상태바에 표시될 한줄 출력
+
+                        .setAutoCancel(true)
+
+                        .setContentIntent(intent).build();
+
+                noti.flags = Notification.FLAG_AUTO_CANCEL;
+
+                notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                notificationManager.notify(0, noti);
+
+                //토스트 띄우기
+                //Toast.makeText(MyService.this, "뜸?", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "뜸?");
+            }
         }
     };
     private void createNotificationChannel() {

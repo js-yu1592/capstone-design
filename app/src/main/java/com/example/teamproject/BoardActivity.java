@@ -58,7 +58,6 @@ public class BoardActivity extends AppCompatActivity implements View.OnClickList
     private RecyclerDecoration spaceDecoration;
     private String uid;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

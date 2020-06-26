@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +22,7 @@ import app.akexorcist.bluetotohspp.library.DeviceList;
 public class bluetoothActivity extends AppCompatActivity {
     public String flag;
     private BluetoothSPP bt;
-    public static final String TAG="TAG";
+    public static final String TAG="BAAM";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,7 @@ public class bluetoothActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+
         if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
             Toast.makeText(getApplicationContext()
                     , "Bluetooth is not available"
@@ -45,13 +47,14 @@ public class bluetoothActivity extends AppCompatActivity {
 
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //아두이노에서 넘어오는 데이터 수신
             public void onDataReceived(byte[] data, String message) { //1바이트씩 던져주기때문에 data에 아두이노에서 온 데이터를 넣어 바이트를 모두 합쳐 message로 return
-                Toast.makeText(bluetoothActivity.this, "입질이 감지되었습니다!"
+                Toast.makeText(bluetoothActivity.this, message
                         , Toast.LENGTH_SHORT).show(); //결국 사용할건 message
-                //Toast.makeText(getApplicationContext(),"service start",Toast.LENGTH_LONG).show();
+
                 Intent intent= new Intent(bluetoothActivity.this,MyService.class);
                 startService(intent);
-               // Toast.makeText(getApplicationContext(),"service end",Toast.LENGTH_LONG).show();
-                stopService(intent);
+                // Toast.makeText(getApplicationContext(),"service end",Toast.LENGTH_LONG).show();
+                //stopService(intent);
+
             }
         });
 
@@ -116,6 +119,7 @@ public class bluetoothActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Toast.makeText(MainActivity.this,"눌림",Toast.LENGTH_LONG).show();
                 bt.send("s", true);
+                Log.d(TAG,"됨??");
                 Toast.makeText(bluetoothActivity.this,"낚시를 시작했습니다.",Toast.LENGTH_LONG).show();
 
             }
@@ -140,15 +144,6 @@ public class bluetoothActivity extends AppCompatActivity {
             }
         }
     }
-    public void btnBackClicked(View v){
-        Intent intent = new Intent(bluetoothActivity.this, Main2Activity.class);
-        startActivity(intent);
-    }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -170,6 +165,8 @@ public class bluetoothActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    public void btnBackClicked(View v){
+        Intent intent = new Intent(bluetoothActivity.this, Main2Activity.class);
+        startActivity(intent);
+    }
 }
-

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.teamproject.MyProfileActivity;
 import com.example.teamproject.PostViewActivity;
 import com.example.teamproject.R;
 import com.example.teamproject.models.Comment;

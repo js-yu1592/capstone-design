@@ -64,10 +64,7 @@ public class Main2Activity extends AppCompatActivity {
 //            }
 //        });
 
-        if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(getApplicationContext());
-        }
-        makeRequest();
+
 //스트리밍 화면
         button_stream.setOnClickListener(new View.OnClickListener() {
 
@@ -105,6 +102,12 @@ public class Main2Activity extends AppCompatActivity {
         button_inform.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+
+                if (requestQueue == null) {
+                    requestQueue = Volley.newRequestQueue(getApplicationContext());
+                }
+                makeRequest();
+
                 Intent intent = new Intent(Main2Activity.this, InformActivity.class);
                 startActivity(intent);
 
@@ -129,6 +132,7 @@ public class Main2Activity extends AppCompatActivity {
                 fishTankList fishTankList=gson.fromJson(response, fishTankList.class);
 
                 fishArr=fishTankList.fish;
+               // Toast.makeText(getApplicationContext(),fishArr.get(fishArr.size()-1).getFish_name(),Toast.LENGTH_SHORT).show();
                 if(fishTankList.fish.size()==0){
 
                 }

@@ -2,32 +2,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#87CEFA"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="유튜브"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/font1"
+                android:textSize="26dp">
+
+            </TextView>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dip"
+        android:layout_height="50dp"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:onClick="btnBackClicked"
+            android:background="@drawable/edit"
+            android:text="뒤로" />
 
         <EditText
             android:id="@+id/eturl"
-            android:layout_width="200dip"
-            android:layout_height="50dip"
+            android:layout_width="210dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
             android:hint="검색어를 입력하세요"
             android:imeOptions="actionGo"
             android:singleLine="true"></EditText>
 
         <Button
             android:id="@+id/search"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dip"
-            android:background="#000000"
+            android:background="@drawable/edit"
             android:gravity="center"
             android:text="검색"
-            android:textColor="#ffffff" />
+            />
     </LinearLayout>
 
     <ListView

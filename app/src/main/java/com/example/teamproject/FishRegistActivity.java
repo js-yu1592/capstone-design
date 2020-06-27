@@ -1,6 +1,7 @@
 package com.example.teamproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -15,10 +16,11 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -26,22 +28,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,12 +45,12 @@ public class FishRegistActivity extends AppCompatActivity {
     private String lat;
     private String lon;
     private String fish_name;
+    private String nickname;
     private String fish_len;
     private String fish_weight;
     private String fish_spot;
     private String fishing;
     private String fish_comment;
-    private String nickname;
     private static final String TAG="BAAM";
     EditText fish_name_edit;
     EditText fish_len_edit;
@@ -83,6 +72,15 @@ public class FishRegistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fish_regist);
 
+
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
         fish_name_edit= (EditText) findViewById(R.id.fish_name_edit);
         fish_len_edit= (EditText) findViewById(R.id.fish_len_edit);
         fish_weight_edit= (EditText) findViewById(R.id.fish_weight_edit);
@@ -91,10 +89,11 @@ public class FishRegistActivity extends AppCompatActivity {
         fishing_edit= (EditText) findViewById(R.id.fishing_edit);
         fish_com_edit= (EditText) findViewById(R.id.fish_com_edit);
 
-        Intent intent= getIntent();
-         nickname=intent.getExtras().getString("nickname");
+//        Intent intent= getIntent();
+//        nickname=intent.getExtras().getString("nickname");
+//
+//        Log.d(TAG,"FishRegist Nickname: "+nickname);
 
-         Log.d(TAG,"FishRegist Nickname: "+nickname);
         if (!checkLocationServicesStatus()) {
 
             showDialogForLocationServiceSetting();
@@ -105,8 +104,6 @@ public class FishRegistActivity extends AppCompatActivity {
         Button btn_myLoca = (Button) findViewById(R.id.btn_myLoca);
         Button btn_map = (Button) findViewById(R.id.btn_map);
         Button btn_regist=(Button)findViewById(R.id.btn_regist);
-
-
 
         btn_myLoca.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +123,6 @@ public class FishRegistActivity extends AppCompatActivity {
 
             }
         });
-
         btn_map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +132,6 @@ public class FishRegistActivity extends AppCompatActivity {
 
             }
         });
-
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,8 +144,6 @@ public class FishRegistActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(FishRegistActivity.this, "기입하지 않은 부분이 있습니다.",Toast.LENGTH_SHORT).show();
                 }
-
-
 
             }
         });
@@ -165,11 +158,13 @@ public class FishRegistActivity extends AppCompatActivity {
 //        fish_spot_edit.setText(address);
     }
 
+    @Override
+    public void onBackPressed() {
 
-    public void btnBackClicked(View v){
-        Intent intent = new Intent(FishRegistActivity.this, MyProfileActivity.class);
-        startActivity(intent);
+        super.onBackPressed();
+
     }
+    @Override
     public void onRequestPermissionsResult(int permsRequestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grandResults) {
@@ -261,14 +256,14 @@ public class FishRegistActivity extends AppCompatActivity {
 
         uid=user.getUid();
 
-        Log.d(TAG,"FishRegist Nickname11: "+nickname);
         try{
             OkHttpClient client=new OkHttpClient();
             Gson gson=new Gson();
 
+
             RequestBody formBody= new FormBody.Builder()
                     .add("uid",uid)
-                    .add("nickname",nickname)
+                    .add("nickname",MyProfileActivity.UserNickname)
                     .add("lat",lat)
                     .add("lon",lon)
                     .add("name",fish_name_edit.getText().toString())
@@ -399,5 +394,29 @@ public class FishRegistActivity extends AppCompatActivity {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.join, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch(item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
 }

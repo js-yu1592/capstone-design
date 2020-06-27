@@ -1,10 +1,15 @@
 package com.example.teamproject;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +52,7 @@ public class PostViewActivity extends AppCompatActivity {
     private static final String TAG="BAAM";
     private  CommentList commentList;
     private ListView comment_list;
+    public static String UserNickname;
     public static CommentAdapter adapter;
     private final Handler handler=new Handler();
     public static ArrayList<CommentResult> commentArr= new ArrayList<CommentResult>();
@@ -62,6 +68,14 @@ public class PostViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_view);
 
+
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         Intent intent=getIntent();
         pos=intent.getIntExtra("pos",0);
 
@@ -74,39 +88,57 @@ public class PostViewActivity extends AppCompatActivity {
         titleText.setText(Board.boardArr.get(pos).getTitle());
         writerText.setText(Board.boardArr.get(pos).getNickname());
         contentText.setText(Board.boardArr.get(pos).getContents());
+
         comment_list=(ListView)findViewById(R.id.comment_list);
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
             Log.d(TAG,"requestQueue:"+requestQueue);
         }
-
-        makeRequest();
+makeRequest3();
+    makeRequest();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),"댓글작성이 완료되었습니다.",Toast.LENGTH_SHORT).show();
                 makeRequest1();
+
+
+                AlertDialog.Builder builder=new AlertDialog.Builder(PostViewActivity.this);
+                builder.setMessage("댓글을 등록합니다.")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                makeRequest();
+                                finish();
+                                startActivity(getIntent());
+
+                            }
+                        });
+                builder.create();
+                builder.show();
+
+
                 editText.setText(null);
             }
         });
 
 
     }
-    private void doTheAutoRefresh(){
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                doTheAutoRefresh();
-                makeRequest();
-
-            }
-        },3000);
-    }
+//    private void doTheAutoRefresh(){
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                doTheAutoRefresh();
+//                makeRequest();
+//
+//            }
+//        },3000);
+//    }
     public void makeRequest1(){
         String uid=user.getUid();
-//        Log.d(TAG,"댓글 : "+ editText.getText().toString());
+        Log.d(TAG,"댓글 닉네임 : "+ UserNickname);
 //        Log.d(TAG,"title : "+Board.boardArr.get(pos).getTitle());
 //        Log.d(TAG,"닉네임 : "+Board.boardArr.get(pos).getNickname());
         try{
@@ -115,7 +147,7 @@ public class PostViewActivity extends AppCompatActivity {
 
             RequestBody formBody= new FormBody.Builder()
                     .add("comment",editText.getText().toString())
-                    .add("nickname",Board.boardArr.get(pos).getNickname())
+                    .add("nickname",UserNickname)
                     .add("title",Board.boardArr.get(pos).getTitle())
                     .build();
             final okhttp3.Request request1=new okhttp3.Request.Builder()
@@ -132,7 +164,7 @@ public class PostViewActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(@NotNull Call call, @NotNull okhttp3.Response response) throws IOException {
-                    Log.d(TAG,"success:"+response.body().toString());
+                    Log.d(TAG,"success:"+editText.getText().toString());
                     System.out.println("Response Body is "+ response.body().string());
                 }
             });
@@ -178,7 +210,7 @@ public class PostViewActivity extends AppCompatActivity {
 
                     }
 
-
+                    adapter.notifyDataSetChanged();
                     comment_list.setAdapter(adapter);
 
 
@@ -202,9 +234,73 @@ public class PostViewActivity extends AppCompatActivity {
 
         request.setShouldCache(false);
         requestQueue.add(request);
-        doTheAutoRefresh();
+
+    }
+    public void makeRequest3(){
+
+        FirebaseUser user=mAuth.getCurrentUser();
+        String email=user.getEmail();
+        String myboard_url= "https://kpu-lastproject.herokuapp.com/user_info/my?email="+email;
+        Log.d("TAG","email : "+email);
+        StringRequest request=new StringRequest(Request.Method.GET,myboard_url,new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response){
+                processResponse(response);
+            }
+            public void processResponse(String response){
+                Gson gson=new Gson();
+                myProfileList myProfileList =gson.fromJson(response, myProfileList.class);
+
+                if(myProfileList.my_profile.size()==0){
+                    Toast.makeText(getApplicationContext(),"json파싱 실패",Toast.LENGTH_LONG).show();
+                    println("json파싱 실패1111");
+                }
+                else {
+                    println("이름 : " + myProfileList.my_profile.get(0).user_name);
+                    println("닉네임 : " + myProfileList.my_profile.get(0).user_nickname);
+                    println("이메일 : " + myProfileList.my_profile.get(0).user_email);
+                    println("핸드폰 번호 : " + myProfileList.my_profile.get(0).user_phone);
+                    UserNickname=myProfileList.my_profile.get(0).user_nickname;
+
+                }
+
+            }
+        },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        println("게시글이 없습니다. -> "+error.getMessage());
+                    }
+                }
+        ){
+            @Override
+            protected Map<String,String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<String,String>();
+                return params;
+            }
+        };
+        request.setShouldCache(false);
+        requestQueue.add(request);
+
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.join, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch(item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
 
+        return super.onOptionsItemSelected(item);
+    }
 }

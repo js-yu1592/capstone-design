@@ -3,6 +3,8 @@ package com.example.teamproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -97,8 +99,19 @@ public class updatePost extends AppCompatActivity {
                                 makeRequest1();
 
                             }
-                            Intent intent=new Intent(getApplicationContext(), MyPostActivity.class);
-                            startActivity(intent);
+                            AlertDialog.Builder builder=new AlertDialog.Builder(updatePost.this);
+                            builder.setMessage("게시글을 수정합니다.")
+                                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent=new Intent(getApplicationContext(), MyProfileActivity.class);
+                                            startActivity(intent);
+
+                                        }
+                                    });
+                            builder.create();
+                            builder.show();
+           
 
                         }
                         doTheAutoRefresh();

@@ -1,63 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BasicActivity">
-    <Button
+    android:background="#FFFFFF">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#87CEFA"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="어풀"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/font1"
+                android:textSize="26dp">
+
+            </TextView>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageButton
         android:id="@+id/btn_fishing"
-        android:layout_width="134dp"
+        android:layout_width="149dp"
         android:layout_height="141dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="200dp"
-        android:onClick="btnFishingClicked"
-        android:text="낚시" />
-    <Button
-        android:id="@+id/btn_profile"
-        android:layout_width="120dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="270dp"
-        android:layout_marginTop="20dp"
-        android:onClick="btnProfileClicked"
-        android:text="내 정보"
-        />
-    <Button
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/ss"
+        android:onClick="btn_fishingClicked" />
+
+    <TextView
+        android:id="@+id/textFishing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="300dp"
+        android:text="낚시"
+        android:textColor="	#87CEFA"
+        android:fontFamily="@font/font1"
+
+        android:textSize="23dp" />
+
+    <TextView
+        android:id="@+id/textBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="300dp"
+        android:fontFamily="@font/font1"
+        android:text="게시판"
+        android:textColor="#87CEFA"
+        android:textSize="23dp" />
+
+    <TextView
+        android:id="@+id/textYoutube"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="530dp"
+        android:text="유튜브"
+        android:textColor="#87CEFA"
+        android:fontFamily="@font/font1"
+        android:textSize="23dp" />
+
+    <TextView
+        android:id="@+id/textMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="530dp"
+        android:text="지도"
+        android:textColor="#87CEFA	"
+        android:fontFamily="@font/font1"
+
+        android:textSize="23dp" />
+
+    <ImageButton
         android:id="@+id/btn_board"
-        android:layout_width="134dp"
-        android:layout_height="141dp"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="200dp"
-        android:layout_toRightOf="@id/btn_fishing"
-        android:onClick="btnBoardClicked"
-        android:text="게시판" />
-    <Button
+        android:layout_width="162dp"
+        android:layout_height="160dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/g"
+        android:onClick="btn_boardClicked" />
+
+    <ImageButton
         android:id="@+id/btn_stream"
-        android:layout_width="134dp"
-        android:layout_height="141dp"
-        android:layout_below="@id/btn_fishing"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="20dp"
-        android:onClick="btnStreamClicked"
-        android:text="유튜브" />
+        android:layout_width="157dp"
+        android:layout_height="158dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="370dp"
+        android:background="@drawable/tt"
+        android:onClick="btn_streamClicked" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_inform"
-        android:layout_width="134dp"
-        android:layout_height="141dp"
-        android:layout_below="@id/btn_board"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/btn_stream"
-        android:onClick="btnInformClicked"
-        android:text="정보" />
-    <Button
-        android:id="@+id/btn_set"
-        android:layout_width="120dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="20dp"
-        android:onClick="btnSetClicked"
-        android:text="환경설정" />
+        android:layout_width="153dp"
+        android:layout_height="162dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="370dp"
+        android:background="@drawable/m"
+        android:onClick="btn_informClicked" />
 
-</RelativeLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.example.teamproject;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +9,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,6 +42,11 @@ import java.util.Map;
 public class MyProfileActivity extends AppCompatActivity {
     static RequestQueue requestQueue;
     TextView textView;
+    TextView textView2;
+    TextView textView6;
+    TextView textView7;
+    TextView textView8;
+
     File tempSelectFile;
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     public static String UserNickname;
@@ -48,35 +56,45 @@ public class MyProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_my_profile);
-        textView=(TextView)findViewById(R.id.viewMyProfile);
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+        textView=(TextView)findViewById(R.id.myProfile);
+        textView2=(TextView)findViewById(R.id.textView2);
+        textView6=(TextView)findViewById(R.id.textView6);
+        textView7=(TextView)findViewById(R.id.textView7);
+        textView8=(TextView)findViewById(R.id.textView8);
         Button btn_Mypost=(Button)findViewById(R.id.btn_MyPost);
         Button btn_MyFishTank=(Button)findViewById(R.id.btn_MyFishTank);
 
-        imgVwSelected=findViewById(R.id.imgVwSelected);
-
-        btnImageSend=findViewById(R.id.btnImageSend);
-        btnImageSend.setEnabled(false);
-        btnImageSend.setOnClickListener(new View.OnClickListener(){
-
-            public void onClick(View view){
-                FileUploadUtils.send2Server(tempSelectFile);
-            }
-        });
-        btnImageSelection=findViewById(R.id.btnImageSelection);
-
-        btnImageSelection.setOnClickListener(new View.OnClickListener(){
-
-            public void onClick(View view){
-                Intent intent =new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent, 1);
-            }
-        });
-        imgVwSelected = findViewById(R.id.imgVwSelected);
+//        imgVwSelected=findViewById(R.id.imgVwSelected);
+//
+//        btnImageSend=findViewById(R.id.btnImageSend);
+//        btnImageSend.setEnabled(false);
+//        btnImageSend.setOnClickListener(new View.OnClickListener(){
+//
+//            public void onClick(View view){
+//                FileUploadUtils.send2Server(tempSelectFile);
+//            }
+//        });
+//        btnImageSelection=findViewById(R.id.btnImageSelection);
+//
+//        btnImageSelection.setOnClickListener(new View.OnClickListener(){
+//
+//            public void onClick(View view){
+//                Intent intent =new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                startActivityForResult(intent, 1);
+//            }
+//        });
+//        imgVwSelected = findViewById(R.id.imgVwSelected);
 
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
@@ -187,8 +205,28 @@ public class MyProfileActivity extends AppCompatActivity {
 
     }
     public void println(String data){
-        textView.append(data+"\n");
+        textView.append("\n"+data+"\n");
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.join, menu);
+        return true;
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch(item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }

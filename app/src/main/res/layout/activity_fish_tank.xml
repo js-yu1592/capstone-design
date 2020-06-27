@@ -3,17 +3,108 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="물고기 출력"
-        />
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#87CEFA"
+        app:popupTheme="@style/AppTheme.PopupOverlay" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="26dp"
+            android:fontFamily="@font/font1"
+
+            android:textColor="#FFFFFF"
+            android:text="물고기 출력">
+
+        </TextView>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/fish_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="75dp"
+        android:fontFamily="@font/font1"
+        android:text=""
+        android:textColor="	#87CEFA"
+        android:textSize="20dp" />
+
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/font1"
+        android:text=""
+        android:textColor="	#87CEFA"
+        android:textSize="20dp" />
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/font1"
+        android:text=""
+        android:textColor="	#87CEFA"
+        android:textSize="20dp" />
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/font1"
+        android:text=""
+        android:textColor="	#87CEFA"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/font1"
+        android:text=""
+        android:textColor="	#87CEFA"
+        android:textSize="20dp" />
+    <TextView
+            android:id="@+id/textView25"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/font1"
+            android:text=""
+            android:textColor="	#87CEFA"
+            android:textSize="20dp" />
+
+
+
+
 
 </LinearLayout>

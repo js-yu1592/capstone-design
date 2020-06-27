@@ -29,12 +29,26 @@ import java.util.Map;
 public class WeatherActivity extends Fragment {
 
         private View view;
-        TextView textView;
+
         private String lat;
         private String lon;
     private ArrayList<String> lati;
     private ArrayList<String> longi;
         static RequestQueue requestQueue;
+    TextView textView;
+    TextView textView9;
+    TextView textView10;
+    TextView textView11;
+    TextView textView12;
+    TextView textView13;
+    TextView textView14;
+    TextView textView15;
+    TextView textView16;
+    TextView textView17;
+    TextView textView18;
+    TextView textView19;
+    TextView textView20;
+
 
         @Nullable
         @Override
@@ -42,6 +56,18 @@ public class WeatherActivity extends Fragment {
             view=inflater.inflate(R.layout.activity_weather,container, false);
 
             textView=view.findViewById(R.id.textView);
+            textView9=view.findViewById(R.id.textView9);
+            textView10=view.findViewById(R.id.textView10);
+            textView11=view.findViewById(R.id.textView11);
+            textView12=view.findViewById(R.id.textView12);
+            textView13=view.findViewById(R.id.textView13);
+            textView14=view.findViewById(R.id.textView14);
+            textView15=view.findViewById(R.id.textView15);
+            textView16=view.findViewById(R.id.textView16);
+            textView17=view.findViewById(R.id.textView17);
+            textView18=view.findViewById(R.id.textView18);
+            textView19=view.findViewById(R.id.textView19);
+            textView20=view.findViewById(R.id.textView20);
 
             Intent intent=getActivity().getIntent();
             lati=intent.getExtras().getStringArrayList("lati");
@@ -69,23 +95,19 @@ public class WeatherActivity extends Fragment {
                 Gson gson=new Gson();
                 weatherList weatherList=gson.fromJson(response, weatherList.class);
 
-                println("위도 : "+ weatherList.coord.lat);
-                println("경도 : "+weatherList.coord.lon);
-               // println("main : "+weatherList.weather.get(0).main);
-                println("desc : "+transferWeather(weatherList.weather.get(0).description));
 
-                println("temp : "+Math.round((Double.valueOf(weatherList.main.temp)-273.15))+"도");
-                println("feels_like : "+Math.round((Double.valueOf(weatherList.main.feels_like)-273.15))+"도");
-                println("temp_min : "+Math.round((Double.valueOf(weatherList.main.temp_min)-273.15))+"도");
-                println("temp_max : "+Math.round((Double.valueOf(weatherList.main.temp_max)-273.15))+"도");
-
-                println("humidity : "+weatherList.main.humidity+"%");
-                println("wind spped : "+weatherList.wind.speed+"m/s");
-                println("wind deg : "+weatherList.wind.deg);
-              //  println("country : "+weatherList.sys.country);
-                println("sunrise : "+weatherList.sys.sunrise);
-                println("sunset : "+weatherList.sys.sunset);
-                //println("name : "+weatherList.name);
+                textView9.setText("위도 : " +weatherList.coord.lat);
+                textView10.setText("경도 : " + weatherList.coord.lon);
+                textView11.setText("desc : "+transferWeather(weatherList.weather.get(0).description));
+                textView12.setText("temp : "+Math.round((Double.valueOf(weatherList.main.temp)-273.15))+"도");
+                textView13.setText("feels_like : "+Math.round((Double.valueOf(weatherList.main.feels_like)-273.15))+"도");
+                textView14.setText("temp_min : "+Math.round((Double.valueOf(weatherList.main.temp_min)-273.15))+"도");
+                textView15.setText("temp_max : "+Math.round((Double.valueOf(weatherList.main.temp_max)-273.15))+"도");
+                textView16.setText("humidity : "+weatherList.main.humidity+"%");
+                textView17.setText("wind spped : "+weatherList.wind.speed+"m/s");
+                textView18.setText("wind deg : "+weatherList.wind.deg);
+                textView19.setText("sunrise : "+weatherList.sys.sunrise);
+                textView20.setText("sunset : "+weatherList.sys.sunset);
             }
         },
                 new Response.ErrorListener(){

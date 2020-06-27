@@ -24,36 +24,39 @@ package com.example.teamproject;
 //        super.onBackPressed();
 //    }
 //}
-        import androidx.annotation.NonNull;
-        import androidx.appcompat.app.AlertDialog;
-        import androidx.appcompat.app.AppCompatActivity;
-        import androidx.core.app.ActivityCompat;
-        import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-        import android.Manifest;
-        import android.app.Activity;
-        import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.content.pm.PackageManager;
-        import android.location.LocationManager;
-        import android.os.Bundle;
-        import android.provider.Settings;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.TextView;
-        import android.widget.Toast;
-        import android.widget.ToggleButton;
+import android.Manifest;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
-        import com.google.android.gms.tasks.OnCompleteListener;
-        import com.google.android.gms.tasks.Task;
-        import com.google.firebase.auth.FirebaseAuth;
-        import com.google.firebase.auth.FirebaseUser;
-        import com.gun0912.tedpermission.PermissionListener;
-        import com.gun0912.tedpermission.TedPermission;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -109,6 +112,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         final ToggleButton toggleButton2=(ToggleButton)findViewById(R.id.toggleButton2);
         final ToggleButton toggleButton3=(ToggleButton)findViewById(R.id.toggleButton3);
         final ToggleButton toggleButton4=(ToggleButton)findViewById(R.id.toggleButton4);
+
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
         TextView textView = (TextView)findViewById(R.id.textView);
@@ -336,5 +346,34 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     public void onBackPressed() {
 
         //super.onBackPressed(); }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.setting, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch(item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+
+        }
+
+        int id = item.getItemId();
+
+        if(id == R.id.set){
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+            startActivityForResult(intent, 0);
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

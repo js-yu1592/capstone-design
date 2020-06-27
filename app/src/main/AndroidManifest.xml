@@ -11,10 +11,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:remove="android:maxSdkVersion"/>
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:remove="android:maxSdkVersion" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -22,6 +22,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature android:name="android.hardware.camera2" />
 
@@ -33,33 +34,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ImageUpload" />
-        <activity android:name=".Bluetooth2" />
-        <activity android:name=".FishRegistActivity" />
-        <activity android:name=".MapActivity" />
+        <activity android:name=".MyFishActivity"></activity>
         <activity android:name=".updatePost" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".FishRegistActivity" />
         <activity android:name=".MyPostViewActivity" />
-        <activity android:name=".MyProfileActivity" />
         <activity android:name=".MyPostActivity" />
+        <activity android:name=".MyProfileActivity" />
         <activity android:name=".PostViewActivity" />
+        <activity android:name=".YoutubePlayerActivity" />
+        <activity android:name=".SearchYoutubeActivity" />
+        <activity android:name=".bluetoothActivity" />
+        <activity android:name=".FishTankActivity" />
+        <activity android:name=".InformFragActivity" />
+        <activity android:name=".SettingActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".bluetoothActivity" />
-        <activity android:name=".FishTankActivity" />
-        <activity android:name=".InformFragActivity" />
-        <activity android:name=".YoutubePlayerActivity" />
-        <activity android:name=".SearchYoutubeActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".StreamActivity" />
-        <activity android:name=".FishingActivity" />
         <activity android:name=".WeatherActivity" />
         <activity android:name=".InformActivity" />
         <activity android:name=".PostActivity" />
         <activity android:name=".Board" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,7 +69,8 @@
         </activity>
         <activity android:name=".JoinActivity" />
         <activity android:name=".BasicActivity" />
-        <activity android:name=".Location" />
+        <activity android:name=".MainActivity"/>
+
 
         <service android:name=".GpsTracker" />
     </application>

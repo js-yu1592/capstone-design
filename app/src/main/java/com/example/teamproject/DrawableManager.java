@@ -22,6 +22,7 @@ public class DrawableManager {
     private final Map<String, SoftReference<Drawable>> drawableMap;
 
     public DrawableManager() {
+
         drawableMap = new HashMap<String, SoftReference<Drawable>>();
     }
 
@@ -69,6 +70,8 @@ public class DrawableManager {
                 imageView.setImageDrawable((Drawable) message.obj);
             }
         };
+
+
 
         Thread thread = new Thread() {
             @Override

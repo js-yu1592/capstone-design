@@ -1,17 +1,21 @@
 package com.example.teamproject;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,7 +28,12 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.Request;
+
 public class BasicActivity extends AppCompatActivity {
+    Toolbar toolbar;
+
     FirebaseAuth firebaseAuth;
     private static final String TAG = "BAAM";
     static RequestQueue requestQueue;
@@ -36,16 +45,23 @@ public class BasicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic);
 
-        Button button_Board = (Button) findViewById(R.id.btn_board);
-        Button button_inform = (Button) findViewById(R.id.btn_inform);
-        Button button_stream = (Button) findViewById(R.id.btn_stream);
-        Button button_fishing = (Button) findViewById(R.id.btn_fishing);
-        Button button_set = (Button) findViewById(R.id.btn_set);
-        Button button_profile=(Button)findViewById(R.id.btn_profile);
-        if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(getApplicationContext());
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+
+        ImageButton button_board = (ImageButton) findViewById(R.id.btn_board);
+        ImageButton button_inform = (ImageButton) findViewById(R.id.btn_inform);
+        ImageButton button_stream = (ImageButton) findViewById(R.id.btn_stream);
+        ImageButton button_fishing = (ImageButton) findViewById(R.id.btn_fishing);
+
+
+        if(requestQueue==null){
+            requestQueue= Volley.newRequestQueue(getApplicationContext());
         }
-//        makeRequest();
+
         button_fishing.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(BasicActivity.this, bluetoothActivity.class);
@@ -63,23 +79,8 @@ public class BasicActivity extends AppCompatActivity {
 
             }
         });
-        button_set.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                Intent intent = new Intent(BasicActivity.this, SettingActivity.class);
-                startActivity(intent);
-
-            }
-        });
-        button_profile.setOnClickListener(new View.OnClickListener(){
-
-            public void onClick(View v){
-                Intent intent=new Intent(BasicActivity.this, MyProfileActivity.class);
-                startActivity(intent);
-
-            }
-        });
-        button_Board.setOnClickListener(new View.OnClickListener() {
+        button_board.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent secondIntent = getIntent();
 
@@ -90,59 +91,94 @@ public class BasicActivity extends AppCompatActivity {
                 Intent intent = new Intent(BasicActivity.this, Board.class);
                 //  intent.putExtra("uid",uid);
                 startActivity(intent);
-                finish();
             }
         });
         button_inform.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+
                 Intent intent = new Intent(BasicActivity.this, InformActivity.class);
+                makeRequest();
+                Log.d(TAG,"물고기 파싱 : "+fishArr);
                 startActivity(intent);
 
             }
         });
 
+    }
 
-
-
+    private void setSupportActionBar(Toolbar toolbar) {
 
     }
-//    public void makeRequest () {
-//        String fish_url = "https://kpu-lastproject.herokuapp.com/user_fish/fish";
-//        StringRequest request = new StringRequest(Request.Method.GET, fish_url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                processResponse(response);
-//            }
+
+    public void makeRequest() {
+        String fish_url = "https://kpu-lastproject.herokuapp.com/user_fish/fish";
+        StringRequest request = new StringRequest(com.android.volley.Request.Method.GET, fish_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                processResponse(response);
+            }
+
+            public void processResponse(String response) {
+                Gson gson = new Gson();
+                FishTankList fishTankList = gson.fromJson(response, FishTankList.class);
+
+                fishArr = fishTankList.fish;
+
+
+            }
+
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "에러", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+        request.setShouldCache(false);
+        requestQueue.add(request);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        switch (item.getItemId()) {
+            case R.id.setting:
+                Intent intent = new Intent(BasicActivity.this, SettingActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.page:
+                Intent intent2 = new Intent(BasicActivity.this, MyProfileActivity.class);
+                startActivity(intent2);
+
+//            int id = item.getItemId();
+
+//        if(id == R.id.setting){
+//            Intent intent = new Intent(Main2Activity.this, SettingActivity.class);
+//            startActivity(intent);
 //
-//            public void processResponse(String response) {
-//                Gson gson = new Gson();
-//                FishTankList FishTankList = gson.fromJson(response, FishTankList.class);
-//
-//
-//                fishArr = FishTankList.fish;
-//                fishArr.get(0).fish_lat = "37.2836834";
-//                fishArr.get(0).fish_lon = "126.9024348";
-//                fishArr.get(1).fish_lat = "37.3657562";
-//                fishArr.get(1).fish_lon = "126.8555483";
-//            }
-//        },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(getApplicationContext(), "에러", Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//        ) {
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<String, String>();
-//                return params;
-//            }
-//        };
-//        request.setShouldCache(false);
-//        requestQueue.add(request);
-//    }
+//        }
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public void onBackPressed () {
         super.onBackPressed();

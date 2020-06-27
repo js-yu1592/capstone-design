@@ -47,3 +47,5 @@ public class SearchData {
         this.publishedAt = publishedAt;
     }
 }
+
+

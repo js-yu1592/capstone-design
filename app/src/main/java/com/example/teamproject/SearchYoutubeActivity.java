@@ -223,4 +223,9 @@ public class SearchYoutubeActivity extends Activity {
         }
 
     }
+
+    public void btnBackClicked(View v){
+        Intent intent = new Intent(SearchYoutubeActivity.this, BasicActivity.class);
+        startActivity(intent);
+    }
 }

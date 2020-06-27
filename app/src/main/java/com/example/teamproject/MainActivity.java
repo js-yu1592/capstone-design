@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,11 +28,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.gson.Gson;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import okhttp3.Call;
@@ -75,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
     public static String UserEmail;
 //    public static final String apiKey="AAAAsp7tChI:APA91bEXF0BtJoSRSkJf1xe6MJHXltY_Rl15Nf-g4_-vL9xuPeFnpiDDoCapkJ8VG24x9xdwnJ1ZFqTbQkyTNP7z01cffkTT5jHu_J_iZwqV35TVxtvVv-sWAXM2xOEMvLnmbOPqUaV2";
   //  public static final String senderid="767170513426";
-
-
+public static ArrayList<fishListResult> fishArr=new ArrayList<fishListResult>();
+    static RequestQueue requestQueue;
 
     //Retrofit
 //      private RetrofitInterface retrofitInterface;
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         btn_signUp=findViewById(R.id.btn_signUp);
         btn_signIn=findViewById(R.id.btn_signIn);
-        buttonGoogle = findViewById(R.id.btn_googleSignIn);
+
         editTextEmail = findViewById(R.id.et_eamil);
         editTextPassword = findViewById(R.id.et_password);
 
@@ -109,15 +113,7 @@ public class MainActivity extends AppCompatActivity {
         // googleSignInOptions에서 지정한 옵션으로 GoogleSignInClient를 빌드합니다
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
-        //google 로그인 버튼
-        buttonGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent signInIntent = googleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);
 
-            }
-        });
 
         btn_signIn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -181,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
                         //login
                         if(task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -199,50 +195,50 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //구글 로그인 버튼응답
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                //구글로그인 성공
-
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-
-            }
-        }
-
-    }
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        //구글 로그인 버튼응답
+//        if (requestCode == RC_SIGN_IN) {
+//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+//            try {
+//                //구글로그인 성공
+//
+//                GoogleSignInAccount account = task.getResult(ApiException.class);
+//                firebaseAuthWithGoogle(account);
+//            } catch (ApiException e) {
+//
+//            }
+//        }
+//
+//    }
 
     //사용자가 정상적으로 로그인한 후에 GoogleSignInAccount 개체에서 ID Token을 가져와서
     //수정
     //Firebase 사용자 인증정보로 교환하고 Firebase 사용자 인증정보를 사용해 Firebase에 인증한다.
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            //로그인 성공
-                            Toast.makeText(MainActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
-
-                                Intent intent=new Intent(MainActivity.this, BasicActivity.class);
-                                startActivity(intent);
-                                finish();
-
-                        } else {
-                            //로그인 실패
-                            Toast.makeText(MainActivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
+//    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+//        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+//        firebaseAuth.signInWithCredential(credential)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            //로그인 성공
+//                            Toast.makeText(MainActivity.this, R.string.success_login, Toast.LENGTH_SHORT).show();
+//
+//                                Intent intent=new Intent(MainActivity.this, BasicActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//
+//                        } else {
+//                            //로그인 실패
+//                            Toast.makeText(MainActivity.this, R.string.failed_login, Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//    }
+//
 
 
 

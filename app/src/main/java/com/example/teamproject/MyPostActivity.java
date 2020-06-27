@@ -1,15 +1,20 @@
 package com.example.teamproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -61,6 +66,7 @@ public class MyPostActivity extends AppCompatActivity {
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
     private ArrayList<Post> arrayList;
+    public static ArrayList<myPostResult> MyPostArr=new ArrayList<myPostResult>();
     private ArrayList<myPostResult> modelArraylist;
     private CustomAdapter customAdapter;
     static RequestQueue requestQueue;
@@ -74,6 +80,14 @@ public class MyPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post);
+
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         Button button=findViewById(R.id.btn_delete);
         Button update=findViewById(R.id.btn_update);
         if(requestQueue==null){
@@ -147,6 +161,18 @@ public class MyPostActivity extends AppCompatActivity {
                                     makeRequest1();
 
                                     Log.d(TAG,"remove success:"+dataSnapshot.getChildren());
+                                    AlertDialog.Builder builder=new AlertDialog.Builder(MyPostActivity.this);
+                                    builder.setMessage("게시글을 삭제합니다.")
+                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    finish();
+                                                    startActivity(getIntent());
+
+                                                }
+                                            });
+                                    builder.create();
+                                    builder.show();
                                 }
                             }
 
@@ -191,7 +217,7 @@ public class MyPostActivity extends AppCompatActivity {
             public void processResponse(String response){
                 Gson gson=new Gson();
                 myPostList myPostList=gson.fromJson(response, com.example.teamproject.myPostList.class);
-
+                MyPostArr=myPostList.my_board;
                 if(myPostList.my_board.size()==0){
                     Toast.makeText(getApplicationContext(), "게시글이 없습니다.", Toast.LENGTH_LONG).show();
                 }
@@ -199,7 +225,7 @@ public class MyPostActivity extends AppCompatActivity {
                 adapter=new MyPostAdapter(myPostList.my_board, getApplicationContext()); //CustomAdapter로 설정.
                 //어댑터는 담긴 리스트들을 리사이클러 뷰에 바인딩 시켜주기 위한 사전작업이 이루어지는 객체
                 recyclerView.setAdapter(adapter); //리사이클러뷰 어댑터 연결
-
+                adapter.notifyDataSetChanged();
 
             }
         },
@@ -257,6 +283,27 @@ public class MyPostActivity extends AppCompatActivity {
         }catch(Exception e){
 
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.join, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch(item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
     public void btnBackClicked(View v){
         Intent intent = new Intent(MyPostActivity.this, MyProfileActivity.class);

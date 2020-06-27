@@ -56,6 +56,14 @@ public class SearchYoutubeActivity extends Activity {
 
             }
         });
+        Button back=(Button)findViewById(R.id.btn_back);
+        back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent=new Intent(SearchYoutubeActivity.this,Main2Activity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

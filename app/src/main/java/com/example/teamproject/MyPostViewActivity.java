@@ -80,7 +80,7 @@ public class MyPostViewActivity extends AppCompatActivity {
             Log.d(TAG,"requestQueue:"+requestQueue);
         }
 
-        //Log.d(TAG,"MY POST VIE title : "+BoardActivity.boardArr.get(pos).getTitle());
+        Log.d(TAG,"MY POST VIE title : "+BoardActivity.boardArr.get(pos).getTitle());
 
         TextView titleText = (TextView) findViewById(R.id.titleText);
         TextView writerText = (TextView) findViewById(R.id.writerText);
@@ -94,10 +94,21 @@ public class MyPostViewActivity extends AppCompatActivity {
         makeRequest();
 
     }
+    private void doTheAutoRefresh(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                doTheAutoRefresh();
+                makeRequest();
+
+            }
+        },3000);
+    }
 
     public void makeRequest(){
         Log.d(TAG,"MY POSTIVEW makeReuqest 시작");
-        String comment_url= "https://kpu-lastproject.herokuapp.com/comment/getCmt?title="+MyPostActivity.MyPostArr.get(pos).getBoard_title();
+        String comment_url= "https://kpu-lastproject.herokuapp.com/comment/getCmt?title="+BoardActivity.boardArr.get(pos).getTitle();
 
         StringRequest request=new StringRequest(Request.Method.GET,comment_url,new Response.Listener<String>(){
             @Override
@@ -130,7 +141,7 @@ public class MyPostViewActivity extends AppCompatActivity {
 
 
                     }
-                    adapter.notifyDataSetChanged();
+
 
                     comment_list.setAdapter(adapter);
 
@@ -155,9 +166,8 @@ public class MyPostViewActivity extends AppCompatActivity {
 
         request.setShouldCache(false);
         requestQueue.add(request);
-
+        doTheAutoRefresh();
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -179,5 +189,7 @@ public class MyPostViewActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

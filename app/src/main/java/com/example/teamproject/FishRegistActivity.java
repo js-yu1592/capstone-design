@@ -81,6 +81,7 @@ public class FishRegistActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
+
         fish_name_edit= (EditText) findViewById(R.id.fish_name_edit);
         fish_len_edit= (EditText) findViewById(R.id.fish_len_edit);
         fish_weight_edit= (EditText) findViewById(R.id.fish_weight_edit);
@@ -139,12 +140,11 @@ public class FishRegistActivity extends AppCompatActivity {
                         !fish_weight_edit.getText().toString().equals("")&&!fish_len_edit.getText().toString().equals("")
                         &&!fishing_edit.getText().toString().equals("")&&!fish_com_edit.getText().toString().equals("")){
                     makeRequest1();
-                    Intent intent = new Intent(FishRegistActivity.this, MyProfileActivity.class);
+                    Intent intent = new Intent(FishRegistActivity.this, MyFishActivity.class);
                     startActivity(intent);
                 }else{
                     Toast.makeText(FishRegistActivity.this, "기입하지 않은 부분이 있습니다.",Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 //        Intent intent2=getIntent();
@@ -160,9 +160,7 @@ public class FishRegistActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         super.onBackPressed();
-
     }
     @Override
     public void onRequestPermissionsResult(int permsRequestCode,
@@ -395,6 +393,7 @@ public class FishRegistActivity extends AppCompatActivity {
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -416,7 +415,5 @@ public class FishRegistActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 }

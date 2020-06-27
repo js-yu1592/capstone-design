@@ -46,17 +46,14 @@ public class MyProfileActivity extends AppCompatActivity {
     TextView textView6;
     TextView textView7;
     TextView textView8;
-
-    File tempSelectFile;
-    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
-    public static String UserNickname;
-    ImageView imgVwSelected;
     private static final String TAG="BAAM";
-    Button btnImageSend, btnImageSelection;
+
+    public static String UserNickname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
+
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -70,48 +67,14 @@ public class MyProfileActivity extends AppCompatActivity {
         textView6=(TextView)findViewById(R.id.textView6);
         textView7=(TextView)findViewById(R.id.textView7);
         textView8=(TextView)findViewById(R.id.textView8);
+
+        //이런식으로 바꿀 텍스트를 전부 다 만들어 ㅇ ㅇㅇ ㄱ클?ㅣ꼬 그리고?
         Button btn_Mypost=(Button)findViewById(R.id.btn_MyPost);
         Button btn_MyFishTank=(Button)findViewById(R.id.btn_MyFishTank);
-
-//        imgVwSelected=findViewById(R.id.imgVwSelected);
-//
-//        btnImageSend=findViewById(R.id.btnImageSend);
-//        btnImageSend.setEnabled(false);
-//        btnImageSend.setOnClickListener(new View.OnClickListener(){
-//
-//            public void onClick(View view){
-//                FileUploadUtils.send2Server(tempSelectFile);
-//            }
-//        });
-//        btnImageSelection=findViewById(R.id.btnImageSelection);
-//
-//        btnImageSelection.setOnClickListener(new View.OnClickListener(){
-//
-//            public void onClick(View view){
-//                Intent intent =new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(intent, 1);
-//            }
-//        });
-//        imgVwSelected = findViewById(R.id.imgVwSelected);
-
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
-            Log.d(TAG,"Profile requestQueue:"+requestQueue);
         }
         makeRequest();
-
-        btn_MyFishTank.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-                Intent intent=new Intent(MyProfileActivity.this, FishRegistActivity.class);
-                intent.putExtra("nickname",UserNickname);
-                startActivity(intent);
-
-            }
-        });
 
         btn_Mypost.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -123,47 +86,21 @@ public class MyProfileActivity extends AppCompatActivity {
 
             }
         });
-    }
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode != 1 || resultCode !=RESULT_OK){
-            return;
-        }
+        btn_MyFishTank.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
 
-        //비트맵으로 받는 방법
-        try {
-            //ImageView에 이미지 출력
-            InputStream in = getContentResolver().openInputStream(data.getData());
-            Bitmap image = BitmapFactory.decodeStream(in);
-            Log.d(TAG," GET data: "+data.getData());
+                Intent intent=new Intent(MyProfileActivity.this, MyFishActivity.class);
+                //intent.putExtra("uid",uid);
+                startActivity(intent);
 
-            imgVwSelected.setImageBitmap(image);
-            in.close();
-
-            String date = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss").format(new Date());
-            tempSelectFile = new File(Environment.getExternalStorageDirectory()+"/Pictures", "temp_" + date + ".jpeg");
-            Log.d(TAG, "tempSelectFile : "+Environment.getExternalStorageDirectory().getAbsolutePath());
-            OutputStream out = new FileOutputStream(tempSelectFile);
-            image.compress(Bitmap.CompressFormat.JPEG, 100, out);
-
-
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-        //imgVwSelected.setImageURI(data.getData());
-       btnImageSend.setEnabled(true);
-    }
-
-    public void btnBackClicked(View v){
-        Intent intent = new Intent(MyProfileActivity.this, BasicActivity.class);
-        startActivity(intent);
+            }
+        });
     }
 
     public void makeRequest(){
-        FirebaseUser user=mAuth.getCurrentUser();
-        String email=user.getEmail();
-        String myboard_url= "https://kpu-lastproject.herokuapp.com/user_info/my?email="+email;
-        Log.d("TAG","email : "+email);
+        String myboard_url= "https://kpu-lastproject.herokuapp.com/user_info/my?email="+MainActivity.UserEmail;
+      Log.d(TAG,"파싱 닉넹임 : "+MainActivity.UserEmail);
         StringRequest request=new StringRequest(Request.Method.GET,myboard_url,new Response.Listener<String>(){
             @Override
             public void onResponse(String response){
@@ -172,25 +109,30 @@ public class MyProfileActivity extends AppCompatActivity {
             public void processResponse(String response){
                 Gson gson=new Gson();
                 myProfileList myProfileList =gson.fromJson(response, myProfileList.class);
-
                 if(myProfileList.my_profile.size()==0){
-                    Toast.makeText(getApplicationContext(),"json파싱 실패",Toast.LENGTH_LONG).show();
-                    println("json파싱 실패1111");
+                    Toast.makeText(getApplicationContext(),"아직 정보를 불러오지 못했습니다. 메인화면에 다녀와주세요.",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    println("이름 : " + myProfileList.my_profile.get(0).user_name);
-                    println("닉네임 : " + myProfileList.my_profile.get(0).user_nickname);
-                    println("이메일 : " + myProfileList.my_profile.get(0).user_email);
-                    println("핸드폰 번호 : " + myProfileList.my_profile.get(0).user_phone);
+                    //만약 그 바꿀꺼 이름이 textView 면 이런식으로 하면
+                    textView2.setText("이름 : " + myProfileList.my_profile.get(0).user_name);
+                    textView6.setText("닉네임 : " + myProfileList.my_profile.get(0).user_nickname);
+                    textView7.setText("이메일 : " + myProfileList.my_profile.get(0).user_email);
+                    textView8.setText("핸드폰 번호 : " + myProfileList.my_profile.get(0).user_phone);
+
+//                println("이름 : " + myProfileList.my_profile.get(0).user_name);
+//                println("닉네임 : " + myProfileList.my_profile.get(0).user_nickname);
+//                println("이메일 : " + myProfileList.my_profile.get(0).user_email);
+//                println("핸드폰 번호 : " + myProfileList.my_profile.get(0).user_phone);
                     UserNickname = myProfileList.my_profile.get(0).user_nickname;
-                    Log.d("TAG","UserNickname : "+UserNickname);
+
                 }
+
             }
         },
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
-                        println("게시글이 없습니다. -> "+error.getMessage());
+                        println("에러 -> "+error.getMessage());
                     }
                 }
         ){
@@ -205,8 +147,9 @@ public class MyProfileActivity extends AppCompatActivity {
 
     }
     public void println(String data){
-        textView.append("\n"+data+"\n");
+        textView.append(data+"\n");
     }
+    //
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -2,8 +2,11 @@ package com.example.teamproject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,23 +14,32 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.teamproject.BasicActivity;
+import com.example.teamproject.R;
+import com.example.teamproject.adapters.MapfishAdapter;
+import com.example.teamproject.adapters.MyFishAdpater;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class FishTankActivity extends Fragment {
     TextView textView;
-    TextView textView21;
-    TextView textView22;
-    TextView textView23;
-    TextView textView24;
-    TextView textView25;
-
-
     private View view;
     private String lat;
     private String lon;
     private double lati;
     private double longi;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerDecoration spaceDecoration;
 
     @Nullable
     @Override
@@ -35,34 +47,39 @@ public class FishTankActivity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.activity_fish_tank,container, false);
 
-        textView=view.findViewById(R.id.fish_text);
-        textView21=view.findViewById(R.id.textView21);
-        textView22=view.findViewById(R.id.textView22);
-        textView23=view.findViewById(R.id.textView23);
-        textView24=view.findViewById(R.id.textView24);
-        textView25=view.findViewById(R.id.textView25);
+
+
+        recyclerView=(RecyclerView)view.findViewById(R.id.main_recyclerview); //아이디 연결
+        recyclerView.setHasFixedSize(true); //리사이클러뷰 기존 성능강화
+        layoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
+        spaceDecoration=new RecyclerDecoration(40);     //위아래 간격조정
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(getResources())); // 왼쪽 오른쪽 마진
+        recyclerView.addItemDecoration(spaceDecoration);
+        ArrayList<fishListResult> mapfish=new ArrayList<fishListResult>();
+        recyclerView.setLayoutManager(layoutManager);
+
+        //layoutManager은 많은 역할을 하지만 간단하게 스크롤을 위아래로 할지 좌우로 할지 결정하는것
 
 
 
+
+//        textView=view.findViewById(R.id.fish_text);
+//
         lat= getArguments().getString("lat");
         lon= getArguments().getString("lon");
 
         lati=Double.parseDouble(lat);
         longi=Double.parseDouble(lon);
 
-        for(int i=0;i<BasicActivity.fishArr.size();i++) {
+        for(int i = 0; i< BasicActivity.fishArr.size(); i++) {
             if((lati-0.05)<=Double.parseDouble(BasicActivity.fishArr.get(i).fish_lat)&&
                     (lati+0.05)>=Double.parseDouble(BasicActivity.fishArr.get(i).fish_lat)&&
                     (longi-0.05)<=Double.parseDouble(BasicActivity.fishArr.get(i).fish_lon)&&
                     (longi+0.05)>=Double.parseDouble(BasicActivity.fishArr.get(i).fish_lon)) {
-
-                textView.setText("물고기 이름 : " + BasicActivity.fishArr.get(i).fish_name);
-                textView21.setText("물고기 길이 : " + BasicActivity.fishArr.get(i).fish_length);
-                textView22.setText("물고기 무게 : " + BasicActivity.fishArr.get(i).fish_weight);
-                textView23.setText("낚시터 위치  : " + BasicActivity.fishArr.get(i).fish_lat+ ","+"\n"+BasicActivity.fishArr.get(i).fish_lon);
-                textView24.setText("낚시터 : " + BasicActivity.fishArr.get(i).fish_fishing);
-                textView25.setText("코멘트 : " + BasicActivity.fishArr.get(i).fish_comment);
-
+                mapfish.add(BasicActivity.fishArr.get(i));
+                if(mapfish.size()==0){
+                    Toast.makeText(getActivity().getApplicationContext(),"주변에서 잡힌 물고기가 없습니다.",Toast.LENGTH_LONG).show();
+                }
 //                println("fish_name : " + Main2Activity.fishArr.get(i).fish_name);
 //                println("fish_length : " + Main2Activity.fishArr.get(i).fish_length);
 //                println("fish_weight : " + Main2Activity.fishArr.get(i).fish_weight);
@@ -71,13 +88,15 @@ public class FishTankActivity extends Fragment {
 //                println("fish_fishing : " + Main2Activity.fishArr.get(i).fish_fishing);
             }
         }
+       adapter=new MapfishAdapter(mapfish,getActivity().getApplicationContext());
+        //어댑터는 담긴 리스트들을 리사이클러 뷰에 바인딩 시켜주기 위한 사전작업이 이루어지는 객체
+        recyclerView.setAdapter(adapter);//리사이클러뷰 어댑터 연결
         return view;
     }
     public void println(String data){
         textView.append(data+"\n");
     }
 
-
-
 }
+
 

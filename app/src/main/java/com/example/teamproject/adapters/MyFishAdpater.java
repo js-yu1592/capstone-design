@@ -1,5 +1,6 @@
 package com.example.teamproject.adapters;
 import android.content.Context;
+import android.content.Intent;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.teamproject.MyFishViewActivity;
 import com.example.teamproject.MyProfileActivity;
 import com.example.teamproject.R;
 import com.example.teamproject.fishListResult;
@@ -37,7 +39,11 @@ public class MyFishAdpater extends RecyclerView.Adapter<MyFishAdpater.CustomView
         this.arrayList = arrayList;
         this.context = context;
 
+
+
+
     }
+
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //리스트뷰가 어댑터에 연결된다음에 최초로 뷰홀더만듬
@@ -50,12 +56,13 @@ public class MyFishAdpater extends RecyclerView.Adapter<MyFishAdpater.CustomView
 
         return holder;
     }
+
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         //     final Post post=arrayList.get(position);
 
         final fishListResult objincome=arrayList.get(position);
-
+        myFishArr=arrayList;
         holder.email.setText("작성자 : " + MyProfileActivity.UserNickname);
         holder.title.setText(arrayList.get(position).getFish_name());
         holder.contents.setText(arrayList.get(position).getFish_fishing());
@@ -63,6 +70,8 @@ public class MyFishAdpater extends RecyclerView.Adapter<MyFishAdpater.CustomView
 
 
     }
+
+
     @Override
     public int getItemViewType(int position) {
         if (position == 0)
@@ -99,13 +108,12 @@ public class MyFishAdpater extends RecyclerView.Adapter<MyFishAdpater.CustomView
                     final int position=getAdapterPosition(); //현재 클릭된 리사이클러뷰의 위치 파악
 
                     if(position!=RecyclerView.NO_POSITION) {
-//                        Intent intent = new Intent(context, MyPostViewActivity.class);
-//                        intent.putExtra("pos", position);
-//
-//                        Log.d(TAG, "POSTADATER nickname: " + MyProfileActivity.UserNickname);
-//                        Log.d(TAG, "POSTADATER pos : " + position);
-//
-//                        context.startActivity(intent);
+                        Intent intent = new Intent(context, MyFishViewActivity.class);
+                        intent.putExtra("pos", position);
+
+
+
+                        context.startActivity(intent);
 
                     }
 
@@ -115,6 +123,37 @@ public class MyFishAdpater extends RecyclerView.Adapter<MyFishAdpater.CustomView
             });
 
 
+            //            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            //                public boolean onLongClick(View v){
+            //                    final int position = getAdapterPosition(); //현재 클릭된 리사이클러뷰의 위치 파악
+            //                    Intent intent1 = new Intent(context, MyPostActivity.class);
+            //                    intent1.putExtra("pos", pos);
+            //                    if(mSelectedItems.get(position,false)){
+            //                        mSelectedItems.put(position,false);
+            //                        v.setBackgroundColor(Color.WHITE);
+            //
+            //                    }
+            //                    else{
+            //                        mSelectedItems.put(position,true);
+            //                        v.setBackgroundColor(Color.BLUE);
+            //
+            //
+            //                    }
+            //
+            //
+            //
+            //                    Intent intent = new Intent(context, MyPostActivity.class);
+            //
+            //                    Log.d(TAG, "POSTADATER : " + MyProfileActivity.UserNickname);
+            //                    Log.d(TAG, "POSTADATER pos : " + position);
+            //                    intent.putExtra("pos", position);
+            //
+            //                    context.startActivity(intent);
+            //
+            //                    return false;
+            //                }
+            //
+            //            });
         }
 
 
@@ -122,3 +161,10 @@ public class MyFishAdpater extends RecyclerView.Adapter<MyFishAdpater.CustomView
 
 }
 
+//컨텍스트 메뉴를 생성하고 메뉴 항목 선택시 호출되는 리스너를 등록
+//        public void onCreateContextMenu(Context menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+//
+//            MenuItem Edit =menu.add(Menu.NONE,1001,1,"편집");
+//            MenuItem Delete=menu.add(Menu.NONE,1002,2,"삭제");
+//            Edit.setOnMenuItemClickListener(onEditMenu);
+//        }

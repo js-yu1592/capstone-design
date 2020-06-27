@@ -54,7 +54,7 @@ public class MyFishActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_fish);
-
+        Button btn_regist=(Button)findViewById(R.id.btn_regist);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,10 +62,6 @@ public class MyFishActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-
-        Button btn_regist=(Button)findViewById(R.id.btn_regist);
-
 
         if(requestQueue==null){
             requestQueue= Volley.newRequestQueue(getApplicationContext());
@@ -115,7 +111,9 @@ public class MyFishActivity extends AppCompatActivity {
             public void processResponse(String response){
                 Gson gson=new Gson();
                 FishTankList fishTankList=gson.fromJson(response, com.example.teamproject.FishTankList.class);
-
+                if(fishTankList.fish.size()==0){
+                    Toast.makeText(getApplicationContext(), "등록된 물고기가 없습니다.", Toast.LENGTH_LONG).show();
+                }
 
                 adapter=new MyFishAdpater(fishTankList.fish, getApplicationContext()); //CustomAdapter로 설정.
                 //어댑터는 담긴 리스트들을 리사이클러 뷰에 바인딩 시켜주기 위한 사전작업이 이루어지는 객체
@@ -141,7 +139,6 @@ public class MyFishActivity extends AppCompatActivity {
         requestQueue.add(request);
 
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -149,7 +146,10 @@ public class MyFishActivity extends AppCompatActivity {
         return true;
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -163,6 +163,4 @@ public class MyFishActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }

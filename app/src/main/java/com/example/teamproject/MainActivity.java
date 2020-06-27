@@ -139,7 +139,7 @@ public static ArrayList<fishListResult> fishArr=new ArrayList<fishListResult>();
             //사용자가 로그인한 경우 , 사용자가 로그아웃한 경우 사용자가 변경될때 발생
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user=firebaseAuth.getCurrentUser();
-
+            UserEmail=user.getEmail();
                 final String uid = user.getUid();
                 Log.d(TAG,"user uid:"+user.getUid());
 

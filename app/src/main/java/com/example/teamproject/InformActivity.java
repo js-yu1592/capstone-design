@@ -1,18 +1,26 @@
 package com.example.teamproject;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,10 +32,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.Marker;
@@ -38,7 +47,8 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class InformActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class InformActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+    // GoogleMap.OnMarkerClickListener,
     private GoogleMap mMap;
     private String lat;
     private String lon;
@@ -110,22 +120,36 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
     public void onMapReady(final GoogleMap googleMap) {
 
         mMap = googleMap;
-
+        gpsTracker = new GpsTracker(InformActivity.this);
         LatLng SEOUL =new LatLng(37.56,126.97);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng((SEOUL)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+        LatLng myLoca=new LatLng(gpsTracker.latitude,gpsTracker.longitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng((myLoca)));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
 
-
+       // View marker_root_view= LayoutInflater.from(this).inflate(R.layout.marker_layout,null);
+        //TextView tv_marker = (TextView) marker_root_view.findViewById(R.id.tv_marker);
 
 
         for(int i = 0; i< Main2Activity.fishArr.size(); i++){
-            MarkerOptions markerOptions=new MarkerOptions();
-            markerOptions.position(new LatLng(Double.valueOf(Main2Activity.fishArr.get(i).fish_lat),Double.valueOf(Main2Activity.fishArr.get(i).fish_lon))).title(Main2Activity.fishArr.get(i).fish_fishing);
-            mMap.addMarker(markerOptions);
+            //tv_marker.setText(Main2Activity.fishArr.get(i).getFish_fishing());
+            //tv_marker.setBackgroundResource(R.drawable.testmarker);
+            LatLng loca=new LatLng(Double.valueOf(Main2Activity.fishArr.get(i).fish_lat),Double.valueOf(Main2Activity.fishArr.get(i).fish_lon));
+            Marker marker=mMap.addMarker(new MarkerOptions()
+            .position(loca)
+            .title(Main2Activity.fishArr.get(i).fish_fishing)
+            .snippet("잡힌 물고기 : "+Main2Activity.fishArr.get(i).fish_name));
+           // marker.showInfoWindow();
+//            MarkerOptions markerOptions=new MarkerOptions();
+//            markerOptions.title(Main2Activity.fishArr.get(i).fish_fishing);
+//            markerOptions.snippet("잡힌 물고기 : "+Main2Activity.fishArr.get(i).fish_name);
+//            //markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this,marker_root_view)));
+//            markerOptions.visible(true);
+//            markerOptions.position(new LatLng(Double.valueOf(Main2Activity.fishArr.get(i).fish_lat),Double.valueOf(Main2Activity.fishArr.get(i).fish_lon))).title(Main2Activity.fishArr.get(i).fish_fishing);
+//            mMap.addMarker(markerOptions);
         }
 
-        mMap.setOnMarkerClickListener(this);
-
+       // mMap.setOnMarkerClickListener(this);
+       mMap.setOnInfoWindowClickListener(this);
 //        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 //            @Override
 //            public void onMapClick(LatLng point) {
@@ -143,15 +167,47 @@ public class InformActivity extends AppCompatActivity implements OnMapReadyCallb
 //        });
     }
     @Override
-    public boolean onMarkerClick(Marker marker){
+    public void onInfoWindowClick(Marker marker){
         lat=String.valueOf(marker.getPosition().latitude);
         lon=String.valueOf(marker.getPosition().longitude);
+
+        CameraUpdate center=CameraUpdateFactory.newLatLng(marker.getPosition());
+        mMap.animateCamera(center);
 
         Intent intent = new Intent(InformActivity.this, InformFragActivity.class);
         intent.putExtra("lat",lat);
         intent.putExtra("lon",lon);
         startActivity(intent);
-        return false;
+    }
+//    @Override
+//    public boolean onMarkerClick(Marker marker){
+//        lat=String.valueOf(marker.getPosition().latitude);
+//        lon=String.valueOf(marker.getPosition().longitude);
+//
+//        CameraUpdate center=CameraUpdateFactory.newLatLng(marker.getPosition());
+//        mMap.animateCamera(center);
+//
+//        Intent intent = new Intent(InformActivity.this, InformFragActivity.class);
+//        intent.putExtra("lat",lat);
+//        intent.putExtra("lon",lon);
+//        startActivity(intent);
+//        return false;
+//    }
+
+    private Bitmap createDrawableFromView(Context context, View view) {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        return bitmap;
     }
 
 
